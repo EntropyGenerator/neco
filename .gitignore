@@ -8,9 +8,14 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+.DS_Store
 dist
 dist-ssr
+coverage
 *.local
+
+/cypress/videos/
+/cypress/screenshots/
 
 # Editor directories and files
 .vscode/*
@@ -23,5 +28,15 @@ dist-ssr
 *.sln
 *.sw?
 
+*.tsbuildinfo
+
 # Plugins
 .VSCodeCounter/*
+
+# Nvm rcfile
+.nvmrc
+
+# Node package
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

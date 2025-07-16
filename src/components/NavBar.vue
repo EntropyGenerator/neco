@@ -1,110 +1,107 @@
 <script lang="ts" setup>
-import { computed, onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { computed, onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-interface navItem {
-    name:string,
-    url:string
+interface NavItem {
+  name: string
+  url: string
 }
-const navItems = ref<navItem[]>([
-    {name:"主页",url:"/lobby"},
-    {name:"列表",url:"/list"},
-    {name:"活动",url:"/activity"},
-    {name:"新闻",url:"/news"},
-    {name:"关于",url:"/about"}
+
+const navItems = ref<NavItem[]>([
+  { name: '主页', url: '/lobby' },
+  { name: '列表', url: '/list' },
+  { name: '活动', url: '/activity' },
+  { name: '新闻', url: '/news' },
+  { name: '关于', url: '/about' },
 ])
 const activeIndex = ref<number>(0)
-const setIndex = (index:number) => {
-    activeIndex.value = index
-    router.push(navItems.value[index].url)
+const setIndex = (index: number) => {
+  activeIndex.value = index
+  router.push(navItems.value[index].url)
 }
 
 const sliderStyle = computed(() => {
   return {
     width: `${100 / navItems.value.length}%`,
     transform: `translateX(${activeIndex.value * 100}%)`,
-    transition: 'transform 0.5s ease'
-  };
-});
+    transition: 'transform 0.5s ease',
+  }
+})
 
 onMounted(() => {
-    const path = router.currentRoute.value.path
-    navItems.value.forEach((item,index) => {
-        if(item.url === path){
-            activeIndex.value = index
-        }
-    })
+  const path = router.currentRoute.value.path
+  navItems.value.forEach((item, index) => {
+    if (item.url === path) {
+      activeIndex.value = index
+    }
+  })
 })
 </script>
 
 <template>
-    <div class="nav-container">
-        <nav class="nav-bar">
-            <div v-for="(item,index) in navItems"
-                :key="index"
-                class="nav-item"
-                @click="setIndex(index)"
-            >
-                {{ item.name }}
-            </div>
+  <div class="nav-container">
+    <nav class="nav-bar">
+      <div v-for="(item, index) in navItems" :key="index" class="nav-item" @click="setIndex(index)">
+        {{ item.name }}
+      </div>
 
-            <div class="slider" :style="sliderStyle">
-                <div class="slider-box"></div>
-            </div>
-        </nav>
-    </div>
+      <div class="slider" :style="sliderStyle">
+        <div class="slider-box"></div>
+      </div>
+    </nav>
+  </div>
 </template>
 
 <style lang="css" scoped>
 .nav-container {
-    position: absolute;
-    top: 0.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    justify-content: center;
-    min-width: max-content;
+  position: absolute;
+  top: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  justify-content: center;
+  min-width: max-content;
 
-    box-shadow: 4px 4px rgba(0, 0, 0, 0.7);
+  box-shadow: 4px 4px rgba(0, 0, 0, 0.7);
 }
 
 .nav-bar {
-    display: flex;
-    border-radius: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    border: 2px solid gray;
-    position: relative;
+  display: flex;
+  border-radius: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 2px solid gray;
+  position: relative;
 }
 
 .nav-item {
-    position: relative;
-    flex: 1;
-    text-align: center;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 1;
-    transition: color 0.3s ease;
+  position: relative;
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1;
+  transition: color 0.3s ease;
 }
 
 .slider {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    z-index: 0;
-    box-sizing: border-box;
-    padding: 4px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  z-index: 0;
+  box-sizing: border-box;
+  padding: 4px;
 }
-.slider-box{
-    box-sizing: border-box;
-    background-color: var(--minecraft-green);
-    border-radius: 0;
-    border-top: 4px solid var(--minecraft-green-light);
-    border-bottom: 4px solid var(--minecraft-green-dark);
-    height: 100%;
-    width: 100%;
+.slider-box {
+  box-sizing: border-box;
+  background-color: var(--minecraft-green);
+  border-radius: 0;
+  border-top: 4px solid var(--minecraft-green-light);
+  border-bottom: 4px solid var(--minecraft-green-dark);
+  height: 100%;
+  width: 100%;
 
-    box-shadow: 2px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.5);
 }
 </style>
