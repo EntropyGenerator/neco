@@ -35,8 +35,3 @@ coverage
 
 # Nvm rcfile
 .nvmrc
-
-# Node package
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
