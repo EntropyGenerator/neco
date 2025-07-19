@@ -38,8 +38,55 @@ const router = createRouter({
           name: 'about',
           component: () => import('../views/About/AboutView.vue'),
           meta: { title: '关于NMO' },
-        },
+        }
       ],
+    },
+    {
+      path: '/management',
+      name: 'management',
+      component: () => import('../views/Management/ManagementView.vue'),
+      meta: { title: 'Neco管理' },
+      children: [
+        {
+          path: '/management/user',
+          name: 'user management',
+          component: () => import('../views/Management/Components/UserManagementView.vue'),
+          meta: { title: 'NMO - 用户管理' },
+        },
+        {
+          path: '/management/club',
+          name: 'club management',
+          component: () => import('../views/Management/Components/ClubManagementView.vue'),
+          meta: { title: 'NMO - 社团管理' },
+        },{
+          path: '/management/server',
+          name: 'server management',
+          component: () => import('../views/Management/Components/ServerManagementView.vue'),
+          meta: { title: 'NMO - 服务器管理' },
+        },{
+          path: '/management/activity',
+          name: 'activity management',
+          component: () => import('../views/Management/Components/ActivityManagementView.vue'),
+          meta: { title: 'NMO - 活动管理' },
+        },{
+          path: '/management/news',
+          name: 'news management',
+          component: () => import('../views/Management/Components/NewsManagementView.vue'),
+          meta: { title: 'NMO - 新闻管理' },
+        }
+      ]
+    },
+    {
+      path: '/auth/login',
+      name: 'Login',
+      component: () => import('../views/Auth/LoginView.vue'),
+      meta: { title: '登录NMO' },
+    },
+    {
+      path: '/auth/register',
+      name: 'Register',
+      component: () => import('../views/Auth/RegisterView.vue'),
+      meta: { title: '注册NMO' },
     },
     {
       path: '/404',

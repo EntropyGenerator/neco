@@ -5,6 +5,7 @@ import QQIcon from './icons/QQIcon.vue'
 import BilibiliIcon from './icons/BilibiliIcon.vue'
 import GithubIcon from './icons/GithubIcon.vue'
 import { GetSlogan } from '@/api/slogan'
+import { RouterLink } from 'vue-router'
 
 const slogan = ref('')
 
@@ -24,6 +25,8 @@ onMounted(async () => {
         NOT AN OFFICIAL MINECRAFT ORGANIZATION <br />
         NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT
       </span>
+
+      <RouterLink id="management" to="/management">后台</RouterLink>
     </div>
 
     <div class="footer-links">
@@ -68,13 +71,18 @@ onMounted(async () => {
   margin-bottom: 0.5rem;
 }
 
+.footer-description #management {
+  font-size: 0.8rem;
+  color: gray;
+}
+
 .footer-description #copyright {
   font-size: 0.8rem;
   color: gray;
 }
 
 .footer-description #declaration {
-  font-size: 0.5rem;
+  font-size: 0.6rem;
   color: gray;
 }
 
