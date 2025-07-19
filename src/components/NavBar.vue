@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { GetNewsNavItems, type NewsNavItem } from '@/api/newslist'
 import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -19,7 +20,7 @@ const navItems = ref<NavItem[]>([
 const activeIndex = ref<number>(0)
 const setIndex = (index: number) => {
   activeIndex.value = index
-  router.push(navItems.value[index].url)
+  router.replace(navItems.value[index].url)
 }
 
 const sliderStyle = computed(() => {
@@ -30,13 +31,18 @@ const sliderStyle = computed(() => {
   }
 })
 
-onMounted(() => {
+const newsNavItems = ref<NewsNavItem[]>([])
+const newsActive = ref<number>(0)
+
+onMounted(async () => {
   const path = router.currentRoute.value.path
   navItems.value.forEach((item, index) => {
     if (item.url === path) {
       activeIndex.value = index
     }
   })
+
+  newsNavItems.value = await GetNewsNavItems()
 })
 </script>
 
@@ -93,6 +99,7 @@ onMounted(() => {
   box-sizing: border-box;
   padding: 4px;
 }
+
 .slider-box {
   box-sizing: border-box;
   background-color: var(--minecraft-green);

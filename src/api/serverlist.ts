@@ -1,12 +1,12 @@
-export class ServerEntity {
-  name: string = ''
-  description: string = ''
-  online: boolean = false
-  playerCount: number = -1
-  capacity: number = -1
-  icon: string = '' // base64
-  onlineMapUrl: string = ''
-  serverUrl: string = ''
+export interface ServerEntity {
+  name: string
+  description: string
+  online: boolean
+  playerCount: number
+  capacity: number
+  icon: string // base64
+  onlineMapUrl: string
+  serverUrl: string
 }
 
 // Static infomation list.

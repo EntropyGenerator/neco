@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { GetIntroList, IntroEntity } from '@/api/introlist'
+import { GetIntroList, type IntroEntity } from '@/api/introlist'
 import { onMounted, ref } from 'vue'
 import IntroItem from '@/components/IntroItem.vue'
 
