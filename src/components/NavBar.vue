@@ -34,8 +34,25 @@ const sliderStyle = computed(() => {
 const newsNavItems = ref<NewsNavItem[]>([])
 const newsActive = ref<number>(0)
 
+const setNewsIndex = (index: number) => {
+  newsActive.value = index
+  router.replace('/news/' + newsNavItems.value[index].target)
+}
+
+const newsSliderStyle = computed(() => {
+  return {
+    width: `${100 / newsNavItems.value.length}%`,
+    transform: `translateX(${newsActive.value * 100}%)`,
+    transition: 'transform 0.5s ease',
+  }
+})
+
+const currentPath = computed(() => {
+  return '/' + router.currentRoute.value.path.split('/')[1]
+})
+
 onMounted(async () => {
-  const path = router.currentRoute.value.path
+  const path = '/' + router.currentRoute.value.path.split('/')[1]
   navItems.value.forEach((item, index) => {
     if (item.url === path) {
       activeIndex.value = index
@@ -57,27 +74,46 @@ onMounted(async () => {
         <div class="slider-box"></div>
       </div>
     </nav>
+    <nav class="nav-bar" :type="currentPath === '/news' ? 'expand' : 'fold'">
+      <div v-for="(item, index) in newsNavItems" :key="index" class="nav-item" @click="setNewsIndex(index)">
+        {{ item.name }}
+      </div>
+
+      <div class="slider" :style="newsSliderStyle">
+        <div class="slider-box"></div>
+      </div>
+    </nav>
   </div>
 </template>
 
 <style lang="css" scoped>
 .nav-container {
+  display: flex;
+  flex-direction: column;
   position: absolute;
   top: 0.5rem;
   left: 50%;
   transform: translateX(-50%);
-  justify-content: center;
   min-width: max-content;
-
-  box-shadow: 4px 4px rgba(0, 0, 0, 0.7);
+  gap: 0.5rem;
 }
 
 .nav-bar {
+  height: calc(1rem + 28px);
   display: flex;
   border-radius: 0;
   background-color: rgba(0, 0, 0, 0.5);
   border: 2px solid gray;
   position: relative;
+  box-shadow: 4px 4px rgba(0, 0, 0, 0.7);
+  transition: all .3s ease-in-out;
+  opacity: 1;
+  overflow: hidden;
+}
+
+.nav-bar[type="fold"] {
+  height: 0;
+  opacity: 0;
 }
 
 .nav-item {
@@ -88,6 +124,7 @@ onMounted(async () => {
   cursor: pointer;
   z-index: 1;
   transition: color 0.3s ease;
+  font-size: 1rem;
 }
 
 .slider {

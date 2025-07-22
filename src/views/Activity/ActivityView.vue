@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ActivityEntity, GetActivityList } from '@/api/activitylist'
+import { type ActivityEntity, GetActivityList } from '@/api/activitylist'
 import { onMounted, ref } from 'vue'
 import ActivityItem from './ActivityItem.vue'
 

@@ -1,7 +1,7 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes: [
     {
       path: '/',
@@ -28,7 +28,7 @@ const router = createRouter({
           meta: { title: 'NMO活动列表' },
         },
         {
-          path: '/news',
+          path: '/news/:id?',
           name: 'news',
           component: () => import('../views/News/NewsView.vue'),
           meta: { title: 'NMO新闻' },
