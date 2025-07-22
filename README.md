@@ -17,6 +17,14 @@ npm install
 npm run dev
 ```
 
-## License
+## API
 
-MIT
+Refer to [`API.md`](./API.md) for more information.
+
+## TODO
+
+- [ ] API doc
+
+- [ ] Management Page
+
+- [ ] News Page
