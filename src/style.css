@@ -8,6 +8,8 @@
   --minecraft-dark: #171615;
 
   --background-color: var(--minecraft-dark);
+  --background-base: var(--minecraft-gray-dark);
+  --background-card: #0F0E0D;
 
   font-family: Ark Font, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

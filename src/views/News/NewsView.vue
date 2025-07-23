@@ -16,15 +16,25 @@ onMounted(async () => {
 
 <template>
   <div class="news-area">
-    {{ newsId }}
-    <div></div>
+    <div class="news-list-container"></div>
   </div>
 </template>
 
 <style lang="css" scoped>
 .news-area {
+  width: 100%;
+  min-height: calc(100vh - 9rem);
   padding-top: 9rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.news-list-container {
+  max-width: 60rem;
+  width: 60rem; /* temp! */
+  flex: 1;
+  background-color: var(--background-card);
 }
 </style>
