@@ -17,7 +17,11 @@ const logout = () => {
             <button @click="router.push('/management/activity')">活动管理</button>
             <button @click="router.push('/management/news')">新闻管理</button>
             
-            <button @click="logout" style="margin-top: auto;">登出</button>
+            <div style="display:flex; flex-direction: column; margin-top: auto;">
+                <button @click="router.push('/auth/account')">我的账号</button>
+                <button @click="logout" >登出</button>
+            </div>
+            
         </div>
         main
         <RouterView/>
