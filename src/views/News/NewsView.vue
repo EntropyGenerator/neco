@@ -30,32 +30,32 @@ onMounted(async () => {
 <template>
   <div class="news-area">
     <div class="news-overview">
-      <div class="overview-divide divide-1" style="height: 100%; width: 100%;">
+      <div class="overview-divide divide-1" style="height: 100%; width: 100%">
         <NewsCard
           class="vertical"
-          style="animation: fade-in-down .5s ease-in-out .3s forwards;"
+          style="animation: fade-in-down 0.5s ease-in-out 0.3s forwards"
           :news-brief="newsBrief[0]"
           button-text="更多活动"
         />
         <div class="overview-divide vertical">
           <NewsCard
             class="dynamic-vertical"
-            style="animation: fade-in-down .5s ease-in-out .6s forwards;"
+            style="animation: fade-in-down 0.5s ease-in-out 0.6s forwards"
             :news-brief="newsBrief[1]"
             button-text="更多信息"
           />
           <div class="overview-divide divide-2">
             <NewsCard
               class="vertical"
-              style="animation: fade-in-down .5s ease-in-out .9s forwards;"
+              style="animation: fade-in-down 0.5s ease-in-out 0.9s forwards"
               :news-brief="newsBrief[2]"
               button-text="往期社刊"
             />
             <NewsCard
               class="vertical"
-              style="animation: fade-in-down .5s ease-in-out 1.2s forwards;"
+              style="animation: fade-in-down 0.5s ease-in-out 1.2s forwards"
               :news-brief="newsBrief[3]"
-              button-text="前去灌水"
+              button-text="前往灌水"
             />
           </div>
         </div>
@@ -63,11 +63,7 @@ onMounted(async () => {
     </div>
     <div class="news-list-panel">
       <div class="news-list-container">
-        <NewsItem
-          v-for="item in news"
-          :key="item.id"
-          :news="item"
-        />
+        <NewsItem v-for="item in news" :key="item.id" :news="item" />
       </div>
     </div>
   </div>
@@ -146,7 +142,7 @@ onMounted(async () => {
   .divide-2 {
     flex-direction: column;
   }
-  
+
   .news-list-container {
     grid-template-columns: repeat(1, minmax(17.5rem, 21.75rem));
   }

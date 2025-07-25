@@ -3,9 +3,11 @@ import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const soundOn = () => {
-  const audio = new Audio("https://unpkg.com/minecraft-framework-css@1.1.5/css/assets/random.click.ogg");
-  audio.play();
-  audio.volume = 0.3;
+  const audio = new Audio(
+    'https://unpkg.com/minecraft-framework-css@1.1.5/css/assets/random.click.ogg',
+  )
+  audio.play()
+  audio.volume = 0.3
 }
 
 const router = useRouter()
@@ -80,12 +82,12 @@ onMounted(async () => {
   border: 2px solid gray;
   position: relative;
   box-shadow: 4px 4px rgba(0, 0, 0, 0.7);
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   opacity: 1;
   overflow: hidden;
 }
 
-.nav-bar[type="fold"] {
+.nav-bar[type='fold'] {
   height: 0;
   opacity: 0;
 }

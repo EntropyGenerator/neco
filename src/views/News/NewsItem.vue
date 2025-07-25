@@ -4,13 +4,12 @@ import type { NewsEntity } from '@/api/newslist'
 const props = defineProps({
   news: {
     type: Object as () => NewsEntity,
-    required: true
-  }
+    required: true,
+  },
 })
 </script>
 
-<template>
-</template>
+<template></template>
 
 <style lang="css" scoped>
 .news-item-card {

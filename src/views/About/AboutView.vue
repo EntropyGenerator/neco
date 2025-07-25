@@ -23,7 +23,9 @@ onMounted(async () => {
       <LinkItem v-for="item in linkList" :key="item.name" :link="item" />
     </div>
     <div class="intro-area">
-      <h1 style="opacity: 0; animation: fade-in-down 1s ease-out forwards;">更多关于我们的事情...</h1>
+      <h1 style="opacity: 0; animation: fade-in-down 1s ease-out forwards">
+        更多关于我们的事情...
+      </h1>
       <IntroItem
         v-for="(intro, index) in intros"
         :key="index"

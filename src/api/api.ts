@@ -1,8 +1,8 @@
-import axios from 'axios';
+import axios from 'axios'
 
 export const api = axios.create({
-    baseURL: '/necore',
-    timeout: 10000
+  baseURL: '/necore',
+  timeout: 10000,
 })
 
 const authorized = () => {

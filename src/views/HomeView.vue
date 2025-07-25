@@ -2,6 +2,7 @@
 import { useRoute } from 'vue-router'
 import Footer from '../components/FooterBar.vue'
 import NavBar from '../components/NavBar.vue'
+import ScrollToTop from '@/components/utils/ScrollToTop.vue'
 
 const route = useRoute()
 </script>
@@ -17,6 +18,7 @@ const route = useRoute()
     </router-view>
     <NavBar />
     <Footer />
+    <ScrollToTop />
   </div>
 </template>
 

@@ -8,7 +8,7 @@
   --minecraft-dark: #171615;
 
   --background-color: var(--minecraft-dark);
-  --background-page: #0F0E0D;
+  --background-page: #0f0e0d;
   --background-card: #313131;
 
   font-family: 'Cubic 11', system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -23,6 +23,10 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 @keyframes fade-in-right {
@@ -63,5 +67,6 @@
   color: #fff;
   background-color: color-mix(in srgb, white, black);
   border: 8px solid;
-  border-image: url("https://unpkg.com/minecraft-framework-css@1.1.8/css/assets/dialog_background_hollow_4.png") 8;
+  border-image: url('https://unpkg.com/minecraft-framework-css@1.1.8/css/assets/dialog_background_hollow_4.png')
+    8;
 }

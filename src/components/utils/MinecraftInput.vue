@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 const model = defineModel<string>({
-  default: ''
+  default: '',
 })
 </script>
 
 <template>
-  <input class="minecraft-input" type="text" v-model="model">
+  <input class="minecraft-input" type="text" v-model="model" />
 </template>
 
 <style lang="css">
@@ -15,6 +15,6 @@ const model = defineModel<string>({
   background-color: #616161;
   color: #fff;
   outline: 2px solid black;
-  border-image: url("https://unpkg.com/minecraft-framework-css@1.1.8/css/assets/text-input.png") 1;
+  border-image: url('https://unpkg.com/minecraft-framework-css@1.1.8/css/assets/text-input.png') 1;
 }
 </style>

@@ -1,38 +1,42 @@
 <script lang="ts" setup>
+import { useRouter } from 'vue-router'
 import type { NewsBrief } from '@/api/newslist'
 import MinecraftButton from '@/components/utils/MinecraftButton.vue'
+
+const router = useRouter()
 
 const props = defineProps({
   newsBrief: {
     type: Object as () => NewsBrief,
-    required: true
+    required: true,
   },
   buttonText: {
     type: String,
-    default: '了解更多'
-  }
+    default: '了解更多',
+  },
 })
 </script>
 
 <template>
   <div class="overview-card">
-    <picture>
+    <picture style="overflow: hidden">
       <img
         class="overview-img"
         :src="props.newsBrief.image"
+        @click="router.push(`/news/detail/${props.newsBrief.id}`)"
       />
     </picture>
     <div class="overview-content">
-      <text class="overview title">
+      <text class="overview title" @click="router.push(`/news/detail/${props.newsBrief.id}`)">
         {{ props.newsBrief.title }}
       </text>
       <text class="overview">
         {{ props.newsBrief.brief }}
       </text>
-      <MinecraftButton
-        class="overview button"
-      >
-        {{ props.buttonText }}<div style="width: 1.2rem;"></div>>
+      <MinecraftButton class="overview button">
+        {{ props.buttonText }}
+        <div style="width: 1.2rem"></div>
+        >
       </MinecraftButton>
     </div>
   </div>
@@ -61,11 +65,12 @@ const props = defineProps({
 
 .overview.title {
   font-size: 1.3rem;
+  cursor: pointer;
 }
 
 .overview.button {
-  height: 1.2rem;
-  width: 8rem;
+  height: 3.5rem;
+  width: 12rem;
   font-size: 1.2rem;
   margin-bottom: 1rem;
 }
@@ -78,5 +83,11 @@ const props = defineProps({
   width: 100%;
   vertical-align: middle;
   border-style: none;
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.overview-card:hover .overview-img {
+  transform: scale(1.1);
 }
 </style>
