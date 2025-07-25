@@ -1,7 +1,12 @@
 <script lang="ts" setup>
-import { GetNewsNavItems, type NewsNavItem } from '@/api/newslist'
 import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
+
+const soundOn = () => {
+  const audio = new Audio("https://unpkg.com/minecraft-framework-css@1.1.5/css/assets/random.click.ogg");
+  audio.play();
+  audio.volume = 0.3;
+}
 
 const router = useRouter()
 
@@ -13,12 +18,12 @@ interface NavItem {
 const navItems = ref<NavItem[]>([
   { name: '主页', url: '/lobby' },
   { name: '列表', url: '/list' },
-  { name: '活动', url: '/activity' },
   { name: '新闻', url: '/news' },
   { name: '关于', url: '/about' },
 ])
 const activeIndex = ref<number>(0)
 const setIndex = (index: number) => {
+  soundOn()
   activeIndex.value = index
   router.replace(navItems.value[index].url)
 }
@@ -31,35 +36,13 @@ const sliderStyle = computed(() => {
   }
 })
 
-const newsNavItems = ref<NewsNavItem[]>([])
-const newsActive = ref<number>(0)
-
-const setNewsIndex = (index: number) => {
-  newsActive.value = index
-  router.replace('/news/' + newsNavItems.value[index].target)
-}
-
-const newsSliderStyle = computed(() => {
-  return {
-    width: `${100 / newsNavItems.value.length}%`,
-    transform: `translateX(${newsActive.value * 100}%)`,
-    transition: 'transform 0.5s ease',
-  }
-})
-
-const currentPath = computed(() => {
-  return '/' + router.currentRoute.value.path.split('/')[1]
-})
-
 onMounted(async () => {
-  const path = '/' + router.currentRoute.value.path.split('/')[1]
+  const path = router.currentRoute.value.path
   navItems.value.forEach((item, index) => {
     if (item.url === path) {
       activeIndex.value = index
     }
   })
-
-  newsNavItems.value = await GetNewsNavItems()
 })
 </script>
 
@@ -71,15 +54,6 @@ onMounted(async () => {
       </div>
 
       <div class="slider" :style="sliderStyle">
-        <div class="slider-box"></div>
-      </div>
-    </nav>
-    <nav class="nav-bar" :type="currentPath === '/news' ? 'expand' : 'fold'">
-      <div v-for="(item, index) in newsNavItems" :key="index" class="nav-item" @click="setNewsIndex(index)">
-        {{ item.name }}
-      </div>
-
-      <div class="slider" :style="newsSliderStyle">
         <div class="slider-box"></div>
       </div>
     </nav>
