@@ -75,13 +75,11 @@ Login required after registration.
 }
 ```
 
-### User
-
-#### Get User
+#### User Info
 
 - request
 
-`GET /user/:id`
+`GET /auth/user/:id`
 
 - response
 
@@ -89,8 +87,6 @@ Login required after registration.
 {
     "id": "string",
     "username": "string",
-    "name": "string",
-    "avatar": "string",
     "email": "string",
 }
 ```
