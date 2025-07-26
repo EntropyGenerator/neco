@@ -69,7 +69,7 @@ watch(
     if (newVal === oldVal) {
       return
     }
-    page.value = 0
+    page.value = 1
     refreshNews()
   },
 )
