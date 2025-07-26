@@ -16,6 +16,7 @@ const soundOn = () => {
 
 <style lang="css">
 .minecraft-button {
+  user-select: none;
   display: flex;
   align-items: center;
   justify-content: center;

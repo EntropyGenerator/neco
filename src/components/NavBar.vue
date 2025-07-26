@@ -39,7 +39,7 @@ const sliderStyle = computed(() => {
 })
 
 onMounted(async () => {
-  const path = router.currentRoute.value.path
+  const path = '/' + router.currentRoute.value.path.split('/')[1]
   navItems.value.forEach((item, index) => {
     if (item.url === path) {
       activeIndex.value = index

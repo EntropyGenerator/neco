@@ -1,6 +1,6 @@
 :root {
   --minecraft-green: #3c8527;
-  --minecraft-green-light: #52a535;
+  --minecraft-green-light: #6cc349;
   --minecraft-green-dark: #2a641c;
   --minecraft-gray-light: #747271;
   --minecraft-gray: #3d3938;
@@ -11,7 +11,6 @@
   --background-page: #0f0e0d;
   --background-card: #313131;
 
-  font-family: 'Cubic 11', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -27,6 +26,7 @@
 
 * {
   box-sizing: border-box;
+  font-family: 'Cubic 11', system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 @keyframes fade-in-right {

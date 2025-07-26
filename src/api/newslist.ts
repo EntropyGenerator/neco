@@ -18,11 +18,24 @@ export interface AuthorInfo {
   tags: AuthorTag[]
 }
 
+export type NewsSegmentType = 'markdown' | 'pdf_file' | 'doc_file' | 'xls_file' | 'ppt_file'
+
+export interface NewsSegment {
+  type: NewsSegmentType
+  content: string
+}
+
 export interface NewsDetail {
   entity: NewsEntity
-  content: string
+  content: NewsSegment[]
   author: AuthorInfo
   category: string
+}
+
+export const GetNewsTotal = async (target: string) => {
+  return new Promise<number>((resolve) => {
+    resolve(3389)
+  })
 }
 
 export const GetNews = async (target: string, page: number) => {
@@ -33,20 +46,38 @@ export const GetNews = async (target: string, page: number) => {
         title: '标题1',
         brief: '简介1',
         date: '2022-01-01',
-        image: 'https://www.baidu.com/img/flexible/logo/pc/result.png',
+        image:
+          'https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/screenshots/MCV_FA25_July22_01_Editorial_Exclusive_1920x1080.jpg',
       },
       {
         id: '2',
         title: '标题2',
         brief: '简介2',
         date: '2022-01-02',
-        image: 'https://www.baidu.com/img/flexible/logo/pc/result.png',
+        image:
+          'https://www.minecraft.net/content/dam/games/minecraft/background-images/pmp-hero-minecraft.jpg',
+      },
+      {
+        id: '3',
+        title: '标题3',
+        brief: '简介3',
+        date: '2022-01-01',
+        image:
+          'https://www.minecraft.net/content/dam/games/minecraft/background-images/pmp-hero-minecraft.jpg',
+      },
+      {
+        id: '4',
+        title: '标题4',
+        brief: '简介4',
+        date: '2022-01-02',
+        image:
+          'https://www.minecraft.net/content/dam/games/minecraft/background-images/pmp-hero-minecraft.jpg',
       },
     ])
   })
 }
 
-export const GetNewsDetail = async (target: string) => {
+export const GetNewsDetail = async (id: string) => {
   return new Promise<NewsDetail>((resolve) => {
     resolve({
       entity: {
@@ -56,7 +87,32 @@ export const GetNewsDetail = async (target: string) => {
         date: '2022-01-01',
         image: 'https://www.baidu.com/img/flexible/logo/pc/result.png',
       },
-      content: '内容',
+      content: [
+        {
+          type: 'markdown',
+          content: '## 标题\n\n正文',
+        },
+        {
+          type: 'pdf_file',
+          content:
+            'https://501351981.github.io/vue-office/examples/dist/static/test-files/test.pdf',
+        },
+        {
+          type: 'ppt_file',
+          content:
+            'https://501351981.github.io/vue-office/examples/dist/static/test-files/test.pptx',
+        },
+        {
+          type: 'xls_file',
+          content:
+            'https://501351981.github.io/vue-office/examples/dist/static/test-files/test.xlsx',
+        },
+        {
+          type: 'doc_file',
+          content:
+            'https://501351981.github.io/vue-office/examples/dist/static/test-files/test.docx',
+        },
+      ],
       author: {
         avatar: 'https://www.baidu.com/img/flexible/logo/pc/result.png',
         name: '作者',
@@ -68,7 +124,7 @@ export const GetNewsDetail = async (target: string) => {
           },
         ],
       },
-      category: '新闻',
+      category: '资讯',
     })
   })
 }
@@ -108,8 +164,8 @@ export const GetNewsBrief = async () => {
         id: '4',
         image:
           'https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/screenshots/endcity-bento.jpg',
-        title: '梦大师后，再无梦大师。',
-        brief: '格雷格、西米布比后，会有无数个格雷格、西米布比。',
+        title: '7 月服务器维护时间公告',
+        brief: '由于校园网维护，服务器下线',
       },
     ])
   })

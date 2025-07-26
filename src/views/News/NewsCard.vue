@@ -1,9 +1,12 @@
 <script lang="ts" setup>
-import { useRouter } from 'vue-router'
 import type { NewsBrief } from '@/api/newslist'
 import MinecraftButton from '@/components/utils/MinecraftButton.vue'
 
-const router = useRouter()
+const emit = defineEmits(['jump'])
+
+const newTab = (url: string) => {
+  window.open(url, '_blank')
+}
 
 const props = defineProps({
   newsBrief: {
@@ -14,6 +17,15 @@ const props = defineProps({
     type: String,
     default: '了解更多',
   },
+  buttonClick: {
+    type: Function,
+    default: () => {
+      const newsList = document.getElementById('news-list')
+      if (newsList) {
+        newsList.scrollIntoView({ behavior: 'smooth' })
+      }
+    },
+  },
 })
 </script>
 
@@ -21,19 +33,20 @@ const props = defineProps({
   <div class="overview-card">
     <picture style="overflow: hidden">
       <img
+        alt="news img"
         class="overview-img"
         :src="props.newsBrief.image"
-        @click="router.push(`/news/detail/${props.newsBrief.id}`)"
+        @click="newTab(`/news/detail/${props.newsBrief.id}`)"
       />
     </picture>
     <div class="overview-content">
-      <text class="overview title" @click="router.push(`/news/detail/${props.newsBrief.id}`)">
+      <text class="overview title" @click="newTab(`/news/detail/${props.newsBrief.id}`)">
         {{ props.newsBrief.title }}
       </text>
       <text class="overview">
         {{ props.newsBrief.brief }}
       </text>
-      <MinecraftButton class="overview button">
+      <MinecraftButton class="overview button" @click="emit('jump')">
         {{ props.buttonText }}
         <div style="width: 1.2rem"></div>
         >
@@ -68,6 +81,10 @@ const props = defineProps({
   cursor: pointer;
 }
 
+.overview.title:hover {
+  text-decoration: underline;
+}
+
 .overview.button {
   height: 3.5rem;
   width: 12rem;
@@ -85,6 +102,7 @@ const props = defineProps({
   border-style: none;
   transition: transform 0.3s ease-in-out;
   cursor: pointer;
+  user-select: none;
 }
 
 .overview-card:hover .overview-img {

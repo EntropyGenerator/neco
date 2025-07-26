@@ -28,7 +28,7 @@ const router = createRouter({
           meta: { title: 'NMO活动列表' },
         },
         {
-          path: '/news/:id?',
+          path: '/news',
           name: 'news',
           component: () => import('../views/News/NewsView.vue'),
           meta: { title: 'NMO新闻' },
