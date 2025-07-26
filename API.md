@@ -20,6 +20,8 @@
 
 ### Auth
 
+User group includes ["admin", "news_admin", "activity_admin"]. If empty, the user doesn't have permission to manage corresponding resources.
+
 #### Login
 
 - request
@@ -28,7 +30,7 @@
 
 ```json
 {
-    "username": "string",
+    "email": "string",
     "password": "string"
 }
 ```
@@ -38,11 +40,20 @@
 ```json
 {
     "token": "string",
+    "user": {
+        "id": "string",
+        "name": "string",
+        "email": "string",
+        "group": "string[]",
+        "department": "string[]",
+    },
     "error": "string" // if error
 }
 ```
 
 #### Register
+
+Login required after registration.
 
 - request
 
@@ -53,8 +64,6 @@
     "username": "string",
     "password": "string",
     "email": "string",
-    "name": "string",
-    "avatar": "string"
 }
 ```
 
@@ -62,7 +71,6 @@
 
 ```json
 {
-    "token": "string",
     "error": "string" // if error
 }
 ```

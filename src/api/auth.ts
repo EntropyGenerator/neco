@@ -5,6 +5,7 @@ export class UserEntity {
     name: string = ``;
     email: string = ``;
     groups: string[] = [];
+    department: string[] = [];
 }
 
 export class AuthAPI {
@@ -15,7 +16,7 @@ export class AuthAPI {
             password:password,
         }).then((r) => {
             localStorage.setItem('token',r.data.token)
-            localStorage.setItem('user_id',r.data.user)
+            localStorage.setItem('user_email',r.data.user)
             result = true
         }).catch((e)=>{
             console.log(e)
