@@ -32,13 +32,15 @@ export interface NewsDetail {
   category: string
 }
 
-export const GetNewsTotal = async (target: string) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const GetNewsTotal = async (_target: string) => {
   return new Promise<number>((resolve) => {
     resolve(3389)
   })
 }
 
-export const GetNews = async (target: string, page: number) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const GetNews = async (_target: string, _page: number) => {
   return new Promise<NewsEntity[]>((resolve) => {
     resolve([
       {
@@ -77,7 +79,8 @@ export const GetNews = async (target: string, page: number) => {
   })
 }
 
-export const GetNewsDetail = async (id: string) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const GetNewsDetail = async (_id: string) => {
   return new Promise<NewsDetail>((resolve) => {
     resolve({
       entity: {
