@@ -30,6 +30,7 @@ const newsLoading = ref(false)
 
 const refreshNews = () => {
   newsLoading.value = true
+  emit('need-scroll')
   setTimeout(async () => {
     news.value = await GetNews(model.value, page.value)
     newsLoading.value = false
@@ -41,13 +42,11 @@ const movePage = (dir: 'prev' | 'next') => {
     if (page.value > 1) {
       page.value--
       refreshNews()
-      emit('need-scroll')
     }
   } else {
     if (page.value < maxPage.value) {
       page.value++
       refreshNews()
-      emit('need-scroll')
     }
   }
 }
@@ -58,7 +57,6 @@ const setPage = () => {
     if (number > 0 && number <= maxPage.value && number !== page.value) {
       page.value = number
       refreshNews()
-      emit('need-scroll')
     }
   }
 }
@@ -174,7 +172,7 @@ const optionFocus = ref(false)
   margin: 2rem;
   background:
     linear-gradient(to right, rgba(24, 24, 24, 0.4), rgba(24, 24, 24, 0.2), rgba(24, 24, 24, 0.4)),
-    radial-gradient(rgba(24, 24, 24, 0.2), rgba(24, 24, 24, 0.8)), url('/public/cobblestone.png');
+    radial-gradient(rgba(24, 24, 24, 0.2), rgba(24, 24, 24, 0.8)), url('/cobblestone.png');
   background-size:
     auto,
     auto,

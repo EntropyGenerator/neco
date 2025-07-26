@@ -19,7 +19,13 @@ const newsBrief = ref<NewsBrief[]>([
 const scrollToNews = () => {
   const newsList = document.getElementById('news-list')
   if (newsList) {
-    newsList.scrollIntoView({ behavior: 'smooth' })
+    const targetPosition = newsList.offsetTop - 16
+    requestAnimationFrame(() => {
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      })
+    })
   }
 }
 
@@ -110,7 +116,7 @@ onMounted(async () => {
   margin: 2rem;
   background:
     linear-gradient(to right, rgba(24, 24, 24, 0.4), rgba(24, 24, 24, 0.2), rgba(24, 24, 24, 0.4)),
-    radial-gradient(rgba(24, 24, 24, 0.2), rgba(24, 24, 24, 0.8)), url('/public/cobblestone.png');
+    radial-gradient(rgba(24, 24, 24, 0.2), rgba(24, 24, 24, 0.8)), url('/cobblestone.png');
   background-size:
     auto,
     auto,
