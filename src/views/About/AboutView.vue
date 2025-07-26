@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
-import { GetLinkList, LinkEntity } from '@/api/linklist'
+import { GetLinkList, type LinkEntity } from '@/api/linklist'
 import LinkItem from './LinkItem.vue'
 import { GetDetailedIntroList, type IntroEntity } from '@/api/introlist'
 import IntroItem from '@/components/IntroItem.vue'
@@ -20,10 +20,20 @@ onMounted(async () => {
 <template>
   <div class="main-area">
     <div class="links-area">
-      <LinkItem v-for="item in linkList" :key="item.name" :link="item" />
+      <LinkItem
+        class="intro-item"
+        v-for="item in linkList"
+        :style="{
+          '--delay': `${linkList.indexOf(item) * 0.2}s`,
+        }"
+        :key="item.name"
+        :link="item"
+      />
     </div>
     <div class="intro-area">
-      <h1 style="opacity: 0; animation: fade-in-down 1s ease-out forwards;">更多关于我们的事情...</h1>
+      <h1 style="opacity: 0; animation: fade-in-down 1s ease-out forwards">
+        更多关于我们的事情...
+      </h1>
       <IntroItem
         v-for="(intro, index) in intros"
         :key="index"
@@ -69,5 +79,11 @@ onMounted(async () => {
   margin-top: 2rem;
 
   box-sizing: content-box;
+}
+
+.intro-item {
+  opacity: 0;
+  animation: fade-in-down 0.5s ease-in-out forwards;
+  animation-delay: var(--delay);
 }
 </style>

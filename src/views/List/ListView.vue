@@ -15,7 +15,15 @@ onMounted(() => {
 
 <template>
   <div class="list-area">
-    <ListItem v-for="server in serverList" :key="server.name" :server="server" />
+    <ListItem
+      class="list-item"
+      v-for="server in serverList"
+      :style="{
+        '--delay': serverList.indexOf(server) * 0.2 + 's',
+      }"
+      :key="server.name"
+      :server="server"
+    />
   </div>
 </template>
 
@@ -45,5 +53,11 @@ onMounted(() => {
   right: 0;
   height: 5rem;
   background: linear-gradient(to bottom, transparent 0%, var(--background-color) 100%);
+}
+
+.list-item {
+  opacity: 0;
+  animation: fade-in-right 0.5s ease-in-out forwards;
+  animation-delay: var(--delay);
 }
 </style>

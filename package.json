@@ -1,7 +1,7 @@
 {
   "name": "neco",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.14.514",
   "type": "module",
   "scripts": {
     "dev": "vite",

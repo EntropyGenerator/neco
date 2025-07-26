@@ -1,6 +1,6 @@
 :root {
   --minecraft-green: #3c8527;
-  --minecraft-green-light: #52a535;
+  --minecraft-green-light: #6cc349;
   --minecraft-green-dark: #2a641c;
   --minecraft-gray-light: #747271;
   --minecraft-gray: #3d3938;
@@ -8,8 +8,9 @@
   --minecraft-dark: #171615;
 
   --background-color: var(--minecraft-dark);
+  --background-page: #0f0e0d;
+  --background-card: #313131;
 
-  font-family: Ark Font, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -21,6 +22,11 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Cubic 11', system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 @keyframes fade-in-right {
@@ -54,4 +60,13 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.mc-border {
+  box-sizing: border-box;
+  color: #fff;
+  background-color: color-mix(in srgb, white, black);
+  border: 8px solid;
+  border-image: url('https://unpkg.com/minecraft-framework-css@1.1.8/css/assets/dialog_background_hollow_4.png')
+    8;
 }

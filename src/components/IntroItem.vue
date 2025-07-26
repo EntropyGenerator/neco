@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { IntroEntity } from '@/api/introlist'
+import type { IntroEntity } from '@/api/introlist'
 import loadImageAsset from '@/util/loadimage'
 
 const props = defineProps({
   intro: {
-    type: IntroEntity,
+    type: Object as () => IntroEntity,
     required: true,
   },
   right: {
@@ -69,7 +69,7 @@ const props = defineProps({
   flex-direction: column;
   justify-content: center;
   opacity: 0;
-  animation: fade-in-down 1s ease-out .5s forwards;
+  animation: fade-in-down 1s ease-out 0.5s forwards;
 }
 
 .intro-left .intro-text {

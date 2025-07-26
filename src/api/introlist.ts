@@ -1,7 +1,7 @@
-export class IntroEntity {
-  title: string = ''
-  description: string = ''
-  image: string = ''
+export interface IntroEntity {
+  title: string
+  description: string
+  image: string
 }
 
 export const GetIntroList = async (): Promise<IntroEntity[]> => {

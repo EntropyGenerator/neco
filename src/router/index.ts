@@ -1,7 +1,7 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes: [
     {
       path: '/',
@@ -38,7 +38,7 @@ const router = createRouter({
           name: 'about',
           component: () => import('../views/About/AboutView.vue'),
           meta: { title: '关于NMO' },
-        }
+        },
       ],
     },
     {
@@ -58,23 +58,26 @@ const router = createRouter({
           name: 'club management',
           component: () => import('../views/Management/Components/ClubManagementView.vue'),
           meta: { title: 'NMO - 社团管理' },
-        },{
+        },
+        {
           path: '/management/server',
           name: 'server management',
           component: () => import('../views/Management/Components/ServerManagementView.vue'),
           meta: { title: 'NMO - 服务器管理' },
-        },{
+        },
+        {
           path: '/management/activity',
           name: 'activity management',
           component: () => import('../views/Management/Components/ActivityManagementView.vue'),
           meta: { title: 'NMO - 活动管理' },
-        },{
+        },
+        {
           path: '/management/news',
           name: 'news management',
           component: () => import('../views/Management/Components/NewsManagementView.vue'),
           meta: { title: 'NMO - 新闻管理' },
-        }
-      ]
+        },
+      ],
     },
     {
       path: '/auth/login',
@@ -87,7 +90,8 @@ const router = createRouter({
       name: 'Register',
       component: () => import('../views/Auth/RegisterView.vue'),
       meta: { title: '注册NMO' },
-    },{
+    },
+    {
       path: '/auth/account',
       name: 'Account',
       component: () => import('../views/Auth/AccountView.vue'),

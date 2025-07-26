@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { GetIntroList, IntroEntity } from '@/api/introlist'
+import { GetIntroList, type IntroEntity } from '@/api/introlist'
 import { onMounted, ref } from 'vue'
 import IntroItem from '@/components/IntroItem.vue'
 
@@ -13,7 +13,7 @@ onMounted(async () => {
 
 <template>
   <div class="intro-area">
-    <h1 style="opacity: 0; animation: fade-in-down 1s ease-out .5s forwards;">我们的足迹</h1>
+    <h1 style="opacity: 0; animation: fade-in-down 1s ease-out 0.5s forwards">我们的足迹</h1>
     <IntroItem
       v-for="(intro, index) in intros"
       :key="index"

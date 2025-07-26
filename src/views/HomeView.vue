@@ -2,6 +2,7 @@
 import { useRoute } from 'vue-router'
 import Footer from '../components/FooterBar.vue'
 import NavBar from '../components/NavBar.vue'
+import ScrollToTop from '@/components/utils/ScrollToTop.vue'
 
 const route = useRoute()
 </script>
@@ -10,19 +11,25 @@ const route = useRoute()
   <div class="page-area">
     <router-view v-slot="{ Component }">
       <transition name="fade" mode="out-in">
-        <div :key="route.fullPath">
+        <div class="page-container" :key="route.fullPath">
           <component :is="Component" />
         </div>
       </transition>
     </router-view>
     <NavBar />
     <Footer />
+    <ScrollToTop />
   </div>
 </template>
 
 <style lang="css" scoped>
 .page-area {
   position: relative;
+}
+
+.page-container {
+  min-height: 100vh;
+  width: 100vw;
 }
 
 .fade-enter-active,

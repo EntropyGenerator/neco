@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ServerEntity } from '../../api/serverlist'
+import { type ServerEntity } from '../../api/serverlist'
 
 const props = defineProps({
   server: {

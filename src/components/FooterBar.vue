@@ -17,9 +17,9 @@ onMounted(async () => {
 <template>
   <div class="footer-area">
     <div class="footer-description">
-      <img :src="loadImageAsset('nmo-logo-large.png')" alt="logo" style="width: 5rem;" />
+      <img :src="loadImageAsset('nmo-logo-large.png')" alt="logo" style="width: 5rem" />
       <p>南京大学Minecraft协会</p>
-      <text style="margin-bottom: .5rem;">{{ slogan }}</text>
+      <text style="margin-bottom: 0.5rem">{{ slogan }}</text>
       <span id="copyright"> © 2025 - All rights reserved NMO </span>
       <span id="declaration">
         NOT AN OFFICIAL MINECRAFT ORGANIZATION <br />
@@ -55,6 +55,7 @@ onMounted(async () => {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  border-top: 1px solid gray;
 }
 
 .footer-description {
