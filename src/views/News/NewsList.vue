@@ -126,7 +126,7 @@ const optionFocus = ref(false)
       <text class="news-sort-by-option"> 最新发布 </text>
     </div>
     <div class="news-list-loading-container" v-if="newsLoading">
-      <img class="news-list-loading" src="/public/loading.gif" alt="loading" />
+      <img class="news-list-loading" src="/loading.gif" alt="loading" />
     </div>
     <div class="news-list-container" v-else>
       <NewsItem
