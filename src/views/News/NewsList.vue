@@ -88,42 +88,46 @@ const optionFocus = ref(false)
 <template>
   <div class="news-list-panel mc-border">
     <div class="news-title-container">
-      <button
-        :value="model"
-        class="news-title"
-        :stat="optionFocus ? 'active' : 'inactive'"
-        @click="optionFocus = !optionFocus"
-      >
-        最新{{ model === 'information' ? '资讯' : model === 'magazine' ? '社刊' : '公告' }}
-        <div class="news-title-options" v-if="optionFocus">
-          <button
-            :stat="model === 'information' ? 'active' : 'inactive'"
-            class="news-title-option"
-            @click="model = 'information'"
-          >
-            最新资讯
-          </button>
-          <button
-            :stat="model === 'magazine' ? 'active' : 'inactive'"
-            class="news-title-option"
-            @click="model = 'magazine'"
-          >
-            最新社刊
-          </button>
-          <button
-            :stat="model === 'notice' ? 'active' : 'inactive'"
-            class="news-title-option"
-            @click="model = 'notice'"
-          >
-            最新公告
-          </button>
-        </div>
-      </button>
-      <text class="news-total">
-        {{ newsTotal.toLocaleString() }}
-      </text>
-      <text class="news-sort-by"> 排序方式： </text>
-      <text class="news-sort-by-option"> 最新发布 </text>
+      <div class="news-title-item">
+        <button
+          :value="model"
+          class="news-title"
+          :stat="optionFocus ? 'active' : 'inactive'"
+          @click="optionFocus = !optionFocus"
+        >
+          最新{{ model === 'information' ? '资讯' : model === 'magazine' ? '社刊' : '公告' }}
+          <div class="news-title-options" v-if="optionFocus">
+            <button
+              :stat="model === 'information' ? 'active' : 'inactive'"
+              class="news-title-option"
+              @click="model = 'information'"
+            >
+              最新资讯
+            </button>
+            <button
+              :stat="model === 'magazine' ? 'active' : 'inactive'"
+              class="news-title-option"
+              @click="model = 'magazine'"
+            >
+              最新社刊
+            </button>
+            <button
+              :stat="model === 'notice' ? 'active' : 'inactive'"
+              class="news-title-option"
+              @click="model = 'notice'"
+            >
+              最新公告
+            </button>
+          </div>
+        </button>
+        <text class="news-total">
+          {{ newsTotal.toLocaleString() }}
+        </text>
+      </div>
+      <div class="news-title-item sort-by">
+        <text class="news-sort-by"> 排序方式： </text>
+        <text class="news-sort-by-option"> 最新发布 </text>
+      </div>
     </div>
     <div class="news-list-loading-container" v-if="newsLoading">
       <img class="news-list-loading" src="/loading.gif" alt="loading" />
@@ -140,21 +144,25 @@ const optionFocus = ref(false)
       />
     </div>
     <div class="news-pagination" v-if="!newsLoading">
-      <MinecraftButton class="news-pagination-button" @click="movePage('prev')">{{
-        '<'
-      }}</MinecraftButton>
-      <text class="news-pagination-text">第</text>
-      <text class="news-pagination-text special page">{{ page }}</text>
-      <text class="news-pagination-text">/</text>
-      <text class="news-pagination-text special total">{{ maxPage }}</text>
-      <text class="news-pagination-text">页</text>
-      <MinecraftButton class="news-pagination-button" @click="movePage('next')">{{
-        '>'
-      }}</MinecraftButton>
-      <text class="news-pagination-text">前往</text>
-      <MinecraftInput class="news-pagination-input" v-model="pageInput" />
-      <text class="news-pagination-text">页</text>
-      <MinecraftButton class="news-pagination-button" @click="setPage">→</MinecraftButton>
+      <div class="news-pagination-item">
+        <MinecraftButton class="news-pagination-button" @click="movePage('prev')">{{
+          '<'
+        }}</MinecraftButton>
+        <text class="news-pagination-text">第</text>
+        <text class="news-pagination-text special page">{{ page }}</text>
+        <text class="news-pagination-text">/</text>
+        <text class="news-pagination-text special total">{{ maxPage }}</text>
+        <text class="news-pagination-text">页</text>
+        <MinecraftButton class="news-pagination-button" @click="movePage('next')">{{
+          '>'
+        }}</MinecraftButton>
+      </div>
+      <div class="news-pagination-item">
+        <text class="news-pagination-text">前往</text>
+        <MinecraftInput class="news-pagination-input" v-model="pageInput" />
+        <text class="news-pagination-text">页</text>
+        <MinecraftButton class="news-pagination-button" @click="setPage">→</MinecraftButton>
+      </div>
     </div>
   </div>
 </template>
@@ -178,6 +186,7 @@ const optionFocus = ref(false)
   display: flex;
   align-items: center;
   width: 100%;
+  flex-wrap: wrap;
 }
 
 .news-title {
@@ -247,6 +256,18 @@ const optionFocus = ref(false)
   transform: rotate(180deg) scaleY(57.14%);
 }
 
+.news-title-item {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.news-title-item.sort-by {
+  flex: 1;
+  justify-content: end;
+  margin-left: auto;
+}
+
 .news-title-options {
   display: flex;
   flex-direction: column;
@@ -303,15 +324,16 @@ const optionFocus = ref(false)
 }
 
 .news-sort-by {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   user-select: none;
-  margin-left: auto;
+  text-wrap: nowrap;
 }
 
 .news-sort-by-option {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   margin: 0 1rem;
   color: var(--minecraft-green-light);
+  text-wrap: nowrap;
 }
 
 .news-list-loading-container {
@@ -343,11 +365,20 @@ const optionFocus = ref(false)
 
 .news-pagination {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   width: 100%;
+  margin-bottom: 1rem;
+}
+
+.news-pagination-item {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
   height: 2rem;
-  margin: 1rem 0;
+  margin-top: 1rem;
 }
 
 .news-pagination-button {
@@ -359,7 +390,7 @@ const optionFocus = ref(false)
 .news-pagination-text {
   user-select: none;
   font-size: 1.5rem;
-  margin: 0 1rem;
+  margin: 0 0.5rem;
 }
 
 .news-pagination-text.special {

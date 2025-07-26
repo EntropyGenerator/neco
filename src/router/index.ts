@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 const router = createRouter({
-  history: createWebHashHistory(process.env.VITE_IS_GITHUB_PAGES ? '/neco/' : '/'),
+  history: createWebHashHistory(),
   routes: [
     {
       path: '/',
