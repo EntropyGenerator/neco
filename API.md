@@ -373,7 +373,7 @@ Remove session.
     },
     "content": [
         {
-            "type": "markdown" | "pdf_file" | "ppt_file" | "xls_file" | "doc_file",
+            "type": "markdown" | "pdf_file" | "ppt_file" | "xls_file" | "doc_file" | "html",
             "content": "string", // markdown content or file url
         },
         ...

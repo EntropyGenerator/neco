@@ -1,9 +1,13 @@
 <script lang="ts" setup>
+import { useRouter } from 'vue-router'
 import type { NewsEntity } from '@/api/newslist'
 import MinecraftButton from '@/components/utils/MinecraftButton.vue'
 
+const router = useRouter()
+
 const newTab = (url: string) => {
-  window.open(url, '_blank')
+  const target = router.resolve(url)
+  window.open(target.href, '_blank')
 }
 
 const props = defineProps({

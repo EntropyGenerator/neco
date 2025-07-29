@@ -1,4 +1,15 @@
 @font-face {
   font-family: 'Cubic 11';
-  src: url('./Cubic_11.ttf');
+  src: url('./Cubic_11.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: "Ark Latin";
+  src: url('./ark-pixel-latin.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: "Minecraft-Tenv2";
+  src: url('./Minecraft-Tenv2.woff2') format('woff2');
+  unicode-range: U+0020-007E;
 }

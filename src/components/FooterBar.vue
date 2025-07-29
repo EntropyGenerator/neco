@@ -17,16 +17,16 @@ onMounted(async () => {
 <template>
   <div class="footer-area">
     <div class="footer-description">
-      <img :src="loadImageAsset('nmo-logo-large.png')" alt="logo" style="width: 5rem" />
-      <p>南京大学Minecraft协会</p>
+      <img :src="loadImageAsset('nmo-logo-large.png')" alt="logo" style="width: 5rem; user-select: none;" />
+      <p style="user-select: none;">南京大学 Minecraft 协会</p>
       <text style="margin-bottom: 0.5rem">{{ slogan }}</text>
-      <span id="copyright"> © 2025 - All rights reserved NMO </span>
-      <span id="declaration">
+      <span id="copyright" style="user-select: none;"> © 2025 - All rights reserved NMO </span>
+      <span id="declaration" style="user-select: none;">
         NOT AN OFFICIAL MINECRAFT ORGANIZATION <br />
         NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT
       </span>
 
-      <RouterLink id="management" to="/management">后台</RouterLink>
+      <RouterLink id="management" to="/management" style="user-select: none;">后台</RouterLink>
     </div>
 
     <div class="footer-links">
@@ -114,6 +114,7 @@ onMounted(async () => {
   display: flex;
   flex-direction: row;
   align-items: center;
+  user-select: none;
 }
 
 .link-icon {

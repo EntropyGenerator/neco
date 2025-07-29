@@ -13,18 +13,18 @@ export const GetIntroList = async (): Promise<IntroEntity[]> => {
         image: 'background/links-background.png',
       },
       {
-        title: `NMO群组服务器系列`,
+        title: `NMO 群组服务器系列`,
         description: `原版生存，模组生存，建筑，小游戏，RPG，空岛生存，Bingo……多种多样的玩法供你选择！我们的服务器由群组服及其子服和若干个独立服务器组成，详情请点击上面的菜单栏查看其它页面哦～`,
         image: 'background/list-background.png',
       },
       {
         title: `部门风采`,
-        description: `NMO下设社团办事处、宣传美工部、运维保障部、活动部、外联部，分别管理社团各项事务，维持社团运转。部门活动丰富多彩，既能学到，也能玩到。`,
+        description: `NMO 下设社团办事处、宣传美工部、运维保障部、活动部、外联部，分别管理社团各项事务，维持社团运转。部门活动丰富多彩，既能学到，也能玩到。`,
         image: 'background/main-background.png',
       },
       {
         title: `线下活动`,
-        description: `Minecraft社团不只有线上，线下社团活动才是注入灵魂。社团文化夜、百团大战、星光集市等社管主办的活动，2-50人规模不等的约饭，春游，学术讲座……来这里一起交友，充实你的社团生活吧！`,
+        description: `Minecraft 社团不只有线上，线下社团活动才是注入灵魂。社团文化夜、百团大战、星光集市等社管主办的活动，2-50人规模不等的约饭，春游，学术讲座……来这里一起交友，充实你的社团生活吧！`,
         image: 'background/links-background.png',
       },
     ])
@@ -55,27 +55,27 @@ export const GetDetailedIntroList = async (): Promise<IntroEntity[]> => {
         image: 'background/list-background.png',
       },
       {
-        title: `VR看校园`,
+        title: `VR 看校园`,
         description: `第一人称视角漫步方块校园！请关注我们的展台活动，以第一时间前来体验不一样的VR体验！`,
         image: 'background/main-background.png',
       },
       {
-        title: `NMO群组服务器系列`,
+        title: `NMO 群组服务器系列`,
         description: `原版生存，模组生存，建筑，小游戏，RPG，空岛生存，Bingo……多种多样的玩法供你选择！我们的服务器由群组服及其子服和若干个独立服务器组成，详情请点击上面的菜单栏查看其它页面哦～`,
         image: '',
       },
       {
-        title: `NMO长期原版生存服`,
+        title: `NMO 长期原版生存服`,
         description: `原版生存，长期发展，不限玩法。高校Minecraft圈最活跃的服务器。生存、建筑、城建、铁道、生电、节日活动、小游戏……由多个地图拼成的长期服务器，期待你的加入！\n该服务器无周目制，不回档，定期更新版本或增加新地图。`,
         image: `background/main-background.png`,
       },
       {
-        title: `NMO模组服系列`,
+        title: `NMO 模组服系列`,
         description: `机械动力、格雷科技、植物魔法、匠魂工艺……模组科技带来比原版更精彩的玩法！想玩什么模组你来定！暑期新服火热招新中，等你来开荒！详745812246。\n由于模组的特点，此类服务器实施周目制，热度下降时会根据玩家需求开新服。`,
         image: 'background/links-background.png',
       },
       {
-        title: `NFCC与小游戏活动`,
+        title: `NFCC 与小游戏活动`,
         description: `NFCC是NMO定期举办的竞技活动，由多个精彩刺激的小游戏项目组成。通过NMO还可定期参与MUA举办的各种小游戏赛事，与来自其他学校的同学们一起组队切磋！`,
         image: 'background/list-background.png',
       },
