@@ -23,7 +23,7 @@ const scrollToNews = () => {
     requestAnimationFrame(() => {
       window.scrollTo({
         top: targetPosition,
-        behavior: 'smooth'
+        behavior: 'smooth',
       })
     })
   }

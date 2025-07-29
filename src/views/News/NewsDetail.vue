@@ -27,11 +27,18 @@ onMounted(async () => {
       <aside class="news-detail-author-container">
         <div class="news-detail-author">
           <picture class="news-detail-author-avatar">
-            <img class="news-detail-author-avatar-img" :src="newsDetail?.author.avatar" alt="Author avatar" />
+            <img
+              class="news-detail-author-avatar-img"
+              :src="newsDetail?.author.avatar"
+              alt="Author avatar"
+            />
           </picture>
           <div class="news-detail-author-title">作者</div>
           <div class="news-detail-author-text">{{ newsDetail?.author.name }}</div>
-          <div class="news-detail-author-name-container" v-if="(newsDetail?.author.tags.length || 0) > 0">
+          <div
+            class="news-detail-author-name-container"
+            v-if="(newsDetail?.author.tags.length || 0) > 0"
+          >
             <div
               class="news-detail-author-tag"
               v-for="tag in newsDetail?.author.tags"
