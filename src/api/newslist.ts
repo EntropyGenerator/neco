@@ -18,7 +18,7 @@ export interface AuthorInfo {
   tags: AuthorTag[]
 }
 
-export type NewsSegmentType = 'markdown' | 'pdf_file' | 'doc_file' | 'xls_file' | 'ppt_file' | 'html'
+export type NewsSegmentType = 'markdown' | 'pdf_file' | 'doc_file' | 'xls_file' | 'ppt_file'
 
 export interface NewsSegment {
   type: NewsSegmentType
@@ -94,17 +94,7 @@ export const GetNewsDetail = async (_id: string) => {
         {
           type: 'markdown',
           content: "" +
-                    "---\n" +
-                    "title: CPL 引言 / 环境配置\n" +
-                    "date: 2025-07-28\n" +
-                    "icon: arrow-right-to-bracket\n" +
-                    "order: 1\n" +
-                    "category:\n" +
-                    "  - CPL\n" +
-                    "tag:\n" +
-                    "  - C Programming Language\n" +
-                    "author: Kingcq\n" +
-                    "---\n" +
+                    "# CPL 引言 / 环境配置\n" +
                     "\n" +
                     ":::tip\n" +
                     "这是 CPL DotOJ 补完计划的重制版，目的是更系统、更精确地从零开始介绍 C 语言\n" +

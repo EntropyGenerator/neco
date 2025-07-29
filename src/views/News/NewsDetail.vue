@@ -2,6 +2,10 @@
 import { GetNewsDetail, type NewsDetail } from '@/api/newslist'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import { MdPreview } from 'md-editor-v3'
+import sanitizeHtml from 'sanitize-html'
+
+const sanitize = (html: string) => sanitizeHtml(html)
 
 const newsId = useRoute().params.id
 const newsDetail = ref<NewsDetail | null>(null)
@@ -45,6 +49,15 @@ onMounted(async () => {
         </div>
       </aside>
       <main class="news-main-content">
+        <div class="news-main-item" v-for="(item, index) in newsDetail?.content" :key="index">
+          <MdPreview
+            class="news-main-markdown"
+            theme="dark"
+            v-if="item.type === 'markdown'"
+            v-model="item.content"
+            :sanitize="sanitize"
+          />
+        </div>
       </main>
     </article>
   </div>
@@ -159,5 +172,22 @@ onMounted(async () => {
   border-radius: 4px;
   margin-bottom: 0.5rem;
   text-wrap: unwrap;
+}
+
+.news-main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+  margin-bottom: 4rem;
+}
+
+.news-main-item {
+  width: 100%;
+}
+
+.news-main-markdown {
+  padding: 0 4rem;
 }
 </style>
