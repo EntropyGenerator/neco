@@ -1,0 +1,349 @@
+.md-editor .minecraft-theme,
+.md-editor-dark .minecraft-theme {
+  --md-theme-code-inline-color: #f06;
+  --md-theme-code-inline-bg-color: var(--area);
+  --md-theme-code-block-color: var(--text);
+  --md-theme-code-block-bg-color: var(--area);
+}
+.minecraft-theme code {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.87em;
+  color: #E0E0E0;
+  background-color: #2A2A2A;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  text-shadow: 1px 1px #111;
+  margin: 0 4px;
+}
+.minecraft-theme .md-editor-code {
+  background-color: #C6C6C6;
+  border: 4px solid;
+  border-top-color: #FFFFFF;
+  border-left-color: #FFFFFF;
+  border-bottom-color: #555555;
+  border-right-color: #555555;
+  padding: 8px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+.minecraft-theme .md-editor-code pre {
+  position: relative;
+  background-color: #3B3B3B;
+  border: 4px solid;
+  border-top-color: #2A2A2A;
+  border-left-color: #2A2A2A;
+  border-bottom-color: #555555;
+  border-right-color: #555555;
+  margin: 0;
+  overflow: auto;
+  line-height: 1.75 !important;
+}
+.minecraft-theme .md-editor-code pre code {
+  font-family: 'Press Start 2P', monospace;
+  color: #E0E0E0;
+  text-shadow: 2px 2px #1A1A1A;
+  font-size: 14px;
+  line-height: 1.75 !important;
+  display: block;
+  padding: 1.5rem;
+  margin: 0;
+  overflow-x: visible;
+  position: unset !important;
+  word-break: normal;
+  background: none;
+  border-radius: 0;
+}
+.minecraft-theme .md-editor-code pre::-webkit-scrollbar {
+  width: 20px;
+  height: 20px;
+}
+.minecraft-theme .md-editor-code pre::-webkit-scrollbar-track {
+  background-color: #2A2A2A;
+}
+.minecraft-theme .md-editor-code pre::-webkit-scrollbar-thumb {
+  background-color: #C6C6C6;
+  border: 4px solid;
+  border-top-color: #FFFFFF;
+  border-left-color: #FFFFFF;
+  border-bottom-color: #555555;
+  border-right-color: #555555;
+}
+.minecraft-theme strong {
+  font-size: 1.05rem;
+  color: #fff;
+}
+.minecraft-theme em {
+  font-size: 1.05rem;
+  display: inline-block;
+  transform: skewX(-12deg);
+  transform-origin: left center;
+}
+.minecraft-theme h1,
+.minecraft-theme h2,
+.minecraft-theme h3,
+.minecraft-theme h4,
+.minecraft-theme h5,
+.minecraft-theme h6 {
+  color: #fff;
+  letter-spacing: 1px;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  margin-top: 1.5rem;
+  padding-bottom: 0;
+  padding-left: 8px;
+}
+.minecraft-theme h1 {
+  font-size: 2rem;
+  margin-bottom: 5px;
+  font-family:
+    'Minecraft-Tenv2', 'Cubic 11', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  border-bottom: 1px solid var(--border);
+}
+.minecraft-theme h2 {
+  font-size: 1.5rem;
+  position: relative;
+}
+.minecraft-theme h3 {
+  font-size: 1.2rem;
+  padding-bottom: 0;
+}
+.minecraft-theme h4 {
+  font-size: 1.1rem;
+}
+.minecraft-theme h5 {
+  font-size: 0.95rem;
+}
+.minecraft-theme h6 {
+  margin-top: 5px;
+}
+.minecraft-theme img {
+  margin-top: 1.5rem;
+  max-width: 100%;
+  border: 4px solid;
+  border-image: url("https://unpkg.com/minecraft-framework-css@1.1.8/css/assets/imagelesshoverbg.png") 1;
+}
+.minecraft-theme a {
+  color: var(--minecraft-green-light);
+  display: inline-block;
+  margin: 0 4px;
+  position: relative;
+  text-decoration: none;
+  transition: 0.3s;
+  vertical-align: bottom;
+}
+.minecraft-theme a:hover {
+  color: var(--blue);
+}
+.minecraft-theme a:after {
+  border-bottom: 1px dashed var(--minecraft-green-light);
+  bottom: 0;
+  content: '';
+  height: 1px;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}
+.minecraft-theme a:active:before,
+.minecraft-theme a:hover:before {
+  max-width: 130px;
+  padding-left: 14px;
+}
+.minecraft-theme ol,
+.minecraft-theme ul {
+  padding-left: 28px;
+}
+.minecraft-theme ol li,
+.minecraft-theme ul li {
+  line-height: 2em;
+  list-style: inherit;
+  margin-bottom: 0;
+}
+.minecraft-theme ol li .task-list-item,
+.minecraft-theme ul li .task-list-item {
+  list-style: none;
+}
+.minecraft-theme ol li .task-list-item ol,
+.minecraft-theme ol li .task-list-item ul,
+.minecraft-theme ul li .task-list-item ol,
+.minecraft-theme ul li .task-list-item ul {
+  margin-top: 0;
+}
+.minecraft-theme ol li::marker,
+.minecraft-theme ul li::marker {
+  font-size: 1.05rem;
+  color: var(--minecraft-green-light);
+}
+.minecraft-theme ol ol,
+.minecraft-theme ol ul,
+.minecraft-theme ul ol,
+.minecraft-theme ul ul {
+  margin-top: 3px;
+}
+.minecraft-theme ol ol li,
+.minecraft-theme ol ul li,
+.minecraft-theme ul ol li,
+.minecraft-theme ul ul li {
+  border-bottom: none;
+}
+.minecraft-theme ol li {
+  list-style: decimal-leading-zero;
+}
+.minecraft-theme p {
+  line-height: inherit;
+  margin-bottom: 22px;
+  margin-top: 22px;
+}
+.minecraft-theme blockquote {
+  color: #fff;
+  background:#8B5E3C;
+  box-shadow:
+    inset 0 0 0 4px #5D3A1A,
+    0 4px 0 0 #3E2723;
+  border-radius: 2px;
+  border: 3px solid;
+  border-image: url("https://unpkg.com/minecraft-framework-css@1.1.8/css/assets/dialogue-image.png") 2;
+  margin: 22px 0;
+  padding: 1rem 1rem 1rem 3.5rem;
+  position: relative;
+}
+.minecraft-theme blockquote > p {
+  margin: 10px 0;
+}
+.minecraft-theme blockquote::before {
+  content:'';
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect x="2" y="6" width="28" height="20" fill="%238B5E3C" stroke="%235D3A1A" stroke-width="2"/><rect x="6" y="10" width="20" height="2" fill="%235D3A1A"/><rect x="6" y="14" width="20" height="2" fill="%235D3A1A"/><rect x="6" y="18" width="12" height="2" fill="%235D3A1A"/></svg>') no-repeat center/contain;
+}
+.minecraft-theme table {
+  border-collapse:separate;
+  border-spacing:0;
+  font-size: 12px;
+  margin: 2rem 0;
+  padding: 4px;
+  max-width: 100%;
+  overflow: auto;
+  width: 100%;
+  background-color: #c6c6c6;
+  border: 2px solid #000;
+  box-shadow:
+    inset 1px 1px 0 0 #555555,
+    inset -1px -1px 0 0 #ffffff;
+}
+.minecraft-theme thead {
+  text-align: left;
+}
+.minecraft-theme tbody tr:nth-child(2n-1) {
+  background-color: #e0e0e01a;
+}
+.minecraft-theme td,
+.minecraft-theme th {
+  margin: 2px;
+  line-height: 24px;
+  padding: 12px 7px;
+  background: #8b8b8b;
+  color: #000;
+  text-align:center;
+  font-size: 1rem;
+  border-top: 4px solid #373737 !important;
+  border-left: 4px solid #373737 !important;
+  border-bottom: 4px solid #fff !important;
+  border-right: 4px solid #fff !important;
+  box-shadow: inset 0 0 0 2px #373737;
+}
+.minecraft-theme th {
+  border-top: 4px solid #292929 !important;
+  border-left: 4px solid #292929 !important;
+  background:#3f3f3f;
+  color:#FFF;
+  font-size: 1.2rem;
+}
+.minecraft-theme td {
+  min-width: 120px;
+}
+.minecraft-theme td:hover {
+  background: #aeaeae;
+}
+.minecraft-theme th:hover {
+  background: #5b5b5b;
+}
+.md-editor-dark {
+  background-color: var(--bg-color);
+}
+.md-editor {
+  background-color: var(--bg-color);
+}
+.md-editor .minecraft-theme {
+  --bg-color: transparent;
+  --blue: #37b2ff;
+  --yellow: #feea1e;
+  --orange: orange;
+  --purple: #e699e6;
+  --green: #a7ecad;
+  --text: #333;
+  --area: #f8f8f8;
+  --line: #adb0b8;
+  --border: #f5f5f7;
+  --border-blue: #37b2ff;
+  --table-bg-color: #fff;
+}
+.md-editor-dark .minecraft-theme {
+  --bg-color: transparent;
+  --blue: #37b2ff;
+  --yellow: #feea1e;
+  --orange: orange;
+  --purple: #e699e6;
+  --green: #a7ecad;
+  --text: #c9d1d9;
+  --area: #1a1a1a;
+  --line: #75787e;
+  --border: #4e4e4e;
+  --border-blue: #2781b9;
+  --table-bg-color: var(--area);
+}
+.minecraft-theme {
+  background-color: var(--bg-color);
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.75;
+  position: relative;
+  word-break: break-word;
+}
+*[data-line="0"] {
+  margin-top: 0 !important;
+}
+.minecraft-theme hr {
+  border: 1px solid var(--border);
+  margin-bottom: 32px;
+  margin-top: 32px;
+}
+.minecraft-theme input[type='checkbox'] {
+  appearance: none;
+  color: transparent;
+  width: 30px;
+  height: 16px;
+  background-image: url('https://unpkg.com/minecraft-framework-css@1.1.8/css/assets/toggle_off.png');
+  background-size: cover;
+  position: relative;
+}
+.minecraft-theme input[type='checkbox']:checked {
+  background-image: url('https://unpkg.com/minecraft-framework-css@1.1.8/css/assets/toggle_on.png');
+}
+@media (max-width: 720px) {
+  .minecraft-theme h1 {
+    font-size: 24px;
+  }
+  .minecraft-theme h2 {
+    font-size: 20px;
+  }
+  .minecraft-theme h3 {
+    font-size: 18px;
+  }
+}
+[class*='minecraft-theme md-editor-scrn'] span[rn-wrapper] {
+  top: 26px;
+}

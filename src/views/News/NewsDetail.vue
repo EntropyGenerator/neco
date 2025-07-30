@@ -3,9 +3,6 @@ import { GetNewsDetail, type NewsDetail } from '@/api/newslist'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { MdPreview } from 'md-editor-v3'
-import sanitizeHtml from 'sanitize-html'
-
-const sanitize = (html: string) => sanitizeHtml(html)
 
 const newsId = useRoute().params.id
 const newsDetail = ref<NewsDetail | null>(null)
@@ -33,37 +30,43 @@ onMounted(async () => {
               alt="Author avatar"
             />
           </picture>
-          <div class="news-detail-author-title">作者</div>
-          <div class="news-detail-author-text">{{ newsDetail?.author.name }}</div>
-          <div
-            class="news-detail-author-name-container"
-            v-if="(newsDetail?.author.tags.length || 0) > 0"
-          >
+          <div>
+            <div class="news-detail-author-title">作者</div>
+            <div class="news-detail-author-text">{{ newsDetail?.author.name }}</div>
             <div
-              class="news-detail-author-tag"
-              v-for="tag in newsDetail?.author.tags"
-              :key="tag.text"
-              :style="{
-                backgroundColor: tag.tagColor,
-                color: tag.color,
-              }"
+              class="news-detail-author-name-container"
+              v-if="(newsDetail?.author.tags.length || 0) > 0"
             >
-              {{ tag.text }}
+              <div
+                class="news-detail-author-tag"
+                v-for="tag in newsDetail?.author.tags"
+                :key="tag.text"
+                :style="{
+                  backgroundColor: tag.tagColor,
+                  color: tag.color,
+                }"
+              >
+                {{ tag.text }}
+              </div>
             </div>
           </div>
-          <div class="news-detail-author-title">发布日期</div>
-          <div class="news-detail-author-text">{{ newsDetail?.entity.date }}</div>
+          <div>
+            <div class="news-detail-author-title">发布日期</div>
+            <div class="news-detail-author-text">{{ newsDetail?.entity.date }}</div>
+          </div>
         </div>
       </aside>
       <main class="news-main-content">
-        <div class="news-main-item" v-for="(item, index) in newsDetail?.content" :key="index">
-          <MdPreview
-            class="news-main-markdown"
-            theme="dark"
-            v-if="item.type === 'markdown'"
-            v-model="item.content"
-            :sanitize="sanitize"
-          />
+        <div class="news-main-item-list">
+          <div style="width: 100%;" v-for="(item, index) in newsDetail?.content" :key="index">
+            <MdPreview
+              v-if="item.type === 'markdown'"
+              theme="dark"
+              language="zh-CN"
+              preview-theme="minecraft"
+              :model-value="item.content"
+            />
+          </div>
         </div>
       </main>
     </article>
@@ -121,7 +124,7 @@ onMounted(async () => {
 }
 
 .news-detail-author-container {
-  width: 30%;
+  width: 21rem;
 }
 
 .news-detail-author {
@@ -183,18 +186,19 @@ onMounted(async () => {
 
 .news-main-content {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
   width: 100%;
   height: fit-content;
   margin-bottom: 4rem;
 }
 
-.news-main-item {
+.news-main-item-list {
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-}
-
-.news-main-markdown {
-  padding: 0 4rem;
+  padding: 1rem 4rem;
+  padding-bottom: 2rem;
 }
 </style>
