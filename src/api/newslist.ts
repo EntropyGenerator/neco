@@ -18,7 +18,7 @@ export interface AuthorInfo {
   tags: AuthorTag[]
 }
 
-export type NewsSegmentType = 'markdown' | 'pdf_file' | 'doc_file' | 'xls_file' | 'ppt_file'
+export type NewsSegmentType = 'markdown' | 'pdf_file'
 
 export interface NewsSegment {
   type: NewsSegmentType
@@ -108,6 +108,10 @@ export const GetNewsDetail = async (_id: string) => {
 **粗体**\n\
 *斜体*\n\
 > 引用\n\
+> \n\
+> 多行引用\n\
+> \n\
+> 多行引用\n\
 - 无序列表\n\
 1. 有序列表\n\
 ------------------------------------\n\
@@ -126,52 +130,52 @@ int main(int argc, char *argv[]) {\n\
 ### 此外，我们添加了md-editor-v3提供的所有插件：\n\
 #### Tip功能\n\
 !!! tip\n\
-  这是一段提示\n\
+  tip\n\
 !!!\n\
 !!! warning\n\
-  这是一段警告\n\
+  warning\n\
 !!!\n\
 !!! danger\n\
-  这是一段危险警告\n\
+  danger\n\
 !!!\n\
 !!! note\n\
-  这是一个详情块，在 IE / Edge 中不生效\n\
+  note\n\
 !!!\n\
 !!! abstract\n\
-  这是一个详情块，在 IE / Edge 中不生效\n\
+  abstract\n\
 !!!\n\
 !!! info\n\
-  这是一个详情块，在 IE / Edge 中不生效\n\
+  info\n\
 !!!\n\
 !!! success\n\
-  这是一个详情块，在 IE / Edge 中不生效\n\
+  success\n\
 !!!\n\
 !!! question\n\
-  这是一个详情块，在 IE / Edge 中不生效\n\
+  question\n\
 !!!\n\
 !!! failure\n\
-  这是一个详情块，在 IE / Edge 中不生效\n\
+  failure\n\
 !!!\n\
 !!! bug\n\
-  这是一个详情块，在 IE / Edge 中不生效\n\
+  bug\n\
 !!!\n\
 !!! example\n\
-  这是一个详情块，在 IE / Edge 中不生效\n\
+  example\n\
 !!!\n\
 !!! quote\n\
-  这是一个详情块，在 IE / Edge 中不生效\n\
+  quote\n\
 !!!\n\
 !!! hint\n\
-  这是一个详情块，在 IE / Edge 中不生效\n\
+  hint\n\
 !!!\n\
 !!! caution\n\
-  这是一个详情块，在 IE / Edge 中不生效\n\
+  caution\n\
 !!!\n\
 !!! error\n\
-  这是一个详情块，在 IE / Edge 中不生效\n\
+  error\n\
 !!!\n\
 !!! attention\n\
-  这是一个详情块，在 IE / Edge 中不生效\n\
+  attention\n\
 !!!\n\
 #### katex公式\n\
 你可以使用katex语法来编写公式：\n\
@@ -205,6 +209,7 @@ int main(int argc, char *argv[]) {\n\
   padding: 10px;\n\
   background-color: #f0f0f0;\n\
   border-radius: 4px;\n\
+  height: 48px;\n\
 }\n\
 \n\
 .header-logo {\n\
@@ -247,7 +252,7 @@ int main(int argc, char *argv[]) {\n\
 \n\
 <nav class="header">\n\
   <a class="header-logo" href="https://www.nju.edu.cn">\n\
-    <img src="./assets/nju-icon.png" />\n\
+    <img src="https://www.nju.edu.cn/images/favicon.png" />\n\
   </a>\n\
   <p class="header-title">\n\
     南京大学\n\
@@ -262,186 +267,6 @@ int main(int argc, char *argv[]) {\n\
           type: 'pdf_file',
           content:
             'https://501351981.github.io/vue-office/examples/dist/static/test-files/test.pdf',
-        },
-        {
-          type: 'ppt_file',
-          content:
-            'https://501351981.github.io/vue-office/examples/dist/static/test-files/test.pptx',
-        },
-        {
-          type: 'markdown',
-          content:
-            '\
-# md-editor-v3使用教程\n\
-#### 在正常的文本编辑基础上，md-editor-v3能够支持所有的markdown语法，例如：\n\
-# H1\n\
-## H2\n\
-### H3\n\
-#### H4\n\
-##### H5\n\
-###### H6\n\
-**粗体**\n\
-*斜体*\n\
-> 引用\n\
-- 无序列表\n\
-1. 有序列表\n\
-------------------------------------\n\
-|column1|表格|column3|\n\
-|-|-|-|\n\
-|content1|content2|content3|\n\n\
-[链接(md-editor-v3)](http://ckang1229.gitee.io/vue-markdown-editor/zh/)\n\
-![这是一张图片的介绍](https://storage.live.com/users/0x297050f96e844eab/myprofile/expressionprofile/profilephoto:UserTileStatic/p?ck=1&ex=720&sid=026FDF0F192065B601E6CC1318636405&fofoff=1)\n\
-``` cpp\n\
-#include <iostream>\n\
-\n\
-int main(int argc, char *argv[]) {\n\
-    std::cout << "这是一段代码块" << std::endl;\n\
-}\n\
-```\n\
-### 此外，我们添加了md-editor-v3提供的所有插件：\n\
-#### Tip功能\n\
-!!! tip\n\
-  这是一段提示\n\
-!!!\n\
-!!! warning\n\
-  这是一段警告\n\
-!!!\n\
-!!! danger\n\
-  这是一段危险警告\n\
-!!!\n\
-!!! note\n\
-  这是一个详情块，在 IE / Edge 中不生效\n\
-!!!\n\
-!!! abstract\n\
-  这是一个详情块，在 IE / Edge 中不生效\n\
-!!!\n\
-!!! info\n\
-  这是一个详情块，在 IE / Edge 中不生效\n\
-!!!\n\
-!!! success\n\
-  这是一个详情块，在 IE / Edge 中不生效\n\
-!!!\n\
-!!! question\n\
-  这是一个详情块，在 IE / Edge 中不生效\n\
-!!!\n\
-!!! failure\n\
-  这是一个详情块，在 IE / Edge 中不生效\n\
-!!!\n\
-!!! bug\n\
-  这是一个详情块，在 IE / Edge 中不生效\n\
-!!!\n\
-!!! example\n\
-  这是一个详情块，在 IE / Edge 中不生效\n\
-!!!\n\
-!!! quote\n\
-  这是一个详情块，在 IE / Edge 中不生效\n\
-!!!\n\
-!!! hint\n\
-  这是一个详情块，在 IE / Edge 中不生效\n\
-!!!\n\
-!!! caution\n\
-  这是一个详情块，在 IE / Edge 中不生效\n\
-!!!\n\
-!!! error\n\
-  这是一个详情块，在 IE / Edge 中不生效\n\
-!!!\n\
-!!! attention\n\
-  这是一个详情块，在 IE / Edge 中不生效\n\
-!!!\n\
-#### katex公式\n\
-你可以使用katex语法来编写公式：\n\
-$$\n\sum_{i=1}^n a_i=0$$\n\
-#### mermaid流程图\n\
-你可以使用特定的语法编写漂亮的流程图：\n\
-```mermaid\n\
-graph LR\n\
-A --- B\n\
-B-->C[fa:fa-ban forbidden]\n\
-B-->D(fa:fa-spinner);\n\
-```\n\
-\n\
-#### Todo List\n\
-你可以通过上方的todo按钮快速插入一条todo项：\n\
-- [ ] Todo 1\n\
-- [x] Todo 2\n\
-#### 高亮代码行\n\
-你可以指定需要高亮的代码行，来更方便地突出部分代码：\n\
-``` cpp {1-3,5}\n\
-#include <iostream>\n\
-\n\
-int main(int argc, char *argv[]) {\n\
-    std::cout << "这是一段代码块" << std::endl;\n\
-}\n\
-```\n\
-<style>\n\
-.header {\n\
-  display: flex;\n\
-  align-items: center;\n\
-  padding: 10px;\n\
-  background-color: #f0f0f0;\n\
-  border-radius: 4px;\n\
-}\n\
-\n\
-.header-logo {\n\
-  width: 40px;\n\
-  height: 40px;\n\
-  margin-right: 10px;\n\
-}\n\
-\n\
-.header-title {\n\
-  color: #111;\n\
-  font-size: 28px;\n\
-  margin: auto 0;\n\
-}\n\
-\n\
-.header-btn {\n\
-  color: #eee;\n\
-  background-color: #6f106e;\n\
-  height: 40px;\n\
-  width: 80px;\n\
-  margin-left: auto;\n\
-  border: none;\n\
-  border-radius: 4px;\n\
-  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.8);\n\
-  transition: all .3s ease-in-out;\n\
-}\n\
-\n\
-.header-btn:hover {\n\
-  cursor: pointer;\n\
-  background-color: #5d0b5d;\n\
-  box-shadow: 2px 4px 8px rgb(0, 0, 0);\n\
-  transform: translateY(-1px);\n\
-}\n\
-\n\
-.header-btn:active {\n\
-  background-color: #4b0a4b;\n\
-  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.6);\n\
-  transform: translateY(1px);\n\
-}\n\
-</style>\n\
-\n\
-<nav class="header">\n\
-  <a class="header-logo" href="https://www.nju.edu.cn">\n\
-    <img src="./assets/nju-icon.png" />\n\
-  </a>\n\
-  <p class="header-title">\n\
-    南京大学\n\
-  </p>\n\
-  <button class="header-btn">\n\
-    登录\n\
-  </button>\n\
-</nav>\n\
-',
-        },
-        {
-          type: 'xls_file',
-          content:
-            'https://501351981.github.io/vue-office/examples/dist/static/test-files/test.xlsx',
-        },
-        {
-          type: 'doc_file',
-          content:
-            'https://501351981.github.io/vue-office/examples/dist/static/test-files/test.docx',
         },
       ],
       author: {

@@ -5,6 +5,105 @@
   --md-theme-code-block-color: var(--text);
   --md-theme-code-block-bg-color: var(--area);
 }
+.minecraft-theme .md-editor-admonition-tip {
+  color: #ccc;
+  background:
+    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
+    url('/blockbg/cobblestone.png');
+  background-size: auto, 24px;
+}
+.minecraft-theme .md-editor-admonition-warning {
+  background:
+    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
+    url('/blockbg/honeycomb-block.png');
+  background-size: auto, 24px;
+}
+.minecraft-theme .md-editor-admonition-danger {
+  background:
+    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
+    url('/blockbg/nether-wart-block.png');
+  background-size: auto, 24px;
+}
+.minecraft-theme .md-editor-admonition-note {
+  background:
+    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
+    url('/blockbg/blackstone.png');
+  background-size: auto, 24px;
+}
+.minecraft-theme .md-editor-admonition-attention {
+  background:
+    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
+    url('/blockbg/block-of-lapis-lazuli.png');
+  background-size: auto, 24px;
+}
+.minecraft-theme .md-editor-admonition-question {
+  color: #ffdf78;
+  background:
+    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
+    url('/blockbg/block-of-raw-gold.png');
+  background-size: auto, 24px;
+}
+.minecraft-theme .md-editor-admonition-abstract {
+  background:
+    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
+    url('/blockbg/blue-ice.png');
+  background-size: auto, 24px;
+}
+.minecraft-theme .md-editor-admonition-info {
+  background:
+    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
+    url('/blockbg/deepslate-tiles.png');
+  background-size: auto, 24px;
+}
+.minecraft-theme .md-editor-admonition-success {
+  background:
+    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
+    url('/blockbg/moss-block.png');
+  background-size: auto, 24px;
+}
+.minecraft-theme .md-editor-admonition-failure {
+  background:
+    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
+    url('/blockbg/netherrack.png');
+  background-size: auto, 24px;
+}
+.minecraft-theme .md-editor-admonition-bug {
+  background:
+    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
+    url('/blockbg/crimson-hyphae.png');
+  background-size: auto, 24px;
+}
+.minecraft-theme .md-editor-admonition-example {
+  color: #cbaeff;
+  background:
+    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
+    url('/blockbg/amethyst-block.png');
+  background-size: auto, 24px;
+}
+.minecraft-theme .md-editor-admonition-error {
+  background:
+    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
+    url('/blockbg/red-wool.png');
+  background-size: auto, 24px;
+}
+.minecraft-theme .md-editor-admonition-quote {
+  background:
+    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
+    url('/blockbg/dark-prismarine.png');
+  background-size: auto, 24px;
+}
+.minecraft-theme .md-editor-admonition-hint {
+  background:
+    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
+    url('/blockbg/cyan-concrete-powder.png');
+  background-size: auto, 24px;
+}
+.minecraft-theme .md-editor-admonition-caution {
+  background:
+    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
+    url('/blockbg/red-sand.png');
+  background-size: auto, 24px;
+}
 .minecraft-theme code {
   font-family: 'Press Start 2P', monospace;
   font-size: 0.87em;
@@ -115,7 +214,7 @@
 .minecraft-theme h6 {
   margin-top: 5px;
 }
-.minecraft-theme img {
+.minecraft-theme p img {
   margin-top: 1.5rem;
   max-width: 100%;
   border: 4px solid;
@@ -156,6 +255,11 @@
   line-height: 2em;
   list-style: inherit;
   margin-bottom: 0;
+}
+.minecraft-theme .task-list-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 .minecraft-theme ol li .task-list-item,
 .minecraft-theme ul li .task-list-item {
@@ -212,7 +316,7 @@
   content:'';
   position: absolute;
   left: 1rem;
-  top: 50%;
+  top: 2.5rem;
   transform: translateY(-50%);
   width: 32px;
   height: 32px;
@@ -312,6 +416,8 @@
   line-height: 1.75;
   position: relative;
   word-break: break-word;
+
+  font-family: 'Ark Latin', 'Cubic 11', system-ui, Avenir, Helvetica, Arial, sans-serif !important;
 }
 *[data-line="0"] {
   margin-top: 0 !important;

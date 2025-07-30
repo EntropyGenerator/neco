@@ -3,9 +3,33 @@ import { GetNewsDetail, type NewsDetail } from '@/api/newslist'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { MdPreview } from 'md-editor-v3'
+import MinecraftButton from '@/components/utils/MinecraftButton.vue'
 
 const newsId = useRoute().params.id
 const newsDetail = ref<NewsDetail | null>(null)
+
+const scrollToIndex = (index: number) => {
+  const element = document.getElementById(`pdf-renderer-${index}`)
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' })
+  }
+}
+
+const soundOn = () => {
+  const audio = new Audio(
+    'https://unpkg.com/minecraft-framework-css@1.1.5/css/assets/random.click.ogg',
+  )
+  audio.play()
+  audio.volume = 0.3
+}
+
+const mountSounds = () => {
+  // mount audios
+  const buttons = document.querySelectorAll('.md-editor-copy-button, .md-editor-collapse-tips, .md-editor-code-flag')
+  buttons.forEach((button) => {
+    button.addEventListener('click', soundOn)
+  })
+}
 
 onMounted(async () => {
   newsDetail.value = await GetNewsDetail(newsId as string)
@@ -58,13 +82,25 @@ onMounted(async () => {
       </aside>
       <main class="news-main-content">
         <div class="news-main-item-list">
-          <div style="width: 100%;" v-for="(item, index) in newsDetail?.content" :key="index">
+          <div style="width: 100%; margin: 1rem 0;" v-for="(item, index) in newsDetail?.content" :key="index">
             <MdPreview
               v-if="item.type === 'markdown'"
               theme="dark"
               language="zh-CN"
               preview-theme="minecraft"
               :model-value="item.content"
+              @on-remount="mountSounds"
+            />
+            <MinecraftButton
+              v-if="item.type === 'pdf_file'"
+              class="pdf-read-btn"
+              @click="scrollToIndex(index)"
+            >↓ 最佳阅读位置</MinecraftButton>
+            <iframe
+              :id="`pdf-renderer-${index}`"
+              v-if="item.type === 'pdf_file'"
+              class="pdf-renderer mc-border"
+              :src="`/pdfjs/web/viewer.html?file=${encodeURIComponent(item.content)}`"
             />
           </div>
         </div>
@@ -84,7 +120,7 @@ onMounted(async () => {
 
   background:
     linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)),
-    radial-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8)), url('/dirt.png');
+    radial-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8)), url('/blockbg/dirt.png');
 }
 
 .news-poster {
@@ -200,5 +236,17 @@ onMounted(async () => {
   width: 100%;
   padding: 1rem 4rem;
   padding-bottom: 2rem;
+}
+
+.pdf-read-btn {
+  height: 3rem;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+}
+
+.pdf-renderer {
+  width: 100%;
+  height: 100vh;
+  margin: 2rem 0;
 }
 </style>

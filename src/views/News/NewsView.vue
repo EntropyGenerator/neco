@@ -116,7 +116,7 @@ onMounted(async () => {
   margin: 2rem;
   background:
     linear-gradient(to right, rgba(24, 24, 24, 0.4), rgba(24, 24, 24, 0.2), rgba(24, 24, 24, 0.4)),
-    radial-gradient(rgba(24, 24, 24, 0.2), rgba(24, 24, 24, 0.8)), url('/cobblestone.png');
+    radial-gradient(rgba(24, 24, 24, 0.2), rgba(24, 24, 24, 0.8)), url('/blockbg/cobblestone.png');
   background-size:
     auto,
     auto,
