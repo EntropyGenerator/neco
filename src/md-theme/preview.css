@@ -7,129 +7,104 @@
 }
 .minecraft-theme .md-editor-admonition-tip {
   color: #ccc;
-  background:
-    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
-    url('/blockbg/cobblestone.png');
+  background: linear-gradient(to bottom, rgba(16, 16, 16, 0.6)), url('/blockbg/cobblestone.png');
   background-size: auto, 24px;
 }
 .minecraft-theme .md-editor-admonition-warning {
   background:
-    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
-    url('/blockbg/honeycomb-block.png');
+    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)), url('/blockbg/honeycomb-block.png');
   background-size: auto, 24px;
 }
 .minecraft-theme .md-editor-admonition-danger {
   background:
-    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
-    url('/blockbg/nether-wart-block.png');
+    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)), url('/blockbg/nether-wart-block.png');
   background-size: auto, 24px;
 }
 .minecraft-theme .md-editor-admonition-note {
-  background:
-    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
-    url('/blockbg/blackstone.png');
+  background: linear-gradient(to bottom, rgba(16, 16, 16, 0.6)), url('/blockbg/blackstone.png');
   background-size: auto, 24px;
 }
 .minecraft-theme .md-editor-admonition-attention {
   background:
-    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
-    url('/blockbg/block-of-lapis-lazuli.png');
+    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)), url('/blockbg/block-of-lapis-lazuli.png');
   background-size: auto, 24px;
 }
 .minecraft-theme .md-editor-admonition-question {
   color: #ffdf78;
   background:
-    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
-    url('/blockbg/block-of-raw-gold.png');
+    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)), url('/blockbg/block-of-raw-gold.png');
   background-size: auto, 24px;
 }
 .minecraft-theme .md-editor-admonition-abstract {
-  background:
-    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
-    url('/blockbg/blue-ice.png');
+  background: linear-gradient(to bottom, rgba(16, 16, 16, 0.6)), url('/blockbg/blue-ice.png');
   background-size: auto, 24px;
 }
 .minecraft-theme .md-editor-admonition-info {
   background:
-    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
-    url('/blockbg/deepslate-tiles.png');
+    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)), url('/blockbg/deepslate-tiles.png');
   background-size: auto, 24px;
 }
 .minecraft-theme .md-editor-admonition-success {
-  background:
-    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
-    url('/blockbg/moss-block.png');
+  background: linear-gradient(to bottom, rgba(16, 16, 16, 0.6)), url('/blockbg/moss-block.png');
   background-size: auto, 24px;
 }
 .minecraft-theme .md-editor-admonition-failure {
-  background:
-    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
-    url('/blockbg/netherrack.png');
+  background: linear-gradient(to bottom, rgba(16, 16, 16, 0.6)), url('/blockbg/netherrack.png');
   background-size: auto, 24px;
 }
 .minecraft-theme .md-editor-admonition-bug {
-  background:
-    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
-    url('/blockbg/crimson-hyphae.png');
+  background: linear-gradient(to bottom, rgba(16, 16, 16, 0.6)), url('/blockbg/crimson-hyphae.png');
   background-size: auto, 24px;
 }
 .minecraft-theme .md-editor-admonition-example {
   color: #cbaeff;
-  background:
-    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
-    url('/blockbg/amethyst-block.png');
+  background: linear-gradient(to bottom, rgba(16, 16, 16, 0.6)), url('/blockbg/amethyst-block.png');
   background-size: auto, 24px;
 }
 .minecraft-theme .md-editor-admonition-error {
-  background:
-    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
-    url('/blockbg/red-wool.png');
+  background: linear-gradient(to bottom, rgba(16, 16, 16, 0.6)), url('/blockbg/red-wool.png');
   background-size: auto, 24px;
 }
 .minecraft-theme .md-editor-admonition-quote {
   background:
-    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
-    url('/blockbg/dark-prismarine.png');
+    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)), url('/blockbg/dark-prismarine.png');
   background-size: auto, 24px;
 }
 .minecraft-theme .md-editor-admonition-hint {
   background:
-    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
-    url('/blockbg/cyan-concrete-powder.png');
+    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)), url('/blockbg/cyan-concrete-powder.png');
   background-size: auto, 24px;
 }
 .minecraft-theme .md-editor-admonition-caution {
-  background:
-    linear-gradient(to bottom, rgba(16, 16, 16, 0.6)),
-    url('/blockbg/red-sand.png');
+  background: linear-gradient(to bottom, rgba(16, 16, 16, 0.6)), url('/blockbg/red-sand.png');
   background-size: auto, 24px;
 }
 .minecraft-theme code {
   font-family: 'Press Start 2P', monospace;
   font-size: 0.87em;
-  color: #E0E0E0;
-  background-color: #2A2A2A;
+  color: #e0e0e0;
+  background-color: #2a2a2a;
   padding: 0.2em 0.4em;
   border-radius: 3px;
   text-shadow: 1px 1px #111;
   margin: 0 4px;
 }
 .minecraft-theme .md-editor-code {
-  background-color: #C6C6C6;
+  background-color: #c6c6c6;
   border: 4px solid;
-  border-top-color: #FFFFFF;
-  border-left-color: #FFFFFF;
+  border-top-color: #ffffff;
+  border-left-color: #ffffff;
   border-bottom-color: #555555;
   border-right-color: #555555;
   padding: 8px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 .minecraft-theme .md-editor-code pre {
   position: relative;
-  background-color: #3B3B3B;
+  background-color: #3b3b3b;
   border: 4px solid;
-  border-top-color: #2A2A2A;
-  border-left-color: #2A2A2A;
+  border-top-color: #2a2a2a;
+  border-left-color: #2a2a2a;
   border-bottom-color: #555555;
   border-right-color: #555555;
   margin: 0;
@@ -138,8 +113,8 @@
 }
 .minecraft-theme .md-editor-code pre code {
   font-family: 'Press Start 2P', monospace;
-  color: #E0E0E0;
-  text-shadow: 2px 2px #1A1A1A;
+  color: #e0e0e0;
+  text-shadow: 2px 2px #1a1a1a;
   font-size: 14px;
   line-height: 1.75 !important;
   display: block;
@@ -156,13 +131,13 @@
   height: 20px;
 }
 .minecraft-theme .md-editor-code pre::-webkit-scrollbar-track {
-  background-color: #2A2A2A;
+  background-color: #2a2a2a;
 }
 .minecraft-theme .md-editor-code pre::-webkit-scrollbar-thumb {
-  background-color: #C6C6C6;
+  background-color: #c6c6c6;
   border: 4px solid;
-  border-top-color: #FFFFFF;
-  border-left-color: #FFFFFF;
+  border-top-color: #ffffff;
+  border-left-color: #ffffff;
   border-bottom-color: #555555;
   border-right-color: #555555;
 }
@@ -193,8 +168,7 @@
 .minecraft-theme h1 {
   font-size: 2rem;
   margin-bottom: 5px;
-  font-family:
-    'Minecraft-Tenv2', 'Cubic 11', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Minecraft-Tenv2', 'Cubic 11', system-ui, Avenir, Helvetica, Arial, sans-serif;
   border-bottom: 1px solid var(--border);
 }
 .minecraft-theme h2 {
@@ -218,7 +192,8 @@
   margin-top: 1.5rem;
   max-width: 100%;
   border: 4px solid;
-  border-image: url("https://unpkg.com/minecraft-framework-css@1.1.8/css/assets/imagelesshoverbg.png") 1;
+  border-image: url('https://unpkg.com/minecraft-framework-css@1.1.8/css/assets/imagelesshoverbg.png')
+    1;
 }
 .minecraft-theme a {
   color: var(--minecraft-green-light);
@@ -298,13 +273,14 @@
 }
 .minecraft-theme blockquote {
   color: #fff;
-  background:#8B5E3C;
+  background: #8b5e3c;
   box-shadow:
-    inset 0 0 0 4px #5D3A1A,
-    0 4px 0 0 #3E2723;
+    inset 0 0 0 4px #5d3a1a,
+    0 4px 0 0 #3e2723;
   border-radius: 2px;
   border: 3px solid;
-  border-image: url("https://unpkg.com/minecraft-framework-css@1.1.8/css/assets/dialogue-image.png") 2;
+  border-image: url('https://unpkg.com/minecraft-framework-css@1.1.8/css/assets/dialogue-image.png')
+    2;
   margin: 22px 0;
   padding: 1rem 1rem 1rem 3.5rem;
   position: relative;
@@ -313,18 +289,19 @@
   margin: 10px 0;
 }
 .minecraft-theme blockquote::before {
-  content:'';
+  content: '';
   position: absolute;
   left: 1rem;
   top: 2.5rem;
   transform: translateY(-50%);
   width: 32px;
   height: 32px;
-  background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect x="2" y="6" width="28" height="20" fill="%238B5E3C" stroke="%235D3A1A" stroke-width="2"/><rect x="6" y="10" width="20" height="2" fill="%235D3A1A"/><rect x="6" y="14" width="20" height="2" fill="%235D3A1A"/><rect x="6" y="18" width="12" height="2" fill="%235D3A1A"/></svg>') no-repeat center/contain;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect x="2" y="6" width="28" height="20" fill="%238B5E3C" stroke="%235D3A1A" stroke-width="2"/><rect x="6" y="10" width="20" height="2" fill="%235D3A1A"/><rect x="6" y="14" width="20" height="2" fill="%235D3A1A"/><rect x="6" y="18" width="12" height="2" fill="%235D3A1A"/></svg>')
+    no-repeat center/contain;
 }
 .minecraft-theme table {
-  border-collapse:separate;
-  border-spacing:0;
+  border-collapse: separate;
+  border-spacing: 0;
   font-size: 12px;
   margin: 2rem 0;
   padding: 4px;
@@ -350,7 +327,7 @@
   padding: 12px 7px;
   background: #8b8b8b;
   color: #000;
-  text-align:center;
+  text-align: center;
   font-size: 1rem;
   border-top: 4px solid #373737 !important;
   border-left: 4px solid #373737 !important;
@@ -361,12 +338,9 @@
 .minecraft-theme th {
   border-top: 4px solid #292929 !important;
   border-left: 4px solid #292929 !important;
-  background:#3f3f3f;
-  color:#FFF;
+  background: #3f3f3f;
+  color: #fff;
   font-size: 1.2rem;
-}
-.minecraft-theme td {
-  min-width: 120px;
 }
 .minecraft-theme td:hover {
   background: #aeaeae;
@@ -419,7 +393,7 @@
 
   font-family: 'Ark Latin', 'Cubic 11', system-ui, Avenir, Helvetica, Arial, sans-serif !important;
 }
-*[data-line="0"] {
+*[data-line='0'] {
   margin-top: 0 !important;
 }
 .minecraft-theme hr {

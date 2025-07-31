@@ -436,6 +436,11 @@ const optionFocus = ref(false)
 }
 
 @media screen and (max-width: 800px) {
+  .news-list-panel {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
   .news-list-container {
     grid-template-columns: repeat(1, minmax(17.5rem, 21.75rem));
   }

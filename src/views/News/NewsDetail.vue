@@ -25,7 +25,9 @@ const soundOn = () => {
 
 const mountSounds = () => {
   // mount audios
-  const buttons = document.querySelectorAll('.md-editor-copy-button, .md-editor-collapse-tips, .md-editor-code-flag')
+  const buttons = document.querySelectorAll(
+    '.md-editor-copy-button, .md-editor-collapse-tips, .md-editor-code-flag',
+  )
   buttons.forEach((button) => {
     button.addEventListener('click', soundOn)
   })
@@ -54,35 +56,37 @@ onMounted(async () => {
               alt="Author avatar"
             />
           </picture>
-          <div>
-            <div class="news-detail-author-title">作者</div>
-            <div class="news-detail-author-text">{{ newsDetail?.author.name }}</div>
-            <div
-              class="news-detail-author-name-container"
-              v-if="(newsDetail?.author.tags.length || 0) > 0"
-            >
+          <div class="news-detail-author-info">
+            <div>
+              <div class="news-detail-author-title">作者</div>
+              <div class="news-detail-author-text">{{ newsDetail?.author.name }}</div>
               <div
-                class="news-detail-author-tag"
-                v-for="tag in newsDetail?.author.tags"
-                :key="tag.text"
-                :style="{
-                  backgroundColor: tag.tagColor,
-                  color: tag.color,
-                }"
+                class="news-detail-author-name-container"
+                v-if="(newsDetail?.author.tags.length || 0) > 0"
               >
-                {{ tag.text }}
+                <div
+                  class="news-detail-author-tag"
+                  v-for="tag in newsDetail?.author.tags"
+                  :key="tag.text"
+                  :style="{
+                    backgroundColor: tag.tagColor,
+                    color: tag.color,
+                  }"
+                >
+                  {{ tag.text }}
+                </div>
               </div>
             </div>
-          </div>
-          <div>
-            <div class="news-detail-author-title">发布日期</div>
-            <div class="news-detail-author-text">{{ newsDetail?.entity.date }}</div>
+            <div>
+              <div class="news-detail-author-title">发布日期</div>
+              <div class="news-detail-author-text">{{ newsDetail?.entity.date }}</div>
+            </div>
           </div>
         </div>
       </aside>
       <main class="news-main-content">
         <div class="news-main-item-list">
-          <div style="width: 100%; margin: 1rem 0;" v-for="(item, index) in newsDetail?.content" :key="index">
+          <div class="news-main-item" v-for="(item, index) in newsDetail?.content" :key="index">
             <MdPreview
               v-if="item.type === 'markdown'"
               theme="dark"
@@ -95,7 +99,8 @@ onMounted(async () => {
               v-if="item.type === 'pdf_file'"
               class="pdf-read-btn"
               @click="scrollToIndex(index)"
-            >↓ 最佳阅读位置</MinecraftButton>
+              >↓ 最佳阅读位置</MinecraftButton
+            >
             <iframe
               :id="`pdf-renderer-${index}`"
               v-if="item.type === 'pdf_file'"
@@ -179,6 +184,12 @@ onMounted(async () => {
   outline: 2px solid var(--minecraft-gray-light);
 }
 
+.news-detail-author-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .news-detail-author-avatar-img {
   width: 6rem;
   height: 6rem;
@@ -238,6 +249,11 @@ onMounted(async () => {
   padding-bottom: 2rem;
 }
 
+.news-main-item {
+  width: 100%;
+  margin: 1rem 0;
+}
+
 .pdf-read-btn {
   height: 3rem;
   font-size: 1.2rem;
@@ -248,5 +264,33 @@ onMounted(async () => {
   width: 100%;
   height: 100vh;
   margin: 2rem 0;
+}
+
+@media screen and (max-width: 768px) {
+  .news-detail-content {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .news-detail-author-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .news-detail-author {
+    flex-direction: row;
+    width: auto;
+    gap: 1rem;
+    margin-bottom: 0;
+  }
+
+  .news-main-item-list {
+    padding: 1rem 2rem;
+  }
+
+  .news-main-item {
+    padding: 0;
+  }
 }
 </style>
