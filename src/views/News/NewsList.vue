@@ -343,6 +343,7 @@ const optionFocus = ref(false)
 }
 
 .news-list-loading {
+  user-select: none;
   width: 16rem;
   height: 16rem;
 }
