@@ -22,9 +22,19 @@ onMounted(async () => {
 
 <style lang="css" scoped>
 .activity-area {
+  min-height: 100vh;
   padding-top: 5rem;
   display: flex;
   flex-direction: column;
+  background-color: #303030;
+  background-image: url('/background/header-bg.png'), url('/background/bg.png');
+  background-repeat: repeat-x, repeat;
+  background-position:
+    top left,
+    top left;
+  background-size:
+    auto 234px,
+    468px;
 }
 
 .activity-area p {
@@ -35,6 +45,7 @@ onMounted(async () => {
 }
 
 .activity-list {
+  padding-top: 1rem;
   margin: 1rem;
 }
 

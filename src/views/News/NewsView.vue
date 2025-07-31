@@ -43,7 +43,7 @@ onMounted(async () => {
           style="animation: fade-in-down 0.5s ease-in-out 0.2s forwards"
           :news-brief="newsBrief[0]"
           button-text="更多活动"
-          @jump="router.replace(`/activity`)"
+          @jump="router.push(`/activity`)"
         />
         <div class="overview-divide vertical">
           <NewsCard

@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { ActivityEntity } from '@/api/activitylist'
+import MinecraftButton3D from '@/components/utils/MinecraftButton3D.vue'
 import { computed } from 'vue'
 
 const props = defineProps({
@@ -18,14 +19,7 @@ const isActive = computed(() => {
 </script>
 
 <template>
-  <div
-    class="activity-item"
-    :style="{
-      border: isActive
-        ? '2px solid var(--minecraft-green)'
-        : '2px solid var(--minecraft-gray-light)',
-    }"
-  >
+  <MinecraftButton3D class="activity-item">
     <img :src="props.activity.image" :alt="props.activity.title + ' image'" />
 
     <div class="activity-info">
@@ -44,19 +38,18 @@ const isActive = computed(() => {
       <p>{{ props.activity.title }}</p>
       <span> {{ props.activity.content }} </span>
     </div>
-  </div>
+  </MinecraftButton3D>
 </template>
 
 <style lang="css" scoped>
 .activity-item {
-  margin: 1rem;
-  border: 2px solid gray;
+  margin-bottom: 2rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
 
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-
-  box-shadow: 4px 4px rgba(0, 0, 0, 0.7);
 }
 
 .activity-item img {

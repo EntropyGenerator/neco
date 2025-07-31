@@ -27,7 +27,7 @@ const activeIndex = ref<number>(0)
 const setIndex = (index: number) => {
   soundOn()
   activeIndex.value = index
-  router.replace(navItems.value[index].url)
+  router.push(navItems.value[index].url)
 }
 
 const sliderStyle = computed(() => {
