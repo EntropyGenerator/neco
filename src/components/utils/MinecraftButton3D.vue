@@ -49,6 +49,10 @@ const props = defineProps({
   box-shadow: 4px 4px rgba(0, 0, 0, 0.7);
 }
 
+.minecraft-button-3d:hover::after {
+  background-color: #ffffff08;
+}
+
 .minecraft-button-3d.is-pressed {
   transform: translateY(12px);
   margin-bottom: 12px;
