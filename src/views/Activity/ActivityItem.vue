@@ -23,13 +23,10 @@ const isActive = computed(() => {
   <MinecraftButton3D
     class="activity-item"
     :style="{
-      'background-color': isActive ? 'rgb(45, 72, 31)' : 'rgb(88, 46, 46)'
+      'background-color': isActive ? 'rgb(45, 72, 31)' : 'rgb(88, 46, 46)',
     }"
   >
-    <img
-      :src="props.activity.image"
-      :alt="props.activity.title + ' image'"
-    />
+    <img :src="props.activity.image" :alt="props.activity.title + ' image'" />
 
     <div class="activity-info">
       <div class="activity-title">
@@ -39,7 +36,7 @@ const isActive = computed(() => {
         </div>
       </div>
       <div class="activity-date">
-        {{ `${props.activity.date} ~ ${props.activity.endDate ?? "长期"}` }}
+        {{ `${props.activity.date} ~ ${props.activity.endDate ?? '长期'}` }}
       </div>
       <div class="activity-brief">
         {{ props.activity.brief }}
@@ -81,7 +78,7 @@ const isActive = computed(() => {
 }
 
 .activity-status {
-  color: #F56C6C;
+  color: #f56c6c;
   border-radius: 4px;
   margin-left: 0.5rem;
   padding: 3px 8px;
@@ -89,8 +86,8 @@ const isActive = computed(() => {
   font-size: 0.9rem;
 }
 
-.activity-status[type="active"] {
-  color: #67C23A;
+.activity-status[type='active'] {
+  color: #67c23a;
   background-color: rgb(45, 72, 31);
 }
 

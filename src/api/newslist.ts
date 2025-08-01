@@ -33,7 +33,7 @@ export interface NewsDetail {
   category: string
 }
 
-export type NewsTarget = "information" | "magazine" | "notice" | "activity"
+export type NewsTarget = 'information' | 'magazine' | 'notice' | 'activity'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const GetNewsTotal = async (_target: NewsTarget) => {

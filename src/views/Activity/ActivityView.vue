@@ -1,7 +1,13 @@
 <script lang="ts" setup>
 import { computed, onMounted, ref } from 'vue'
 import ActivityItem from './ActivityItem.vue'
-import { GetNews, GetNewsBrief, GetNewsTotal, type NewsBrief, type NewsEntity } from '@/api/newslist'
+import {
+  GetNews,
+  GetNewsBrief,
+  GetNewsTotal,
+  type NewsBrief,
+  type NewsEntity,
+} from '@/api/newslist'
 
 const activityBrief = ref<NewsBrief[]>([])
 const activityTotal = ref<number>(0)
