@@ -9,12 +9,7 @@ const router = useRouter()
 
 const newsId = ref('information')
 
-const newsBrief = ref<NewsBrief[]>([
-  { id: '', image: '', title: '', brief: '' },
-  { id: '', image: '', title: '', brief: '' },
-  { id: '', image: '', title: '', brief: '' },
-  { id: '', image: '', title: '', brief: '' },
-])
+const newsBrief = ref<NewsBrief[]>([])
 
 const scrollToNews = () => {
   const newsList = document.getElementById('news-list')

@@ -67,6 +67,7 @@ export const GetNews = async (_target: NewsTarget, _page: number) => {
         title: '标题3',
         brief: '简介3',
         date: '2022-01-01',
+        endDate: '2023-04-26',
         image:
           'https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/game-characters/hoglin_bento.jpg',
       },
@@ -75,6 +76,7 @@ export const GetNews = async (_target: NewsTarget, _page: number) => {
         title: '标题4',
         brief: '简介4',
         date: '2022-01-02',
+        endDate: '2023-04-26',
         image:
           'https://www.minecraft.net/content/dam/games/minecraft/background-images/pmp-hero-minecraft.jpg',
       },
@@ -91,6 +93,7 @@ export const GetNewsDetail = async (_id: string) => {
         title: '标题1',
         brief: '简介1',
         date: '2022-01-01',
+        endDate: '2028-01-01',
         image:
           'https://www.minecraft.net/content/dam/games/minecraft/background-images/pmp-hero-minecraft.jpg',
       },

@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { ref } from 'vue'
+
 const soundOn = () => {
   const audio = new Audio(
     'https://unpkg.com/minecraft-framework-css@1.1.5/css/assets/random.click.ogg',
@@ -6,17 +8,36 @@ const soundOn = () => {
   audio.play()
   audio.volume = 0.3
 }
+const pressed = ref(false)
+
+const props = defineProps({
+  height: {
+    type: String,
+    default: '12rem',
+  },
+})
 </script>
 
 <template>
-  <div class="minecraft-button-3d" @click="soundOn">
+  <div
+    class="minecraft-button-3d"
+    :class="{
+      'is-pressed': pressed,
+    }"
+    :style="{
+      height: pressed ? `calc(${props.height} - 12px)` : props.height,
+    }"
+    @click="soundOn"
+    @mousedown="pressed = true"
+    @mouseup="pressed = false"
+    @mouseleave="pressed = false"
+  >
     <slot></slot>
   </div>
 </template>
 
 <style lang="css" scoped>
 .minecraft-button-3d {
-  height: 12rem;
   padding: 1rem 2rem;
   position: relative;
   cursor: pointer;
@@ -28,12 +49,12 @@ const soundOn = () => {
   box-shadow: 4px 4px rgba(0, 0, 0, 0.7);
 }
 
-.minecraft-button-3d:active {
-  margin-top: 12px;
-  height: calc(12rem - 12px);
+.minecraft-button-3d.is-pressed {
+  transform: translateY(12px);
+  margin-bottom: 12px;
 }
 
-.minecraft-button-3d:active::after {
+.minecraft-button-3d.is-pressed::after {
   box-shadow:
     2px 2px 0 0 rgba(178, 178, 178, 0.5) inset,
     -2px -2px 0 0 rgba(153, 153, 153, 0.5) inset;
@@ -55,16 +76,5 @@ const soundOn = () => {
   mix-blend-mode: hard-light;
   pointer-events: none;
   transition: all 0.1s ease-in-out;
-}
-
-@media screen and (max-width: 524px) {
-  .minecraft-button-3d {
-    height: 25rem;
-  }
-
-  .minecraft-button-3d:active {
-    margin-top: 12px;
-    height: calc(25rem - 12px);
-  }
 }
 </style>

@@ -1,26 +1,66 @@
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import ActivityItem from './ActivityItem.vue'
-import {
-  GetNews,
-  GetNewsBrief,
-  GetNewsTotal,
-  type NewsBrief,
-  type NewsEntity,
-} from '@/api/newslist'
+import { GetNews, GetNewsTotal, type NewsEntity } from '@/api/newslist'
+import MinecraftButton from '@/components/utils/MinecraftButton.vue'
+import MinecraftInput from '@/components/utils/MinecraftInput.vue'
 
-const activityBrief = ref<NewsBrief[]>([])
 const activityTotal = ref<number>(0)
 const activities = ref<NewsEntity[]>([])
 const page = ref<number>(1)
-// const maxPage = computed(() => {
-//   return Math.ceil(activityTotal.value / 12)
-// })
-// const pageInput = ref('1')
+const maxPage = computed(() => {
+  return Math.ceil(activityTotal.value / 12)
+})
+const pageInput = ref('1')
 const activityLoading = ref(false)
 
+const scrollToTitle = () => {
+  const newsList = document.getElementById('activity-title')
+  if (newsList) {
+    const targetPosition = newsList.offsetTop - 16
+    requestAnimationFrame(() => {
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth',
+      })
+    })
+  }
+}
+
+const refreshNews = () => {
+  activityLoading.value = true
+  scrollToTitle()
+  setTimeout(async () => {
+    activities.value = await GetNews('activity', page.value)
+    activityLoading.value = false
+  }, 1000)
+}
+
+const movePage = (dir: 'prev' | 'next') => {
+  if (dir === 'prev') {
+    if (page.value > 1) {
+      page.value--
+      refreshNews()
+    }
+  } else {
+    if (page.value < maxPage.value) {
+      page.value++
+      refreshNews()
+    }
+  }
+}
+
+const setPage = () => {
+  if (!Number.isNaN(pageInput.value)) {
+    const number = Number(pageInput.value)
+    if (number > 0 && number <= maxPage.value && number !== page.value) {
+      page.value = number
+      refreshNews()
+    }
+  }
+}
+
 onMounted(async () => {
-  activityBrief.value = await GetNewsBrief()
   activityTotal.value = await GetNewsTotal('activity')
   activityLoading.value = true
   activities.value = await GetNews('activity', page.value)
@@ -30,9 +70,41 @@ onMounted(async () => {
 
 <template>
   <div class="activity-area">
-    <p>活动</p>
-    <div class="activity-list">
-      <ActivityItem v-for="activity in activities" :key="activity.id" :activity="activity" />
+    <p id="activity-title">活动</p>
+    <div class="activity-list-loading-container" v-if="activityLoading">
+      <img class="activity-list-loading" src="/loading.gif" alt="loading" />
+    </div>
+    <div class="activity-list" v-else>
+      <ActivityItem
+        class="activity-item"
+        v-for="activity in activities"
+        :key="activity.id"
+        :activity="activity"
+        :style="{
+          '--delay': activities.indexOf(activity) * 0.1 + 's',
+        }"
+      />
+    </div>
+    <div class="activity-pagination" v-if="!activityLoading">
+      <div class="activity-pagination-item">
+        <MinecraftButton class="activity-pagination-button" @click="movePage('prev')">{{
+          '<'
+        }}</MinecraftButton>
+        <text class="activity-pagination-text">第</text>
+        <text class="activity-pagination-text special page">{{ page }}</text>
+        <text class="activity-pagination-text">/</text>
+        <text class="activity-pagination-text special total">{{ maxPage }}</text>
+        <text class="activity-pagination-text">页</text>
+        <MinecraftButton class="activity-pagination-button" @click="movePage('next')">{{
+          '>'
+        }}</MinecraftButton>
+      </div>
+      <div class="activity-pagination-item">
+        <text class="activity-pagination-text">前往</text>
+        <MinecraftInput class="activity-pagination-input" v-model="pageInput" />
+        <text class="activity-pagination-text">页</text>
+        <MinecraftButton class="activity-pagination-button" @click="setPage">→</MinecraftButton>
+      </div>
     </div>
   </div>
 </template>
@@ -55,11 +127,32 @@ onMounted(async () => {
 }
 
 .activity-area p {
+  user-select: none;
   color: #fff;
   font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
   margin: 0;
+}
+
+.activity-item {
+  opacity: 0;
+  animation: fade-in 0.5s ease-in-out forwards;
+  animation-delay: var(--delay);
+}
+
+.activity-list-loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 40rem;
+}
+
+.activity-list-loading {
+  user-select: none;
+  width: 16rem;
+  height: 16rem;
 }
 
 .activity-list {
@@ -73,5 +166,61 @@ onMounted(async () => {
 
 .post-list {
   margin: 1rem;
+}
+
+.activity-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.activity-pagination-item {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  margin-top: 1rem;
+}
+
+.activity-pagination-button {
+  font-size: 1.5rem;
+  height: 2rem;
+  width: 2rem;
+}
+
+.activity-pagination-text {
+  user-select: none;
+  font-size: 1.5rem;
+  margin: 0 0.5rem;
+}
+
+.activity-pagination-text.special {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  height: 2rem;
+  padding: 4px;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.activity-pagination-text.page {
+  border: 1px solid #a0e081;
+}
+
+.activity-pagination-text.total {
+  border: 1px solid white;
+}
+
+.activity-pagination-input {
+  height: 2rem;
+  width: 3rem;
+  font-size: 1rem;
+  text-align: center;
 }
 </style>

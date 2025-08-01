@@ -57,7 +57,7 @@ onMounted(async () => {
             />
           </picture>
           <div class="news-detail-author-info">
-            <div>
+            <div class="news-detail-author-info-item">
               <div class="news-detail-author-title">作者</div>
               <div class="news-detail-author-text">{{ newsDetail?.author.name }}</div>
               <div
@@ -77,9 +77,18 @@ onMounted(async () => {
                 </div>
               </div>
             </div>
-            <div>
+            <div
+              class="news-detail-author-info-item"
+              v-if="newsDetail?.entity.endDate === undefined"
+            >
               <div class="news-detail-author-title">发布日期</div>
               <div class="news-detail-author-text">{{ newsDetail?.entity.date }}</div>
+            </div>
+            <div class="news-detail-author-info-item" v-else>
+              <div class="news-detail-author-title">起止日期</div>
+              <div class="news-detail-author-text">
+                {{ `${newsDetail?.entity.date} ~ ${newsDetail?.entity.endDate}` }}
+              </div>
             </div>
           </div>
         </div>
@@ -185,6 +194,12 @@ onMounted(async () => {
 }
 
 .news-detail-author-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.news-detail-author-info-item {
   display: flex;
   flex-direction: column;
   align-items: center;

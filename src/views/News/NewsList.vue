@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref, onMounted, watch, computed } from 'vue'
-import { GetNews, GetNewsBrief, GetNewsTotal, type NewsBrief } from '@/api/newslist'
+import { GetNews, GetNewsTotal } from '@/api/newslist'
 import type { NewsEntity, NewsTarget } from '@/api/newslist'
 import NewsItem from './NewsItem.vue'
 import MinecraftButton from '@/components/utils/MinecraftButton.vue'
@@ -13,7 +13,6 @@ const model = defineModel({
   default: 'information',
 })
 
-const newsBrief = ref<NewsBrief[]>([])
 const newsTotal = ref<number>(0)
 const news = ref<NewsEntity[]>([])
 const page = ref<number>(1)
@@ -68,7 +67,6 @@ watch(
 )
 
 onMounted(async () => {
-  newsBrief.value = await GetNewsBrief()
   newsTotal.value = await GetNewsTotal(model.value as NewsTarget)
   newsLoading.value = true
   news.value = await GetNews(model.value as NewsTarget, page.value)

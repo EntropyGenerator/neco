@@ -35,6 +35,15 @@
   margin: 0 4px;
 }
 
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @keyframes fade-in-right {
   from {
     opacity: 0;

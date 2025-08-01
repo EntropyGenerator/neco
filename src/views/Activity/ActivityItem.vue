@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { NewsEntity } from '@/api/newslist'
 import MinecraftButton3D from '@/components/utils/MinecraftButton3D.vue'
-import { computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 
 const props = defineProps({
   activity: {
@@ -9,6 +9,10 @@ const props = defineProps({
     required: true,
   },
 })
+
+const isMobile = ref(false)
+const check = () => (isMobile.value = window.innerWidth < 524)
+
 const isActive = computed(() => {
   const currentDate = new Date()
   const nextYear = new Date(currentDate.getTime())
@@ -17,14 +21,24 @@ const isActive = computed(() => {
   const endDate = new Date(props.activity.endDate ?? nextYear.getTime())
   return currentDate >= startDate && currentDate <= endDate
 })
+
+onMounted(() => {
+  check()
+  window.addEventListener('resize', check)
+})
+onUnmounted(() => {
+  window.removeEventListener('resize', check)
+})
 </script>
 
 <template>
   <MinecraftButton3D
     class="activity-item"
+    :height="isMobile ? '25rem' : '12rem'"
     :style="{
       'background-color': isActive ? 'rgb(45, 72, 31)' : 'rgb(88, 46, 46)',
     }"
+    @click="$router.push(`/news/detail/${props.activity.id}`)"
   >
     <img :src="props.activity.image" :alt="props.activity.title + ' image'" />
 
@@ -101,10 +115,9 @@ const isActive = computed(() => {
   color: #eee;
 }
 
-@media screen and (max-width: 540px) {
+@media screen and (max-width: 524px) {
   .activity-item {
     flex-direction: column;
-    height: 25rem;
   }
 
   .activity-item img {
