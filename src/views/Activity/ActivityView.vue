@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import ActivityItem from './ActivityItem.vue'
 import {
   GetNews,
@@ -13,10 +13,10 @@ const activityBrief = ref<NewsBrief[]>([])
 const activityTotal = ref<number>(0)
 const activities = ref<NewsEntity[]>([])
 const page = ref<number>(1)
-const maxPage = computed(() => {
-  return Math.ceil(activityTotal.value / 12)
-})
-const pageInput = ref('1')
+// const maxPage = computed(() => {
+//   return Math.ceil(activityTotal.value / 12)
+// })
+// const pageInput = ref('1')
 const activityLoading = ref(false)
 
 onMounted(async () => {
