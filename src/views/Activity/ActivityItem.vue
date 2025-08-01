@@ -1,75 +1,123 @@
 <script lang="ts" setup>
-import type { ActivityEntity } from '@/api/activitylist'
+import type { NewsEntity } from '@/api/newslist'
 import MinecraftButton3D from '@/components/utils/MinecraftButton3D.vue'
 import { computed } from 'vue'
 
 const props = defineProps({
   activity: {
-    type: Object as () => ActivityEntity,
+    type: Object as () => NewsEntity,
     required: true,
   },
 })
 const isActive = computed(() => {
-  const currentdate = new Date()
-  return (
-    currentdate.getTime() >= props.activity.starttime.getTime() &&
-    currentdate.getTime() <= props.activity.endtime.getTime()
-  )
+  const currentDate = new Date()
+  const nextYear = new Date(currentDate.getTime())
+  nextYear.setFullYear(nextYear.getFullYear() + 1)
+  const startDate = new Date(props.activity.date)
+  const endDate = new Date(props.activity.endDate ?? nextYear.getTime())
+  return currentDate >= startDate && currentDate <= endDate
 })
 </script>
 
 <template>
-  <MinecraftButton3D class="activity-item">
-    <img :src="props.activity.image" :alt="props.activity.title + ' image'" />
+  <MinecraftButton3D
+    class="activity-item"
+    :style="{
+      'background-color': isActive ? 'rgb(45, 72, 31)' : 'rgb(88, 46, 46)'
+    }"
+  >
+    <img
+      :src="props.activity.image"
+      :alt="props.activity.title + ' image'"
+    />
 
     <div class="activity-info">
-      <div id="date">
-        <span v-if="isActive" style="color: green">进行中 </span>
-        <span v-else style="color: gray">已结束 </span>
-        <span>
-          {{ props.activity.starttime.getFullYear() }}-{{
-            props.activity.starttime.getMonth() + 1
-          }}-{{ props.activity.starttime.getDate() }} -
-          {{ props.activity.endtime.getFullYear() }}-{{ props.activity.endtime.getMonth() + 1 }}-{{
-            props.activity.endtime.getDate()
-          }}
-        </span>
+      <div class="activity-title">
+        {{ props.activity.title }}
+        <div class="activity-status" :type="isActive ? 'active' : 'inactive'">
+          {{ isActive ? '进行中' : '已结束' }}
+        </div>
       </div>
-      <p>{{ props.activity.title }}</p>
-      <span> {{ props.activity.content }} </span>
+      <div class="activity-date">
+        {{ `${props.activity.date} ~ ${props.activity.endDate ?? "长期"}` }}
+      </div>
+      <div class="activity-brief">
+        {{ props.activity.brief }}
+      </div>
     </div>
   </MinecraftButton3D>
 </template>
 
 <style lang="css" scoped>
 .activity-item {
-  margin-bottom: 2rem;
-  margin-left: 1rem;
-  margin-right: 1rem;
+  margin: 0 auto;
 
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  width: 100%;
+  max-width: 1024px;
 }
 
 .activity-item img {
   height: 9rem;
   width: 16rem;
+  overflow: hidden;
+  user-select: none;
+  object-fit: cover;
 }
 
 .activity-info {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  padding-left: 2rem;
 }
 
-.activity-info #date {
-  font-size: 0.7rem;
-}
-
-.activity-info p {
-  font-weight: bold;
+.activity-title {
+  display: flex;
+  align-items: center;
+  color: #fff;
   font-size: 1.5rem;
-  margin: 0;
+}
+
+.activity-status {
+  color: #F56C6C;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+  padding: 3px 8px;
+  background-color: rgb(88, 46, 46);
+  font-size: 0.9rem;
+}
+
+.activity-status[type="active"] {
+  color: #67C23A;
+  background-color: rgb(45, 72, 31);
+}
+
+.activity-date {
+  margin: 0.5rem 0;
+  font-size: 0.8rem;
+}
+
+.activity-brief {
+  font-size: 1rem;
+  color: #eee;
+}
+
+@media screen and (max-width: 540px) {
+  .activity-item {
+    flex-direction: column;
+    height: 25rem;
+  }
+
+  .activity-item img {
+    width: 100%;
+    height: 12rem;
+    margin-bottom: 1rem;
+  }
+
+  .activity-info {
+    padding: 0;
+  }
 }
 </style>

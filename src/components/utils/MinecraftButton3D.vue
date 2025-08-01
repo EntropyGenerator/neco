@@ -56,4 +56,15 @@ const soundOn = () => {
   pointer-events: none;
   transition: all 0.1s ease-in-out;
 }
+
+@media screen and (max-width: 524px) {
+  .minecraft-button-3d {
+    height: 25rem;
+  }
+
+  .minecraft-button-3d:active {
+    margin-top: 12px;
+    height: calc(25rem - 12px);
+  }
+}
 </style>

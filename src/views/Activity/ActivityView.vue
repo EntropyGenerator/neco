@@ -1,13 +1,24 @@
 <script lang="ts" setup>
-import { type ActivityEntity, GetActivityList } from '@/api/activitylist'
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import ActivityItem from './ActivityItem.vue'
+import { GetNews, GetNewsBrief, GetNewsTotal, type NewsBrief, type NewsEntity } from '@/api/newslist'
 
-const activities = ref<ActivityEntity[]>([])
+const activityBrief = ref<NewsBrief[]>([])
+const activityTotal = ref<number>(0)
+const activities = ref<NewsEntity[]>([])
+const page = ref<number>(1)
+const maxPage = computed(() => {
+  return Math.ceil(activityTotal.value / 12)
+})
+const pageInput = ref('1')
+const activityLoading = ref(false)
 
 onMounted(async () => {
-  const res = await GetActivityList()
-  activities.value.splice(0, activities.value.length, ...res)
+  activityBrief.value = await GetNewsBrief()
+  activityTotal.value = await GetNewsTotal('activity')
+  activityLoading.value = true
+  activities.value = await GetNews('activity', page.value)
+  activityLoading.value = false
 })
 </script>
 
@@ -38,6 +49,7 @@ onMounted(async () => {
 }
 
 .activity-area p {
+  color: #fff;
   font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
@@ -45,8 +57,12 @@ onMounted(async () => {
 }
 
 .activity-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding-top: 1rem;
-  margin: 1rem;
+  margin: 1.5rem;
+  gap: 1.5rem;
 }
 
 .post-list {

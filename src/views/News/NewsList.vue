@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref, onMounted, watch, computed } from 'vue'
 import { GetNews, GetNewsBrief, GetNewsTotal, type NewsBrief } from '@/api/newslist'
-import type { NewsEntity } from '@/api/newslist'
+import type { NewsEntity, NewsTarget } from '@/api/newslist'
 import NewsItem from './NewsItem.vue'
 import MinecraftButton from '@/components/utils/MinecraftButton.vue'
 import MinecraftInput from '@/components/utils/MinecraftInput.vue'
@@ -9,16 +9,11 @@ import MinecraftInput from '@/components/utils/MinecraftInput.vue'
 const emit = defineEmits(['need-scroll'])
 
 const model = defineModel({
-  type: String,
+  type: Object as () => NewsTarget,
   default: 'information',
 })
 
-const newsBrief = ref<NewsBrief[]>([
-  { id: '', image: '', title: '', brief: '' },
-  { id: '', image: '', title: '', brief: '' },
-  { id: '', image: '', title: '', brief: '' },
-  { id: '', image: '', title: '', brief: '' },
-])
+const newsBrief = ref<NewsBrief[]>([])
 const newsTotal = ref<number>(0)
 const news = ref<NewsEntity[]>([])
 const page = ref<number>(1)
@@ -32,7 +27,7 @@ const refreshNews = () => {
   newsLoading.value = true
   emit('need-scroll')
   setTimeout(async () => {
-    news.value = await GetNews(model.value, page.value)
+    news.value = await GetNews(model.value as NewsTarget, page.value)
     newsLoading.value = false
   }, 1000)
 }
@@ -74,9 +69,9 @@ watch(
 
 onMounted(async () => {
   newsBrief.value = await GetNewsBrief()
-  newsTotal.value = await GetNewsTotal(model.value)
+  newsTotal.value = await GetNewsTotal(model.value as NewsTarget)
   newsLoading.value = true
-  news.value = await GetNews(model.value, page.value)
+  news.value = await GetNews(model.value as NewsTarget, page.value)
   newsLoading.value = false
 })
 

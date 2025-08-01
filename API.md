@@ -305,7 +305,7 @@ Remove session.
 
 ```json
 {
-    "target": "information" | "magazine" | "notice",
+    "target": "information" | "magazine" | "notice" | "activity",
 }
 ```
 
@@ -390,20 +390,8 @@ Remove session.
             ...
         ],
     },
-    "category": "资讯" | "杂志" | "公告",
+    "category": "资讯" | "杂志" | "公告" | "活动",
 }
 ```
-
-### Activity
-
-#### Activity List
-
-- request
-
-`GET /activity`
-
-- response
-
-TODO
 
 ### TODO

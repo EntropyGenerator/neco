@@ -45,6 +45,9 @@ onMounted(async () => {
       activeIndex.value = index
     }
   })
+  if (path === '/activity') {
+    activeIndex.value = 2
+  }
 })
 </script>
 

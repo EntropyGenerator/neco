@@ -3,6 +3,7 @@ export interface NewsEntity {
   title: string
   brief: string
   date: string
+  endDate?: string
   image: string
 }
 
@@ -32,15 +33,17 @@ export interface NewsDetail {
   category: string
 }
 
+export type NewsTarget = "information" | "magazine" | "notice" | "activity"
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const GetNewsTotal = async (_target: string) => {
+export const GetNewsTotal = async (_target: NewsTarget) => {
   return new Promise<number>((resolve) => {
     resolve(3389)
   })
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const GetNews = async (_target: string, _page: number) => {
+export const GetNews = async (_target: NewsTarget, _page: number) => {
   return new Promise<NewsEntity[]>((resolve) => {
     resolve([
       {
@@ -65,7 +68,7 @@ export const GetNews = async (_target: string, _page: number) => {
         brief: '简介3',
         date: '2022-01-01',
         image:
-          'https://www.minecraft.net/content/dam/games/minecraft/background-images/pmp-hero-minecraft.jpg',
+          'https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/game-characters/hoglin_bento.jpg',
       },
       {
         id: '4',
