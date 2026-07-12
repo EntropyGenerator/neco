@@ -1,0 +1,218 @@
+:root {
+  --minecraft-green: #3c8527;
+  --minecraft-green-light: #6cc349;
+  --minecraft-green-dark: #2a641c;
+  --minecraft-gray-light: #747271;
+  --minecraft-gray: #3d3938;
+  --minecraft-gray-dark: #262524;
+  --minecraft-dark: #171615;
+
+  --background-color: var(--minecraft-dark);
+  --background-page: #0f0e0d;
+  --background-card: #313131;
+
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: 1px;
+
+  color-scheme: dark;
+  color: rgba(255, 255, 255, 0.8);
+  background-color: var(--background-color);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  font-family:
+    'Ark Latin' /*, 'Minecraft_AE'*/,
+    'Cubic 11',
+    system-ui,
+    Avenir,
+    Helvetica,
+    Arial,
+    sans-serif !important;
+  font-smooth: never;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: none;
+}
+
+.title-font {
+  font-family:
+    'Minecraft-Tenv2',
+    'Ark Latin' /*, 'Minecraft_AE'*/,
+    'Cubic 11',
+    system-ui,
+    Avenir,
+    Helvetica,
+    Arial,
+    sans-serif !important;
+  margin: 0 4px;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mc-border {
+  box-sizing: border-box;
+  color: #fff;
+  background-color: color-mix(in srgb, white, black 75%);
+  border: 8px solid;
+  border-image: url('/UI/dialog_background_hollow_4.png') 8;
+}
+
+:where(button, a, input, textarea, select, summary, [tabindex]:not([tabindex='-1'])):focus-visible {
+  outline: 2px solid var(--minecraft-green-light);
+  outline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  white-space: nowrap;
+  border: 0;
+  clip: rect(0 0 0 0);
+}
+
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 99999;
+
+  padding: 0.75rem 1rem;
+  background: #000;
+  color: #fff;
+  border: 2px solid #fff;
+  text-decoration: none;
+
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.nmo-page-shell {
+  width: 100%;
+  min-height: calc(100vh - 5rem);
+  padding: 5rem clamp(1rem, 4vw, 4rem) 3rem;
+  box-sizing: border-box;
+}
+
+.nmo-hero-panel {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  background:
+    linear-gradient(135deg, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.45)),
+    url('/blockbg/deepslate-tiles.png');
+  background-size:
+    auto,
+    32px 32px;
+  border: 8px solid;
+  border-image: url('/UI/dialog_background_hollow_4.png') 8;
+  box-shadow:
+    inset -4px -4px 0 0 rgba(0, 0, 0, 0.45),
+    inset 4px 4px 0 0 rgba(255, 255, 255, 0.1),
+    0 0.75rem 2rem rgba(0, 0, 0, 0.35);
+}
+
+.nmo-section-title {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(1.6rem, 3vw, 2.6rem);
+  line-height: 1.2;
+}
+
+.nmo-section-desc {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.76);
+  line-height: 1.7;
+}
+
+.nmo-card {
+  color: #fff;
+  background-color: rgba(31, 31, 31, 0.92);
+  border: 4px solid #222;
+  box-shadow:
+    inset -3px -3px 0 0 #191919,
+    inset 3px 3px 0 0 #484848,
+    0 0.5rem 1rem rgba(0, 0, 0, 0.22);
+}
+
+.nmo-card-soft {
+  color: #fff;
+  background-color: rgba(20, 20, 20, 0.68);
+  border: 2px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    inset -2px -2px 0 0 rgba(0, 0, 0, 0.4),
+    inset 2px 2px 0 0 rgba(255, 255, 255, 0.08);
+}
+
+.nmo-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #777 #222;
+}
+
+.nmo-scrollbar::-webkit-scrollbar {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.nmo-scrollbar::-webkit-scrollbar-track {
+  background: #222;
+  border: 1px solid #111;
+}
+
+.nmo-scrollbar::-webkit-scrollbar-thumb {
+  background: #777;
+  border: 1px solid #aaa;
+}

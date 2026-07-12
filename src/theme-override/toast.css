@@ -1,0 +1,44 @@
+.Vue-Toastification__toast {
+  border-radius: 0;
+}
+
+.Vue-Toastification__close-button {
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.Vue-Toastification__close-button:hover {
+  transform-origin: 15px 13px;
+  transform: rotate(180deg);
+}
+
+.Vue-Toastification__toast--default {
+  user-select: none;
+  background: url('/blockbg/block-of-lapis-lazuli.png');
+  background-size: auto, 24px;
+}
+
+.Vue-Toastification__toast--success {
+  user-select: none;
+  background: url('/blockbg/moss-block.png');
+  background-size: auto, 24px;
+}
+
+.Vue-Toastification__toast--info {
+  user-select: none;
+  background: url('/blockbg/deepslate-tiles.png');
+  background-size: auto, 24px;
+}
+
+.Vue-Toastification__toast--warning {
+  user-select: none;
+  background:
+    linear-gradient(to bottom, rgba(16, 16, 16, 0.3)), url('/blockbg/honeycomb-block.png');
+  background-size: auto, 24px;
+}
+
+.Vue-Toastification__toast--error {
+  user-select: none;
+  background: url('/blockbg/red-wool.png');
+  background-size: auto, 24px;
+}
