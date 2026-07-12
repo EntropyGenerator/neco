@@ -7,7 +7,7 @@
 <style lang="css" scoped>
 .center {
   height: 100vh;
-  width: 100vw;
+  width: 101vw;
   padding: auto;
   display: flex;
   justify-content: center;
