@@ -31,6 +31,7 @@ const navItems = ref<NavItem[]>([
   { name: '新闻', url: '/news' },
   { name: '关于', url: '/about' },
   { name: '文档', url: '/documents' },
+  { name: '百科', url: '/wiki' },
 ])
 const activeIndex = ref<number>(0)
 
@@ -51,7 +52,7 @@ onBeforeRouteUpdate((to) => {
       activeIndex.value = index
     }
   })
-  if (['/documents', '/news', '/list'].includes(path)) {
+  if (['/documents', '/news', '/list', '/wiki'].includes(path)) {
     showLantern.value = false
   } else {
     showLantern.value = true
@@ -65,7 +66,7 @@ onMounted(() => {
       activeIndex.value = index
     }
   })
-  if (['/documents', '/news', '/list'].includes(path)) {
+  if (['/documents', '/news', '/list', '/wiki'].includes(path)) {
     showLantern.value = false
   } else {
     showLantern.value = true

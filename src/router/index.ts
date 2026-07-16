@@ -51,6 +51,18 @@ const router = createRouter({
           component: () => import('../views/Documents/DocumentsView.vue'),
           meta: { title: 'NMO | 文档' },
         },
+        {
+          path: '/wiki',
+          name: 'wiki',
+          component: () => import('../views/Wiki/WikiView.vue'),
+          meta: { title: 'NMO | 百科' },
+        },
+        {
+          path: '/wiki/detail/:kind/:id',
+          name: 'wiki detail',
+          component: () => import('../views/Wiki/WikiDetailPage.vue'),
+          meta: { title: 'NMO | 百科详情' },
+        },
       ],
     },
     {
@@ -94,6 +106,12 @@ const router = createRouter({
           name: 'bot management',
           component: () => import('../views/Management/Components/BotManagementView.vue'),
           meta: { title: 'NMO | 机器人连接' },
+        },
+        {
+          path: '/management/wiki',
+          name: 'wiki management',
+          component: () => import('../views/Management/Components/WikiManagementView.vue'),
+          meta: { title: 'NMO | 百科管理' },
         },
       ],
     },
