@@ -792,7 +792,7 @@ const onUploadImg = async (
           />
         </div>
       </div>
-    </section>h
+    </section>
     <section class="management-card" aria-labelledby="news-content-card-title">
       <h3 id="news-content-card-title" class="management-card-title">正文内容</h3>
 
