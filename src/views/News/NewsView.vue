@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
 import { onMounted, ref } from 'vue'
-import { GetNewsBrief, type NewsEntity } from '@/api/newslist'
+import { GetNewsBrief, type NewsEntity, type NewsTarget } from '@/api/newslist'
 import NewsCard from './NewsCard.vue'
 import NewsList from './NewsList.vue'
 
 const router = useRouter()
 
-const newsId = ref('information')
+const newsId = ref<NewsTarget>('information')
 const newsBrief = ref<NewsEntity[]>([])
 const newsReady = ref(false)
 
