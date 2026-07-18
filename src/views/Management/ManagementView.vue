@@ -95,13 +95,6 @@ onUnmounted(() => {
       >百科管理</MinecraftButtonClassic
       >
 
-      <MinecraftButtonClassic
-        class="management-nav"
-        :activated="route.path.endsWith('/management/wiki')"
-        @click="router.replace('/management/wiki')"
-        >百科管理</MinecraftButtonClassic
-      >
-
       <div style="display: flex; flex-direction: column; margin-top: auto">
         <MinecraftButtonClassic class="management-nav" @click="router.push('/')"
         >回到主页</MinecraftButtonClassic
