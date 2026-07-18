@@ -68,8 +68,8 @@ const router = createRouter({
         {
           path: '/management/club',
           name: 'club management',
-          component: () => import('../views/Management/Components/ClubManagementView.vue'),
-          meta: { title: 'NMO | 社团管理' },
+          component: () => import('../views/Management/Components/DepartmentManagementView.vue'),
+          meta: { title: 'NMO | 部门管理' },
         },
         {
           path: '/management/server',

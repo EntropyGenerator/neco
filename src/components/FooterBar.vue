@@ -60,6 +60,10 @@ onMounted(async () => {
           <img src="/friend-logo/bcl_logo.png" class="link-icon" alt="" />
           东南大学六朝松信标社
         </a>
+        <a class="link-item" href="https://skin.nmo.net.cn/">
+          <img src="https://skin.nmo.net.cn/app/NMO_intel.ico" class="link-icon" alt="" />
+          NMO皮肤站
+        </a>
       </div>
     </div>
   </div>
