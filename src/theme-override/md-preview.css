@@ -168,7 +168,6 @@
 .minecraft-theme h1 {
   font-size: 2rem;
   margin-bottom: 5px;
-  font-family: 'Minecraft-Tenv2', 'Cubic 11', system-ui, Avenir, Helvetica, Arial, sans-serif;
   border-bottom: 1px solid var(--border);
 }
 .minecraft-theme h2 {
@@ -286,17 +285,13 @@
 .minecraft-theme blockquote > p {
   margin: 10px 0;
 }
-.minecraft-theme blockquote::before {
-  content: '';
-  position: absolute;
-  left: 1rem;
-  top: 2.5rem;
-  transform: translateY(-50%);
-  width: 32px;
-  height: 32px;
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect x="2" y="6" width="28" height="20" fill="%238B5E3C" stroke="%235D3A1A" stroke-width="2"/><rect x="6" y="10" width="20" height="2" fill="%235D3A1A"/><rect x="6" y="14" width="20" height="2" fill="%235D3A1A"/><rect x="6" y="18" width="12" height="2" fill="%235D3A1A"/></svg>')
-    no-repeat center/contain;
-}
+/**
+ * 把引用左上角的没用标签删掉了
+ */
+
+
+
+
 .minecraft-theme table {
   border-collapse: separate;
   border-spacing: 0;
@@ -388,8 +383,6 @@
   line-height: 1.75;
   position: relative;
   word-break: break-word;
-
-  font-family: 'Ark Latin', 'Cubic 11', system-ui, Avenir, Helvetica, Arial, sans-serif !important;
 }
 *[data-line='0'] {
   margin-top: 0 !important;

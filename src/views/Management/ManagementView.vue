@@ -18,11 +18,7 @@ const onLogout = () => {
 }
 
 const onResize = () => {
-  if (window.innerWidth < 768) {
-    sidebarExpand.value = false
-  } else {
-    sidebarExpand.value = true
-  }
+  sidebarExpand.value = window.innerWidth >= 768;
 }
 
 onMounted(async () => {
@@ -97,6 +93,13 @@ onUnmounted(() => {
         :activated="route.path.endsWith('/management/wiki')"
         @click="router.replace('/management/wiki')"
       >百科管理</MinecraftButtonClassic
+      >
+
+      <MinecraftButtonClassic
+        class="management-nav"
+        :activated="route.path.endsWith('/management/wiki')"
+        @click="router.replace('/management/wiki')"
+        >百科管理</MinecraftButtonClassic
       >
 
       <div style="display: flex; flex-direction: column; margin-top: auto">
@@ -210,30 +213,6 @@ onUnmounted(() => {
 </style>
 
 <style lang="css">
-.management-tab-title {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.management-tab-form-title {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.management-tab-title-container {
-  display: flex;
-  align-items: flex-end;
-  width: 100%;
-  border-bottom: 1px solid var(--minecraft-gray-light);
-  padding-bottom: 1rem;
-}
-
-.management-tab-title {
-  color: white;
-  user-select: none;
-  font-size: 1.5rem;
-  margin-right: 1rem;
-}
 
 .management-tab-subtitle {
   user-select: none;

@@ -97,7 +97,7 @@ onMounted(async () => {
             <span class="news-category-chip">{{ newsDetail.category }}</span>
             <time>{{ dateText }}</time>
           </div>
-          <h1 class="news-hero-title title-font">{{ newsDetail.entity.title }}</h1>
+          <h1 class="news-hero-title mctitle">{{ newsDetail.entity.title }}</h1>
           <p class="news-hero-brief">{{ newsDetail.entity.brief }}</p>
         </div>
 

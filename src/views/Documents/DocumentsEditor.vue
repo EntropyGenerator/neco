@@ -761,7 +761,6 @@ onUnmounted(() => {
 
 .minecraft-md-editor :deep(.cm-content) {
   padding: 1.25rem;
-  font-family: 'Cubic 11', 'Ark Latin', system-ui, Avenir, Helvetica, Arial, sans-serif !important;
 }
 
 .minecraft-md-editor :deep(.md-editor-input-wrapper) {

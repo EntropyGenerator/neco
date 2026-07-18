@@ -1,8 +1,5 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
-import QQIcon from './icons/QQIcon.vue'
-import BilibiliIcon from './icons/BilibiliIcon.vue'
-import GithubIcon from './icons/GithubIcon.vue'
 import { GetSlogan } from '@/api/slogan'
 import { RouterLink } from 'vue-router'
 
@@ -17,8 +14,8 @@ onMounted(async () => {
   <div class="footer-area">
     <div class="footer-description">
       <img src="/nmo-logo-large.png" alt="" style="width: 5rem; user-select: none" />
-      <p style="user-select: none">南京大学 Minecraft 协会</p>
-      <span style="margin-bottom: 0.5rem">{{ slogan }}</span>
+      <p style="user-select: none" class="mctitle">南京大学 Minecraft 协会</p>
+      <span style="margin-bottom: 0.5rem" class="mcfont">{{ slogan }}</span>
       <span id="copyright" style="user-select: none">
         © 2025 - All rights reserved |
         <a style="color: rgb(128, 128, 128)" href="https://beian.miit.gov.cn/"
@@ -31,40 +28,6 @@ onMounted(async () => {
       </span>
 
       <RouterLink id="management" to="/management/user">后台</RouterLink>
-    </div>
-
-    <div class="footer-links">
-      <div class="link-block">
-        <p>外部链接</p>
-        <a class="link-item" href="https://qm.qq.com/q/J9i2nFAFkS">
-          <QQIcon class="link-icon" />
-          QQ交流群
-        </a>
-        <a class="link-item" href="https://space.bilibili.com/646892894">
-          <BilibiliIcon class="link-icon" />
-          bilibili
-        </a>
-        <a class="link-item" href="https://github.com/EntropyGenerator/neco">
-          <GithubIcon class="link-icon" />
-          Github源码
-        </a>
-        <a class="link-item" href="https://vanillalibrary.mcfpp.top/datapack-index/">
-          <img
-            src="https://vanillalibrary.mcfpp.top/datapack-index/icons/bg5.png"
-            class="link-icon"
-            alt=""
-          />
-          香草图书馆
-        </a>
-        <a class="link-item" href="https://seubcl.cn">
-          <img src="/friend-logo/bcl_logo.png" class="link-icon" alt="" />
-          东南大学六朝松信标社
-        </a>
-        <a class="link-item" href="https://skin.nmo.net.cn/">
-          <img src="https://skin.nmo.net.cn/app/NMO_intel.ico" class="link-icon" alt="" />
-          NMO皮肤站
-        </a>
-      </div>
     </div>
   </div>
 </template>

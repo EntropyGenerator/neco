@@ -254,7 +254,7 @@ onUnmounted(() => {
         <img :src="server.status?.icon || server.icon" class="server-icon" alt="" />
       </button>
 
-      <div class="item-info">
+      <div class="item-info mcfont">
         <span
           style="
             color: white;

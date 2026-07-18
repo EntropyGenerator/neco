@@ -1,9 +1,10 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
 import { GetServerList, type ServerEntity } from '../../api/serverlist'
+import { GetLinkEntries, type LinkEntry } from '@/api/links'
 import useClipboard from 'vue-clipboard3'
 import ListItem from './ListItem.vue'
-import MinecraftButtonClassic from '@/components/utils/MinecraftButtonClassic.vue'
+import LinkItem from './LinkItem.vue'
 import { useToast } from 'vue-toastification'
 
 const toast = useToast()
@@ -12,6 +13,7 @@ const { toClipboard } = useClipboard()
 const serverList = ref<ServerEntity[]>([])
 const serverPing = ref<string[]>([])
 const focusIndex = ref(-1)
+const linkEntries = ref<LinkEntry[]>([])
 
 const onClick = (index: number) => {
   focusIndex.value = index
@@ -87,12 +89,14 @@ const refresh = async () => {
 
 onMounted(async () => {
   await refresh()
+  linkEntries.value = GetLinkEntries()
 })
 </script>
 
 <template>
   <div class="list-area">
-    <div class="list-item-container">
+    <section class="list-item-container">
+      <h1 id="link-section-title" class="list-title mcfont">服务器列表</h1>
       <ListItem
         class="list-item"
         v-for="(server, index) in serverList"
@@ -106,19 +110,23 @@ onMounted(async () => {
         @dblclick="focusIndex === index ? copy(server.serverUrl || 'undefined') : null"
         :type="focusIndex === index ? 'focus' : ''"
       />
-    </div>
-    <div class="server-options">
-      <MinecraftButtonClassic class="server-option" @click="refresh">刷新</MinecraftButtonClassic>
-      <MinecraftButtonClassic
-        class="server-option"
-        @click="
-          focusIndex !== -1
-            ? copy(serverList[focusIndex].serverUrl || 'undefined')
-            : toast.warning('未选择服务器！')
-        "
-        >加入服务器</MinecraftButtonClassic
-      >
-    </div>
+    </section>
+
+    <div style="height: 24px" />
+
+    <section class="list-item-container" aria-labelledby="link-section-title">
+      <h1 id="link-section-title" class="list-title mcfont">友情链接</h1>
+      <div class="link-list-scroll">
+        <LinkItem
+          v-for="(link, i) in linkEntries"
+          :key="link.name"
+          :link="link"
+          :style="{ animationDelay: `${i * 0.15}s` }"
+        />
+      </div>
+    </section>
+
+    <div style="height: 24px" />
   </div>
 </template>
 
@@ -139,24 +147,13 @@ onMounted(async () => {
 }
 
 .list-item-container {
-  height: 72vh;
+  height: auto;
   width: 100%;
-  border-top: 1px solid #eeeeee;
-  border-bottom: 1px solid #eeeeee;
-  padding: 8px 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  border-top: 2px solid #aaaaaa;
+  border-bottom: 2px solid #aaaaaa;
+  padding: 20px 0;
+  background-color: rgba(0, 0, 0, 0.75);
   overflow-y: auto;
-}
-
-.list-area::before {
-  position: absolute;
-  content: '';
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  backdrop-filter: blur(2px);
-  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .list-item {
@@ -177,5 +174,21 @@ onMounted(async () => {
 
 .server-option {
   width: 12rem;
+}
+
+.list-title {
+  margin: 0;
+  padding: 0 1rem 0.75rem;
+  color: #fff;
+  font-size: 1.25rem;
+  user-select: none;
+  text-align: center;
+}
+
+.link-list-scroll {
+  width: 100%;
+  overflow-x: auto;
+  display: flex;
+  flex-direction: column;
 }
 </style>

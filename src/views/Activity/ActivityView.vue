@@ -71,7 +71,7 @@ onMounted(async () => {
 
 <template>
   <div class="activity-area">
-    <p id="activity-title">活动</p>
+    <p id="activity-title" class="mcfont">活动</p>
     <div
       class="activity-list-loading-container"
       v-if="activityLoading"

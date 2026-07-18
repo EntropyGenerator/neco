@@ -17,7 +17,7 @@
     "axios": "^1.18.0",
     "md-editor-v3": "^6.5.1",
     "mitt": "^3.0.1",
-    "vue": "^3.5.38",
+    "vue": "^3.5.39",
     "vue-clipboard3": "^2.0.0",
     "vue-router": "^5.1.0",
     "vue-toastification": "^2.0.0-rc.5"

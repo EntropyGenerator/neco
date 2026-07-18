@@ -163,6 +163,11 @@ const onEditIcon = () => {
   editIcon.value = departmentDraft.icon
 }
 
+const onSaveIconUrl = () => {
+  departmentDraft.icon = editIcon.value
+  iconOptionsVisible.value = false
+}
+
 const validateDepartment = () => {
   if (departmentDraft.name.trim() === '') {
     toast.error('部门名称不能为空！')
@@ -503,14 +508,14 @@ onMounted(refresh)
               :src="toAssetUrl(department.icon)"
               :alt="`${department.name} 配图`"
             />
-            <div class="department-list-text">
+            <span class="department-list-text">
               <strong>{{ department.name }}</strong>
               <span>
                 顺序
                 {{ departments.findIndex((item) => item.id === department.id) + 1 }} · 成员
                 {{ department.members.length }} 人
               </span>
-            </div>
+            </span>
           </button>
 
           <div class="department-list-actions">
@@ -781,10 +786,7 @@ onMounted(refresh)
           v-model="editIcon"
           placeholder="填入图片链接或 base64"
         />
-        <MinecraftButtonClassic
-          class="icon-options-button"
-          @click="((departmentDraft.icon = editIcon), (iconOptionsVisible = false))"
-        >
+        <MinecraftButtonClassic class="icon-options-button" @click="onSaveIconUrl">
           保存
         </MinecraftButtonClassic>
       </div>
@@ -843,10 +845,6 @@ onMounted(refresh)
   margin-bottom: 1rem;
 }
 
-.search-row :deep(.minecraft-input) {
-  width: min(100%, 24rem);
-}
-
 .department-list {
   display: flex;
   flex-direction: column;
@@ -894,6 +892,8 @@ onMounted(refresh)
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  min-width: 0;
+  text-align: left;
 }
 
 .department-list-text strong {
@@ -1047,12 +1047,6 @@ onMounted(refresh)
 }
 
 @media screen and (max-width: 768px) {
-  .dept-toolbar-button,
-  .dept-mini-button,
-  .member-add-row > *,
-  .search-row :deep(.minecraft-input) {
-    width: 100%;
-  }
 
   .department-list-item,
   .member-list-item {
