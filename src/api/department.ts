@@ -25,10 +25,6 @@ export function toAssetUrl(url?: string): string {
 export function getMemberAvatar(member: DepartmentMember): string {
   if (member.avatar) return toAssetUrl(member.avatar)
 
-  if (member.username) {
-    return `https://mc-heads.net/avatar/${encodeURIComponent(member.username)}/128`
-  }
-
   return DEFAULT_AVATAR
 }
 

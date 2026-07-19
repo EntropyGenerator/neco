@@ -80,6 +80,12 @@ const router = createRouter({
         {
           path: '/management/club',
           name: 'club management',
+          component: () => import('../views/Management/Components/ClubManagementView.vue'),
+          meta: { title: 'NMO | 社团管理' },
+        },
+        {
+          path: '/management/department',
+          name: 'department management',
           component: () => import('../views/Management/Components/DepartmentManagementView.vue'),
           meta: { title: 'NMO | 部门管理' },
         },
