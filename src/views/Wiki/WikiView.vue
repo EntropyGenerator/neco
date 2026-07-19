@@ -5,7 +5,7 @@ import { GetGlossaryList, GetItemList, type GlossaryEntry, type ItemEntry } from
 
 const router = useRouter()
 
-const GLOSSARY_TYPES = ['人文', '地理', '其它']
+const GLOSSARY_TYPES = ['服务器', '社群', '概念', '地理' ,'其它']
 const ITEM_TYPES = ['工具', '武器', '防具', '食物', '方块', '装饰品', '杂项', '其它']
 
 const activeTab = ref<'glossary' | 'item'>('glossary')
@@ -115,7 +115,10 @@ onMounted(async () => {
       >
         词条百科
       </button>
-      <button :class="['wiki-tab', { active: activeTab === 'item' }]" @click="activeTab = 'item'">
+      <button
+        :class="['wiki-tab', { active: activeTab === 'item' }]"
+        @click="activeTab = 'item'"
+      >
         物品百科
       </button>
     </div>
@@ -128,7 +131,11 @@ onMounted(async () => {
           v-model="searchQuery"
           placeholder="搜索名称..."
         />
-        <button v-if="hasActiveFilters" class="wiki-clear-btn" @click="clearFilters">
+        <button
+          v-if="hasActiveFilters"
+          class="wiki-clear-btn"
+          @click="clearFilters"
+        >
           清除筛选
         </button>
       </div>

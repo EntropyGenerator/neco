@@ -381,7 +381,7 @@ onMounted(async () => {
             <label class="management-field-label">类型</label>
             <div class="wiki-type-group">
               <MinecraftButtonClassic
-                v-for="t in ['人文', '地理', '其它']"
+                v-for="t in ['服务器','社群','概念', '地理' ,'其它']"
                 :key="t"
                 :activated="glossaryDraft.type === t"
                 class="wiki-type-btn"
