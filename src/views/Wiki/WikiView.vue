@@ -5,7 +5,7 @@ import { GetGlossaryList, GetItemList, type GlossaryEntry, type ItemEntry } from
 
 const router = useRouter()
 
-const GLOSSARY_TYPES = ['服务器', '社群', '概念', '地理' ,'其它']
+const GLOSSARY_TYPES = ['服务器', '社群', '概念', '地理' ,'人物','其它',]
 const ITEM_TYPES = ['工具', '武器', '防具', '食物', '方块', '装饰品', '杂项', '其它']
 
 const activeTab = ref<'glossary' | 'item'>('glossary')
