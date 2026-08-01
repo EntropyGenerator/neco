@@ -9,6 +9,10 @@ import {
   UpdateItem,
   DeleteItem,
   GetItemList,
+  GetWikiTypes,
+  GetWikiTags,
+  CreateWikiTag,
+  DeleteWikiTag,
   UploadWikiFile,
   type GlossaryEntry,
   type ItemEntry,
@@ -90,6 +94,15 @@ const canManage = computed(() => {
 })
 
 const activeTab = ref<'glossary' | 'item'>('glossary')
+
+const glossaryTypes = ref<string[]>([])
+const itemTypes = ref<string[]>([])
+
+const glossaryTags = ref<{ id: string; name: string }[]>([])
+const itemTags = ref<{ id: string; name: string }[]>([])
+const newGlossaryTagName = ref('')
+const newItemTagName = ref('')
+const showTagManager = ref(false)
 
 const glossaryList = ref<GlossaryEntry[]>([])
 const itemList = ref<ItemEntry[]>([])
@@ -327,8 +340,58 @@ const doDeleteItem = async () => {
   await refresh()
 }
 
+const loadTags = async () => {
+  const g = await GetWikiTags('glossary')
+  glossaryTags.value = g.map((t) => ({ id: t.id, name: t.name }))
+  const i = await GetWikiTags('item')
+  itemTags.value = i.map((t) => ({ id: t.id, name: t.name }))
+}
+
+const addGlossaryTag = async () => {
+  const name = newGlossaryTagName.value.trim()
+  if (!name) return
+  try {
+    await CreateWikiTag({ category: 'glossary', name })
+    newGlossaryTagName.value = ''
+    await loadTags()
+    await refreshTypes()
+    toast.success(`标签「${name}」已添加`)
+  } catch {
+    toast.warning('标签已存在或添加失败')
+  }
+}
+
+const addItemTag = async () => {
+  const name = newItemTagName.value.trim()
+  if (!name) return
+  try {
+    await CreateWikiTag({ category: 'item', name })
+    newItemTagName.value = ''
+    await loadTags()
+    await refreshTypes()
+    toast.success(`标签「${name}」已添加`)
+  } catch {
+    toast.warning('标签已存在或添加失败')
+  }
+}
+
+const removeTag = async (id: string) => {
+  await DeleteWikiTag(id)
+  await loadTags()
+  await refreshTypes()
+  toast.success('标签已删除')
+}
+
+const refreshTypes = async () => {
+  const types = await GetWikiTypes()
+  glossaryTypes.value = types.glossaryTypes
+  itemTypes.value = types.itemTypes
+}
+
 onMounted(async () => {
   if (canManage.value) {
+    await refreshTypes()
+    await loadTags()
     await refresh()
   }
 })
@@ -366,6 +429,84 @@ onMounted(async () => {
       </div>
     </div>
 
+    <div v-if="editStatus === 'none'" class="management-section">
+      <div
+        class="tag-manager-toggle"
+        role="button"
+        tabindex="0"
+        :aria-expanded="showTagManager"
+        @click="showTagManager = !showTagManager"
+        @keydown.enter="showTagManager = !showTagManager"
+        @keydown.space.prevent="showTagManager = !showTagManager"
+      >
+        <span class="tag-manager-toggle-icon">{{ showTagManager ? '▼' : '▶' }}</span>
+        <span>预设标签管理</span>
+        <span class="tag-manager-count">
+          (词条 {{ glossaryTags.length }} · 物品 {{ itemTags.length }})
+        </span>
+      </div>
+
+      <div v-if="showTagManager" class="tag-manager-body">
+        <div class="tag-group">
+          <h4 class="tag-group-title">词条标签</h4>
+          <div class="tag-pills">
+            <span
+              v-for="t in glossaryTags"
+              :key="t.id"
+              class="tag-pill"
+            >
+              {{ t.name }}
+              <button
+                class="tag-pill-remove"
+                :aria-label="`删除标签 ${t.name}`"
+                @click="removeTag(t.id)"
+              >
+                ×
+              </button>
+            </span>
+          </div>
+          <div class="tag-add-row">
+            <input
+              class="tag-add-input"
+              v-model="newGlossaryTagName"
+              placeholder="新标签名"
+              @keyup.enter="addGlossaryTag"
+            />
+            <button class="tag-add-btn" @click="addGlossaryTag">添加</button>
+          </div>
+        </div>
+
+        <div class="tag-group">
+          <h4 class="tag-group-title">物品标签</h4>
+          <div class="tag-pills">
+            <span
+              v-for="t in itemTags"
+              :key="t.id"
+              class="tag-pill"
+            >
+              {{ t.name }}
+              <button
+                class="tag-pill-remove"
+                :aria-label="`删除标签 ${t.name}`"
+                @click="removeTag(t.id)"
+              >
+                ×
+              </button>
+            </span>
+          </div>
+          <div class="tag-add-row">
+            <input
+              class="tag-add-input"
+              v-model="newItemTagName"
+              placeholder="新标签名"
+              @keyup.enter="addItemTag"
+            />
+            <button class="tag-add-btn" @click="addItemTag">添加</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div v-if="editStatus !== 'none'" class="management-tab-form wiki-edit-section">
       <h2 class="management-tab-form-title">
         {{ editStatus === 'new' ? '新建' : '编辑' }}{{ activeTab === 'glossary' ? '词条' : '物品' }}
@@ -381,7 +522,7 @@ onMounted(async () => {
             <label class="management-field-label">类型</label>
             <div class="wiki-type-group">
               <MinecraftButtonClassic
-                v-for="t in ['服务器','社群','概念', '地理' ,'其它']"
+                v-for="t in glossaryTypes"
                 :key="t"
                 :activated="glossaryDraft.type === t"
                 class="wiki-type-btn"
@@ -428,7 +569,7 @@ onMounted(async () => {
             <label class="management-field-label">类型</label>
             <div class="wiki-type-group">
               <MinecraftButtonClassic
-                v-for="t in ['工具', '武器', '防具', '食物', '方块', '装饰品', '杂项', '其它']"
+                v-for="t in itemTypes"
                 :key="t"
                 :activated="itemDraft.type === t"
                 class="wiki-type-btn"
@@ -738,6 +879,142 @@ onMounted(async () => {
 .wiki-type-btn {
   font-size: 1rem;
   width: 5rem;
+}
+
+.tag-manager-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  padding: 0.25rem 0;
+}
+
+.tag-manager-toggle:hover {
+  color: #fff;
+}
+
+.tag-manager-toggle:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+
+.tag-manager-toggle-icon {
+  font-size: 0.7rem;
+  width: 1rem;
+  text-align: center;
+}
+
+.tag-manager-count {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.8rem;
+}
+
+.tag-manager-body {
+  display: flex;
+  gap: 2rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tag-group {
+  flex: 1;
+  min-width: 0;
+}
+
+.tag-group-title {
+  margin: 0 0 0.5rem;
+  color: var(--minecraft-green-light);
+  font-size: 0.9rem;
+  user-select: none;
+}
+
+.tag-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+  min-height: 1.5rem;
+}
+
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.5rem;
+  background-color: rgba(60, 133, 39, 0.15);
+  border: 1px solid var(--minecraft-green-light);
+  color: var(--minecraft-green-light);
+  font-size: 0.8rem;
+  user-select: none;
+}
+
+.tag-pill-remove {
+  padding: 0;
+  width: 1rem;
+  height: 1rem;
+  border: none;
+  background: none;
+  color: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tag-pill-remove:hover {
+  opacity: 1;
+  color: #f66;
+}
+
+.tag-add-row {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.tag-add-input {
+  flex: 1;
+  padding: 0.3rem 0.5rem;
+  border: 2px solid #555;
+  background-color: #616161;
+  color: #fff;
+  font: inherit;
+  font-size: 0.85rem;
+  outline: none;
+  letter-spacing: 1px;
+  min-width: 0;
+}
+
+.tag-add-input:focus {
+  border-color: var(--minecraft-green-light);
+}
+
+.tag-add-btn {
+  padding: 0.3rem 0.75rem;
+  border: 2px solid #555;
+  background-color: #3a3a3a;
+  color: #ccc;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.tag-add-btn:hover {
+  border-color: var(--minecraft-green-light);
+  color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+  .tag-manager-body {
+    flex-direction: column;
+    gap: 1rem;
+  }
 }
 
 .gallery-upload-area {

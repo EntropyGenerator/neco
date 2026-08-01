@@ -18,6 +18,36 @@ export interface ItemEntry {
   content: string
 }
 
+export interface WikiTypes {
+  glossaryTypes: string[]
+  itemTypes: string[]
+}
+
+export const GetWikiTypes = async (): Promise<WikiTypes> => {
+  const resp = await api.get('/wiki/types')
+  return resp.data as WikiTypes
+}
+
+export interface WikiTagEntity {
+  id: string
+  category: string
+  name: string
+}
+
+export const GetWikiTags = async (category: string): Promise<WikiTagEntity[]> => {
+  const resp = await api.get('/wiki/tags', { params: { category } })
+  return resp.data.tags as WikiTagEntity[]
+}
+
+export const CreateWikiTag = async (tag: { category: string; name: string }): Promise<string> => {
+  const resp = await api.post('/wiki/tags', tag)
+  return resp.data.id as string
+}
+
+export const DeleteWikiTag = async (id: string): Promise<void> => {
+  await api.delete(`/wiki/tags/${id}`)
+}
+
 export const GetGlossaryList = async (): Promise<GlossaryEntry[]> => {
   const resp = await api.get('/wiki/glossary')
   return resp.data.glossaries as GlossaryEntry[]
