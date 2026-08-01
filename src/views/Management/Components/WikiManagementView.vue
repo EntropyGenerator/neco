@@ -9,6 +9,7 @@ import {
   UpdateItem,
   DeleteItem,
   GetItemList,
+  GetWikiTypes,
   UploadWikiFile,
   type GlossaryEntry,
   type ItemEntry,
@@ -90,6 +91,9 @@ const canManage = computed(() => {
 })
 
 const activeTab = ref<'glossary' | 'item'>('glossary')
+
+const glossaryTypes = ref<string[]>([])
+const itemTypes = ref<string[]>([])
 
 const glossaryList = ref<GlossaryEntry[]>([])
 const itemList = ref<ItemEntry[]>([])
@@ -329,6 +333,9 @@ const doDeleteItem = async () => {
 
 onMounted(async () => {
   if (canManage.value) {
+    const types = await GetWikiTypes()
+    glossaryTypes.value = types.glossaryTypes
+    itemTypes.value = types.itemTypes
     await refresh()
   }
 })
@@ -381,7 +388,7 @@ onMounted(async () => {
             <label class="management-field-label">类型</label>
             <div class="wiki-type-group">
               <MinecraftButtonClassic
-                v-for="t in ['服务器','社群','概念', '地理' ,'人物','其它']"
+                v-for="t in glossaryTypes"
                 :key="t"
                 :activated="glossaryDraft.type === t"
                 class="wiki-type-btn"
@@ -428,7 +435,7 @@ onMounted(async () => {
             <label class="management-field-label">类型</label>
             <div class="wiki-type-group">
               <MinecraftButtonClassic
-                v-for="t in ['工具', '武器', '防具', '食物', '方块', '装饰品', '杂项', '其它']"
+                v-for="t in itemTypes"
                 :key="t"
                 :activated="itemDraft.type === t"
                 class="wiki-type-btn"

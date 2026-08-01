@@ -18,6 +18,16 @@ export interface ItemEntry {
   content: string
 }
 
+export interface WikiTypes {
+  glossaryTypes: string[]
+  itemTypes: string[]
+}
+
+export const GetWikiTypes = async (): Promise<WikiTypes> => {
+  const resp = await api.get('/wiki/types')
+  return resp.data as WikiTypes
+}
+
 export const GetGlossaryList = async (): Promise<GlossaryEntry[]> => {
   const resp = await api.get('/wiki/glossary')
   return resp.data.glossaries as GlossaryEntry[]

@@ -1,16 +1,15 @@
 <script lang="ts" setup>
 import { computed, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import { GetGlossaryList, GetItemList, type GlossaryEntry, type ItemEntry } from '@/api/wiki'
+import { GetGlossaryList, GetItemList, GetWikiTypes, type GlossaryEntry, type ItemEntry } from '@/api/wiki'
 
 const router = useRouter()
-
-const GLOSSARY_TYPES = ['服务器', '社群', '概念', '地理' ,'人物','其它',]
-const ITEM_TYPES = ['工具', '武器', '防具', '食物', '方块', '装饰品', '杂项', '其它']
 
 const activeTab = ref<'glossary' | 'item'>('glossary')
 const glossaryList = ref<GlossaryEntry[]>([])
 const itemList = ref<ItemEntry[]>([])
+const glossaryTypes = ref<string[]>([])
+const itemTypes = ref<string[]>([])
 const ready = ref(false)
 
 const searchQuery = ref('')
@@ -20,7 +19,7 @@ const groupedGlossary = ref<Record<string, GlossaryEntry[]>>({})
 const groupedItems = ref<Record<string, ItemEntry[]>>({})
 
 const availableTypes = computed(() => {
-  return activeTab.value === 'glossary' ? GLOSSARY_TYPES : ITEM_TYPES
+  return activeTab.value === 'glossary' ? glossaryTypes.value : itemTypes.value
 })
 
 const groupByType = <T extends { type: string }>(list: T[]) => {
@@ -93,6 +92,9 @@ watch(activeTab, () => {
 })
 
 onMounted(async () => {
+  const types = await GetWikiTypes()
+  glossaryTypes.value = types.glossaryTypes
+  itemTypes.value = types.itemTypes
   glossaryList.value = await GetGlossaryList()
   itemList.value = await GetItemList()
   groupedGlossary.value = groupByType(glossaryList.value)
