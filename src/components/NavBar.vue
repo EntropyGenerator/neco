@@ -128,10 +128,10 @@ onMounted(() => {
   height: calc(1rem + 28px);
   display: flex;
   border-radius: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  border: 2px solid gray;
+  background-color: var(--bg-overlay);
+  border: 2px solid var(--border-strong);
   position: relative;
-  box-shadow: 4px 4px rgba(0, 0, 0, 0.7);
+  box-shadow: 4px 4px var(--shadow-strong);
   transition: all 0.3s ease-in-out;
   opacity: 1;
   overflow: hidden;
@@ -140,6 +140,15 @@ onMounted(() => {
 .nav-bar[type='fold'] {
   height: 0;
   opacity: 0;
+}
+
+/* 浅色方案：导航栏仍为深色遮罩底，导航文字与焦点环保持浅色以保证可读 */
+[data-theme='light'] .nav-bar {
+  color: var(--text-inverse);
+}
+
+[data-theme='light'] .nav-item:focus-visible {
+  outline-color: var(--text-inverse);
 }
 
 .nav-item {
@@ -159,7 +168,7 @@ onMounted(() => {
 }
 
 .nav-item:focus-visible {
-  outline: 3px solid #fff;
+  outline: 3px solid var(--focus-ring);
   outline-offset: -3px;
 }
 
@@ -175,13 +184,13 @@ onMounted(() => {
 
 .slider-box {
   box-sizing: border-box;
-  background-color: #7e0c6b;
+  background-color: var(--nav-slider);
   border-radius: 0;
-  border-top: 4px solid #9b428c;
-  border-bottom: 4px solid #46073b;
+  border-top: 4px solid var(--nav-slider-light);
+  border-bottom: 4px solid var(--nav-slider-dark);
   height: 100%;
   width: 100%;
 
-  box-shadow: 2px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 2px var(--shadow);
 }
 </style>

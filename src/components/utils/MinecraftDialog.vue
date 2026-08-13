@@ -247,7 +247,7 @@ onBeforeUnmount(() => {
   height: 100dvh;
   overflow: auto;
   overscroll-behavior: contain;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--bg-overlay);
 
   display: grid;
   place-items: center;
@@ -280,7 +280,7 @@ onBeforeUnmount(() => {
 }
 
 .dialog:focus-visible {
-  outline: 3px solid #fff;
+  outline: 3px solid var(--focus-ring);
   outline-offset: 4px;
 }
 
@@ -288,10 +288,10 @@ onBeforeUnmount(() => {
   flex: 0 0 auto;
   font-size: 1.5rem;
   line-height: 1.3;
-  color: white;
+  color: var(--text);
   margin: 0 0 1rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid var(--minecraft-gray-light);
+  border-bottom: 1px solid var(--border-divider);
   user-select: none;
 }
 
@@ -307,7 +307,7 @@ onBeforeUnmount(() => {
   gap: 1rem;
   margin-top: 1rem;
   padding-top: 1rem;
-  border-top: 1px solid var(--minecraft-gray-light);
+  border-top: 1px solid var(--border-divider);
 }
 
 .dialog-footer-btn {

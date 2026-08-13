@@ -702,7 +702,7 @@ const onUploadImg = async (
         <div class="news-input-item">
           <label class="news-input-label" for="news-pin-switch"> 置顶 </label>
 
-          <span style="user-select: none; font-size: 0.8rem; color: #ccc">
+          <span style="user-select: none; font-size: 0.8rem; color: var(--text-hint)">
             最新的置顶文章会在首页顶部展示！
           </span>
 
@@ -1045,7 +1045,7 @@ const onUploadImg = async (
 
 .notify-options-desc {
   margin: 0;
-  color: rgba(255, 255, 255, 0.82);
+  color: color-mix(in srgb, var(--text) 82%, transparent);
 }
 
 .notify-summary-card {
@@ -1054,12 +1054,12 @@ const onUploadImg = async (
   flex-wrap: wrap;
   gap: 0.5rem;
   padding: 0.75rem;
-  color: #fff;
-  background-color: #2e2e2e;
-  border: 2px solid #1a1a1a;
+  color: var(--text);
+  background-color: var(--bg-surface);
+  border: 2px solid var(--border-dark-2);
   box-shadow:
-    inset -2px -2px 0 0 #1f1f1f,
-    inset 2px 2px 0 0 #454545;
+    inset -2px -2px 0 0 var(--bevel-dark),
+    inset 2px 2px 0 0 var(--bevel-light);
 }
 
 .notify-button-row {
@@ -1078,8 +1078,8 @@ const onUploadImg = async (
   max-height: 18rem;
   overflow-y: auto;
   padding: 0.5rem;
-  background-color: #202020;
-  border: 2px solid #111;
+  background-color: var(--bg-log);
+  border: 2px solid var(--border-dark);
 }
 
 .notify-connection-item {
@@ -1088,20 +1088,20 @@ const onUploadImg = async (
   gap: 0.5rem;
   text-align: left;
   padding: 0.75rem;
-  color: #eee;
-  background-color: #303030;
-  border: 2px solid #111;
+  color: var(--text-soft);
+  background-color: var(--bg-surface-2);
+  border: 2px solid var(--border-dark);
   cursor: pointer;
   font: inherit;
 }
 
 .notify-connection-item:hover,
 .notify-connection-item.selected {
-  background-color: rgba(100, 100, 255, 0.25);
+  background-color: var(--bg-selection);
 }
 
 .notify-connection-item:focus-visible {
-  outline: 3px solid #fff;
+  outline: 3px solid var(--focus-ring);
   outline-offset: 3px;
 }
 
@@ -1113,21 +1113,21 @@ const onUploadImg = async (
 }
 
 .notify-connection-main strong {
-  color: #fff;
+  color: var(--text);
 }
 
 .notify-connection-sub {
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--text-muted);
   font-size: 0.9rem;
 }
 
 .notify-connection-check {
-  color: #c6f6b6;
+  color: var(--accent-pale);
 }
 
 .notify-warning-text {
   margin: 0;
-  color: #f0c36a;
+  color: var(--warning);
 }
 
 .notify-dialog-footer {
@@ -1138,7 +1138,7 @@ const onUploadImg = async (
   gap: 1rem;
   margin-top: 1rem;
   padding-top: 1rem;
-  border-top: 1px solid var(--minecraft-gray-light);
+  border-top: 1px solid var(--border-divider);
 }
 
 .notify-footer-button {
@@ -1169,7 +1169,7 @@ const onUploadImg = async (
 
 .upload-button:focus-visible,
 .news-image-picture:focus-visible {
-  outline: 3px solid #fff;
+  outline: 3px solid var(--focus-ring);
   outline-offset: 4px;
 }
 
@@ -1202,14 +1202,14 @@ const onUploadImg = async (
   height: fit-content;
 
   background:
-    linear-gradient(to right, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.42), rgba(0, 0, 0, 0.72)),
-    radial-gradient(circle at 50% 18%, rgba(108, 195, 73, 0.16), transparent 28rem),
+    linear-gradient(to right, var(--bg-overlay-strong), var(--bg-overlay), var(--bg-overlay-strong)),
+    radial-gradient(circle at 50% 18%, var(--accent-tint), transparent 28rem),
     url('/background/bg.jpg');
   background-size: auto, auto, 468px;
 }
 
 .news-main-item-list {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: var(--bg-overlay-soft);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1258,16 +1258,16 @@ const onUploadImg = async (
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px dashed #fff;
-  color: white;
+  border: 1px dashed var(--focus-ring);
+  color: var(--text);
   cursor: pointer;
   padding: 1.2rem;
-  background-color: rgba(255, 255, 255, 0);
+  background-color: transparent;
   transition: all 0.2s ease-in-out;
 }
 
 .upload-button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--bg-hover);
 }
 
 .news-image {
@@ -1290,12 +1290,12 @@ const onUploadImg = async (
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: rgba(255, 255, 255, 0);
+  background-color: transparent;
   transition: all 0.2s ease-in-out;
 }
 
 .news-image-picture:hover::after {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--bg-hover);
 }
 
 .operation-btn-group {
@@ -1330,7 +1330,7 @@ const onUploadImg = async (
 .news-input-label {
   user-select: none;
   font-size: 1rem;
-  color: #fff;
+  color: var(--text);
   text-wrap: nowrap;
 }
 
@@ -1369,21 +1369,21 @@ const onUploadImg = async (
 <style lang="css">
 .dp__input {
   border-radius: 0;
-  background-color: #616161;
-  outline: 2px solid black;
+  background-color: var(--bg-input);
+  outline: 2px solid var(--mc-btn-text);
   border: 2px solid;
   border-image: url('/UI/text-input.png') 1;
 }
 
 .dp__input_icon {
-  color: white;
+  color: var(--text);
 }
 
 .md-editor-toolbar-wrapper {
-  background-color: black;
+  background-color: var(--bg-sunken);
 }
 
 .md-editor-footer {
-  background-color: black;
+  background-color: var(--bg-sunken);
 }
 </style>

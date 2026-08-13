@@ -199,8 +199,8 @@ onMounted(async () => {
   min-height: 100vh;
   padding: 6rem clamp(1rem, 4vw, 4rem) 3rem;
   background:
-    linear-gradient(to right, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.42), rgba(0, 0, 0, 0.78)),
-    radial-gradient(circle at 50% 12%, rgba(108, 195, 73, 0.14), transparent 28rem),
+    linear-gradient(to right, var(--bg-overlay-strong), var(--bg-overlay), var(--bg-overlay-strong)),
+    radial-gradient(circle at 50% 12%, var(--accent-tint), transparent 28rem),
     url('/blockbg/deepslate-tiles.png');
   background-size:
     auto,
@@ -217,7 +217,7 @@ onMounted(async () => {
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  color: rgba(255, 255, 255, 0.78);
+  color: color-mix(in srgb, var(--text) 78%, transparent);
   font-size: 1.2rem;
 }
 
@@ -251,7 +251,7 @@ onMounted(async () => {
   flex-wrap: wrap;
   align-items: center;
   gap: 0.75rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: color-mix(in srgb, var(--text) 70%, transparent);
   font-size: 0.95rem;
 }
 
@@ -260,28 +260,28 @@ onMounted(async () => {
   align-items: center;
   width: fit-content;
   padding: 0.25rem 0.65rem;
-  color: #101010;
-  background-color: var(--minecraft-green-light);
+  color: var(--accent-contrast);
+  background-color: var(--accent-light);
   box-shadow:
-    inset -2px -2px 0 0 var(--minecraft-green-dark),
-    inset 2px 2px 0 0 rgba(255, 255, 255, 0.45),
-    2px 2px 0 rgba(0, 0, 0, 0.35);
+    inset -2px -2px 0 0 var(--accent-dark),
+    inset 2px 2px 0 0 var(--accent-bevel-light),
+    2px 2px 0 var(--shadow-soft);
   user-select: none;
 }
 
 .news-hero-title {
   margin: 0;
-  color: #fff;
+  color: var(--text);
   font-size: clamp(1.2rem, 3.2vw, 2.5rem);
   line-height: 1.08;
   word-break: break-word;
-  text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.55);
+  text-shadow: 4px 4px 0 var(--shadow);
 }
 
 .news-hero-brief {
   max-width: 46rem;
   margin: 0;
-  color: rgba(255, 255, 255, 0.78);
+  color: color-mix(in srgb, var(--text) 78%, transparent);
   font-size: clamp(1.2rem, 1.8vw, 1.5rem);
   line-height: 1.8;
   word-break: break-word;
@@ -297,12 +297,12 @@ onMounted(async () => {
   min-width: 0;
   min-height: 18rem;
   overflow: hidden;
-  background-color: #101010;
-  border: 4px solid #222;
+  background-color: var(--bg-sunken);
+  border: 4px solid var(--border);
   box-shadow:
-    inset -3px -3px 0 0 #151515,
-    inset 3px 3px 0 0 #4d4d4d,
-    0 0.7rem 1.6rem rgba(0, 0, 0, 0.32);
+    inset -3px -3px 0 0 var(--bevel-dark),
+    inset 3px 3px 0 0 var(--bevel-light),
+    0 0.7rem 1.6rem var(--shadow-soft);
 }
 
 .news-poster::before {
@@ -372,8 +372,8 @@ onMounted(async () => {
   height: 6.5rem;
   border-radius: 50%;
   overflow: hidden;
-  outline: 2px solid var(--minecraft-gray-light);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.36);
+  outline: 2px solid var(--border-divider);
+  box-shadow: 0 0.5rem 1rem var(--shadow-card);
 }
 
 .news-detail-author-avatar-img {
@@ -399,12 +399,12 @@ onMounted(async () => {
   flex-direction: column;
   align-items: center;
   padding-top: 0.85rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid var(--border-soft-2);
 }
 
 .news-detail-author-title {
   margin-bottom: 0.35rem;
-  color: var(--minecraft-green-light);
+  color: var(--accent-light);
   font-size: 0.95rem;
   font-weight: 700;
   user-select: none;
@@ -413,7 +413,7 @@ onMounted(async () => {
 .news-detail-author-text {
   max-width: 100%;
   margin-bottom: 0.5rem;
-  color: rgba(255, 255, 255, 0.88);
+  color: var(--text-soft);
   font-size: 0.95rem;
   font-weight: 500;
   text-align: center;
@@ -442,12 +442,12 @@ onMounted(async () => {
   min-width: 0;
   margin-bottom: 4rem;
   overflow: hidden;
-  background-color: rgba(12, 12, 12, 0.72);
-  border: 4px solid #222;
+  background-color: color-mix(in srgb, var(--bg-sunken) 72%, transparent);
+  border: 4px solid var(--border);
   box-shadow:
-    inset -4px -4px 0 0 #1a1a1a,
-    inset 4px 4px 0 0 #474747,
-    0 0.75rem 1.8rem rgba(0, 0, 0, 0.3);
+    inset -4px -4px 0 0 var(--bevel-dark),
+    inset 4px 4px 0 0 var(--bevel-light),
+    0 0.75rem 1.8rem var(--shadow-soft);
 }
 
 .news-content-header {
@@ -455,14 +455,14 @@ onMounted(async () => {
   align-items: center;
   height: 3rem;
   padding: 0 1.25rem;
-  color: #fff;
+  color: var(--text);
   background:
-    linear-gradient(to right, rgba(60, 133, 39, 0.8), rgba(42, 100, 28, 0.2)),
+    linear-gradient(to right, color-mix(in srgb, var(--accent) 80%, transparent), color-mix(in srgb, var(--accent-dark) 20%, transparent)),
     url('/blockbg/moss-block.png');
   background-size:
     auto,
     32px 32px;
-  border-bottom: 4px solid #1a1a1a;
+  border-bottom: 4px solid var(--border-dark-2);
   user-select: none;
 }
 
@@ -493,7 +493,7 @@ onMounted(async () => {
 }
 
 .news-main-item :deep(.md-editor-preview) {
-  color: rgba(255, 255, 255, 0.86);
+  color: color-mix(in srgb, var(--text) 86%, transparent);
 }
 
 .pdf-read-btn {
@@ -506,7 +506,7 @@ onMounted(async () => {
   width: 100%;
   height: min(100vh, 54rem);
   margin: 1rem 0 2rem;
-  background-color: rgba(0, 0, 0, 0.45);
+  background-color: var(--bg-overlay);
 }
 
 @media screen and (max-width: 1024px) {
@@ -542,7 +542,7 @@ onMounted(async () => {
   .news-detail-author-info-item {
     flex: 1;
     border-top: 0;
-    border-left: 1px solid rgba(255, 255, 255, 0.12);
+    border-left: 1px solid var(--border-soft-2);
     padding-top: 0;
     padding-left: 0.75rem;
   }
@@ -580,7 +580,7 @@ onMounted(async () => {
 
   .news-detail-author-info-item {
     border-left: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-top: 1px solid var(--border-soft-2);
     padding-left: 0;
     padding-top: 0.75rem;
   }

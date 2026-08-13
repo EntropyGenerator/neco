@@ -63,7 +63,7 @@ onMounted(() => {
   left: 0;
   right: 0;
   height: 5rem;
-  background: linear-gradient(to bottom, transparent 0%, var(--background-color) 100%);
+  background: linear-gradient(to bottom, transparent 0%, var(--bg) 100%);
 }
 
 .intro-area {
@@ -79,7 +79,7 @@ onMounted(() => {
 .intro-area > h1 {
   align-self: center;
   margin: 0 0 1.5rem;
-  color: #fff;
+  color: var(--text);
   text-align: center;
   font-size: clamp(1.6rem, 3vw, 2.4rem);
 }

@@ -54,18 +54,18 @@ const projectUrl = 'https://github.com/orgs/nju-mc-org/projects/4'
 
 .club-card-text {
   margin: 0 0 1rem 0;
-  color: rgba(255, 255, 255, 0.74);
+  color: color-mix(in srgb, var(--text) 74%, transparent);
   line-height: 1.45rem;
 }
 
 .club-project-link {
   display: inline-flex;
-  color: var(--minecraft-green-light);
+  color: var(--accent-light);
   text-decoration: underline;
 }
 
 .club-project-link:focus-visible {
-  outline: 3px solid #fff;
+  outline: 3px solid var(--focus-ring);
   outline-offset: 4px;
 }
 </style>

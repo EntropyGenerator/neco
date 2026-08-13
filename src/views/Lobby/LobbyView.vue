@@ -63,7 +63,7 @@ import Intro from './IntroView.vue'
   max-width: 30rem;
   padding-right: 10%;
   /* animation: fade-in-right 1s ease-out forwards; */
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--bg-overlay);
   backdrop-filter: blur(2px);
   padding: 1rem;
   height: 100%;
@@ -73,7 +73,7 @@ import Intro from './IntroView.vue'
 .logo-content p {
   font-size: 2rem;
   font-weight: bold;
-  color: #fff;
+  color: var(--text);
   margin-top: 0;
   margin-bottom: 0;
   text-wrap: nowrap;

@@ -26,7 +26,7 @@ const props = defineProps({
 
 <style lang="css" scoped>
 .link-card:focus-visible {
-  outline: 3px solid #fff;
+  outline: 3px solid var(--focus-ring);
   outline-offset: 4px;
 }
 
@@ -36,10 +36,10 @@ const props = defineProps({
   margin: 1rem;
   width: 15rem;
   height: 15rem;
-  border-top: 2px solid var(--minecraft-green-light);
-  border-left: 2px solid var(--minecraft-green);
-  border-right: 2px solid var(--minecraft-green);
-  border-bottom: 2px solid var(--minecraft-green-dark);
+  border-top: 2px solid var(--accent-light);
+  border-left: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent-dark);
   display: flex;
   flex-direction: column;
   position: relative;
@@ -47,7 +47,7 @@ const props = defineProps({
   background-position: center;
   background-size: cover;
 
-  box-shadow: 4px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: 4px 4px var(--shadow);
   cursor: pointer;
 }
 
@@ -58,7 +58,7 @@ const props = defineProps({
   padding-left: 1rem;
   padding-right: 1rem;
 
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: var(--bg-overlay-strong);
   user-select: none;
 }
 

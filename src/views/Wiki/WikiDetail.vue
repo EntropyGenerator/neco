@@ -110,15 +110,16 @@ onMounted(async () => {
 
 <style lang="css" scoped>
 .detail-container {
-  --wd-surface: rgba(20, 20, 20, 0.68);
-  --wd-surface-2: rgba(0, 0, 0, 0.24);
-  --wd-text: #fff;
-  --wd-text-dim: rgba(255, 255, 255, 0.72);
-  --wd-text-faint: rgba(255, 255, 255, 0.45);
-  --wd-accent: var(--minecraft-green-light, #6cc349);
-  --wd-accent-bg: rgba(60, 133, 39, 0.15);
-  --wd-border: rgba(255, 255, 255, 0.14);
-  --wd-border-light: var(--minecraft-gray-light, #747271);
+  /* 通过别名复用全局主题变量，随 [data-theme] 自动切换深浅色 */
+  --wd-surface: color-mix(in srgb, var(--bg) 68%, transparent);
+  --wd-surface-2: var(--bg-scrim);
+  --wd-text: var(--text);
+  --wd-text-dim: var(--text-muted);
+  --wd-text-faint: var(--text-subtle);
+  --wd-accent: var(--accent-light);
+  --wd-accent-bg: color-mix(in srgb, var(--accent) 15%, transparent);
+  --wd-border: var(--border-soft);
+  --wd-border-light: var(--border-divider);
 
   width: min(100%, 72rem);
 }
@@ -211,8 +212,8 @@ onMounted(async () => {
   width: 100%;
   aspect-ratio: 1;
   object-fit: contain;
-  border: 1px solid #555;
-  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-light);
+  background-color: var(--bg-thumb);
   image-rendering: pixelated;
 }
 
@@ -224,11 +225,11 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.4);
-  border: 2px solid #555;
+  background-color: var(--bg-overlay-soft);
+  border: 2px solid var(--border-light);
   box-shadow:
-    inset -2px -2px 0 0 #222,
-    inset 2px 2px 0 0 #666;
+    inset -2px -2px 0 0 var(--border),
+    inset 2px 2px 0 0 var(--border-light);
 }
 
 .item-main-image img {
@@ -244,11 +245,11 @@ onMounted(async () => {
   align-items: center;
   padding: 0.5rem 0;
   margin-bottom: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid var(--border-soft-2);
 }
 
 .stat-label {
-  color: rgba(255, 255, 255, 0.7);
+  color: color-mix(in srgb, var(--text) 70%, transparent);
   font-size: 0.9rem;
 }
 
@@ -263,8 +264,8 @@ onMounted(async () => {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   gap: 2px;
-  background-color: #555;
-  border: 2px solid #555;
+  background-color: var(--mc-slot-bg);
+  border: 2px solid var(--mc-slot-bg);
 }
 
 .recipe-slot {
@@ -272,13 +273,13 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #8b8b8b;
-  border-top: 2px solid #373737;
-  border-left: 2px solid #373737;
-  border-bottom: 2px solid #fff;
-  border-right: 2px solid #fff;
+  background-color: var(--mc-slot);
+  border-top: 2px solid var(--mc-slot-border-dark);
+  border-left: 2px solid var(--mc-slot-border-dark);
+  border-bottom: 2px solid var(--mc-slot-border-light);
+  border-right: 2px solid var(--mc-slot-border-light);
   font-size: 0.7rem;
-  color: #000;
+  color: var(--mc-btn-text);
   overflow: hidden;
 }
 
@@ -290,7 +291,7 @@ onMounted(async () => {
 }
 
 .recipe-empty {
-  color: #555;
+  color: var(--mc-slot-bg);
   font-size: 1rem;
   user-select: none;
 }

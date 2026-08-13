@@ -1,28 +1,219 @@
 :root {
-  --minecraft-green: #3c8527;
-  --minecraft-green-light: #6cc349;
-  --minecraft-green-dark: #2a641c;
-  --minecraft-gray-light: #747271;
-  --minecraft-gray: #3d3938;
-  --minecraft-gray-dark: #262524;
-  --minecraft-dark: #171615;
-
-  --background-color: var(--minecraft-dark);
-  --background-page: #0f0e0d;
-  --background-card: #313131;
-
+  --accent: #3c8527;
+  --accent-light: #6cc349;
+  --accent-dark: #2a641c;
+  --accent-contrast: #101010;
+  --accent-soft: rgba(60, 133, 39, 0.34);
+  --accent-tint: rgba(108, 195, 73, 0.15);
+  --accent-bright: #a0e081;
+  --accent-pale: #c6f6b6;
+  --accent-bevel-light: rgba(255, 255, 255, 0.45);
+  --bg-page: #0f0e0d;
+  --bg: #171615;
+  --bg-card: #313131;
+  --bg-surface: #2e2e2e;
+  --bg-surface-2: #303030;
+  --bg-surface-3: #3c3c3c;
+  --bg-elevated: #4a4a4a;
+  --bg-sunken: #111111;
+  --bg-sunken-2: #161616;
+  --bg-input: #616161;
+  --bg-input-disabled: #424242;
+  --bg-panel: color-mix(in srgb, white, black 75%);
+  --bg-overlay: rgba(0, 0, 0, 0.5);
+  --bg-overlay-strong: rgba(0, 0, 0, 0.7);
+  --bg-overlay-soft: rgba(0, 0, 0, 0.3);
+  --bg-scrim: rgba(0, 0, 0, 0.24);
+  --bg-scrim-2: rgba(0, 0, 0, 0.18);
+  --bg-hover: rgba(255, 255, 255, 0.1);
+  --bg-hover-strong: rgba(255, 255, 255, 0.2);
+  --bg-hover-faint: rgba(255, 255, 255, 0.04);
+  --bg-selection: rgba(100, 100, 255, 0.25);
+  --bg-selection-strong: rgba(100, 100, 255, 0.45);
+  --bg-drag-accent: rgba(152, 203, 132, 0.15);
+  --bg-code: #181818;
+  --bg-log: #202020;
+  --bg-log-item: #2d2d2d;
+  --bg-thumb: rgba(0, 0, 0, 0.3);
+  --bg-danger-deep: #400;
+  --bg-danger-deep-hover: #600;
+  --text: #ffffff;
+  --text-soft: rgba(255, 255, 255, 0.88);
+  --text-dim: rgba(255, 255, 255, 0.8);
+  --text-muted: rgba(255, 255, 255, 0.72);
+  --text-faint: rgba(255, 255, 255, 0.6);
+  --text-subtle: rgba(255, 255, 255, 0.5);
+  --text-disabled: rgba(255, 255, 255, 0.45);
+  --text-inverse: #101010;
+  --text-placeholder: #808080;
+  --text-hint: #ccc;
+  --text-muted-solid: #aba09c;
+  --text-gray: #aaaaaa;
+  --border: #222222;
+  --border-dark: #111111;
+  --border-dark-2: #1a1a1a;
+  --border-light: #555555;
+  --border-soft: rgba(255, 255, 255, 0.14);
+  --border-soft-2: rgba(255, 255, 255, 0.12);
+  --border-strong: #aaaaaa;
+  --border-strong-2: #909399;
+  --border-divider: #747271;
+  --border-danger: #c44;
+  --bevel-dark: #1f1f1f;
+  --bevel-light: #454545;
+  --bevel-dark-strong: #3a3a3a;
+  --bevel-light-strong: #6b6b6b;
+  --shadow-strong: rgba(0, 0, 0, 0.7);
+  --shadow: rgba(0, 0, 0, 0.5);
+  --shadow-soft: rgba(0, 0, 0, 0.35);
+  --shadow-card: rgba(0, 0, 0, 0.25);
+  --scrollbar-thumb: #777;
+  --scrollbar-track: #222;
+  --scrollbar-border: #111;
+  --scrollbar-thumb-border: #aaa;
+  --focus-ring: #fff;
+  --success: #67c23a;
+  --success-bg: rgb(45, 72, 31);
+  --danger: #f56c6c;
+  --danger-bg: rgb(88, 46, 46);
+  --danger-soft: rgb(247, 137, 137);
+  --danger-deep-border: #c44;
+  --warning: #f0c36a;
+  --warning-soft: #ffd7d7;
+  --nav-slider: #7e0c6b;
+  --nav-slider-light: #9b428c;
+  --nav-slider-dark: #46073b;
+  color-scheme: dark;
   line-height: 1.5;
   font-weight: 400;
   letter-spacing: 1px;
-
-  color-scheme: dark;
-  color: rgba(255, 255, 255, 0.8);
-  background-color: var(--background-color);
-
+  color: var(--text-dim);
+  background-color: var(--bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+[data-theme='light'] {
+  --accent: #4e7a2e;
+  --accent-light: #5d9438;
+  --accent-dark: #3d6426;
+  --accent-contrast: #ffffff;
+  --accent-soft: rgba(90, 122, 58, 0.15);
+  --accent-tint: rgba(90, 122, 58, 0.12);
+  --accent-bright: #4e8a33;
+  --accent-pale: #46782c;
+  --accent-bevel-light: rgba(255, 255, 255, 0.35);
+  --bg-page: #eceae2;
+  --bg: #e3e0d6;
+  --bg-card: #f7f5ee;
+  --bg-surface: #f4f1e8;
+  --bg-surface-2: #efece2;
+  --bg-surface-3: #faf8f1;
+  --bg-elevated: #fdfdf8;
+  --bg-sunken: #d9d6cb;
+  --bg-sunken-2: #d2cfc4;
+  --bg-input: #ffffff;
+  --bg-input-disabled: #dcd9cf;
+  --bg-panel: #e8e6dd;
+  --bg-overlay: rgba(0, 0, 0, 0.4);
+  --bg-overlay-strong: rgba(0, 0, 0, 0.6);
+  --bg-overlay-soft: rgba(0, 0, 0, 0.15);
+  --bg-scrim: rgba(0, 0, 0, 0.08);
+  --bg-scrim-2: rgba(0, 0, 0, 0.06);
+  --bg-hover: rgba(0, 0, 0, 0.08);
+  --bg-hover-strong: rgba(0, 0, 0, 0.12);
+  --bg-hover-faint: rgba(0, 0, 0, 0.04);
+  --bg-selection: rgba(90, 122, 58, 0.2);
+  --bg-selection-strong: rgba(90, 122, 58, 0.3);
+  --bg-drag-accent: rgba(90, 122, 58, 0.2);
+  --bg-code: #fbfbfb;
+  --bg-log: #e8e5db;
+  --bg-log-item: #f2efe6;
+  --bg-thumb: rgba(0, 0, 0, 0.06);
+  --bg-danger-deep: #f5e1e1;
+  --bg-danger-deep-hover: #eccfcf;
+  --text: #2b2b2b;
+  --text-soft: rgba(43, 43, 43, 0.88);
+  --text-dim: rgba(43, 43, 43, 0.8);
+  --text-muted: rgba(43, 43, 43, 0.72);
+  --text-faint: rgba(43, 43, 43, 0.6);
+  --text-subtle: rgba(43, 43, 43, 0.5);
+  --text-disabled: rgba(43, 43, 43, 0.45);
+  --text-inverse: #ffffff;
+  --text-placeholder: #8a857a;
+  --text-hint: #6b665e;
+  --text-muted-solid: #6b5f52;
+  --text-gray: #7a7468;
+  --border: #b9b4a8;
+  --border-dark: #a39e92;
+  --border-dark-2: #c9c4b8;
+  --border-light: #cfcabf;
+  --border-soft: rgba(0, 0, 0, 0.12);
+  --border-soft-2: rgba(0, 0, 0, 0.1);
+  --border-strong: #8a857a;
+  --border-strong-2: #909399;
+  --border-divider: #a8a296;
+  --border-danger: #b04a4a;
+  --bevel-dark: #b3aea2;
+  --bevel-light: #ffffff;
+  --bevel-dark-strong: #a8a396;
+  --bevel-light-strong: #f5f2ea;
+  --shadow-strong: rgba(0, 0, 0, 0.4);
+  --shadow: rgba(0, 0, 0, 0.3);
+  --shadow-soft: rgba(0, 0, 0, 0.18);
+  --shadow-card: rgba(0, 0, 0, 0.12);
+  --scrollbar-thumb: #9a958a;
+  --scrollbar-track: #d8d5cc;
+  --scrollbar-border: #c4c0b6;
+  --scrollbar-thumb-border: #6f6a60;
+  --focus-ring: #2b2b2b;
+  --success: #3f7d1f;
+  --success-bg: rgb(214, 233, 205);
+  --danger: #c45656;
+  --danger-bg: rgb(240, 213, 213);
+  --danger-soft: rgb(214, 122, 122);
+  --danger-deep-border: #b04a4a;
+  --warning: #b07f2a;
+  --warning-soft: #8a5a5a;
+  color-scheme: light;
+}
+
+:root {
+  --mc-dark: #171615;
+  --mc-gray: #3d3938;
+  --mc-gray-dark: #262524;
+  --mc-gray-light: #747271;
+  --mc-black: #000000;
+  --mc-btn-face: #c6c6c6;
+  --mc-btn-face-dark: #303030;
+  --mc-btn-hover: #43a01c;
+  --mc-btn-pressed: #8b8b8b;
+  --mc-btn-text: #000;
+  --mc-btn-bevel: #333;
+  --mc-slot-bg: #555;
+  --mc-slot: #8b8b8b;
+  --mc-slot-border-dark: #373737;
+  --mc-slot-border-light: #ffffff;
+  --mc-slot-input: #6b6b6b;
+  --mc-slot-input-focus: #aaa;
+  --mc-table-header: #3f3f3f;
+  --mc-table-header-hover: #5b5b5b;
+  --mc-table-cell-hover: #aeaeae;
+  --mc-table-bg: #c6c6c6;
+  --mc-table-stripe: rgba(224, 224, 224, 0.1);
+  --mc-code-bg: #3b3b3b;
+  --mc-code-bg-dark: #2a2a2a;
+  --mc-code-border-dark: #555555;
+  --mc-code-border-light: #ffffff;
+  --mc-code-text: #e0e0e0;
+  --mc-code-shadow: #1a1a1a;
+  --mc-table-header-dark: #292929;
+  --mc-classic-selected-text: #ffffa0;
+  --mc-quote-bg: #8b5e3c;
+  --mc-quote-border: #5d3a1a;
+  --mc-quote-shadow: #3e2723;
 }
 
 * {
@@ -34,7 +225,7 @@
 
 .mcfont {
   font-family:
-    'Ark Latin' /*, 'Minecraft_AE'*/,
+    'Ark Latin',
     'Cubic 11',
     system-ui,
     Avenir,
@@ -46,7 +237,7 @@
 .mctitle {
   font-family:
     'Minecraft-Tenv2',
-    'Ark Latin' /*, 'Minecraft_AE'*/,
+    'Ark Latin',
     'Cubic 11',
     system-ui,
     Avenir,
@@ -60,6 +251,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -70,6 +262,7 @@
     opacity: 0;
     transform: translateX(2rem);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -81,6 +274,7 @@
     opacity: 0;
     transform: translateX(-2rem);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -92,6 +286,7 @@
     opacity: 0;
     transform: translateY(1rem);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -100,14 +295,14 @@
 
 .mc-border {
   box-sizing: border-box;
-  color: #fff;
-  background-color: color-mix(in srgb, white, black 75%);
+  color: var(--text);
+  background-color: var(--bg-panel);
   border: 8px solid;
   border-image: url('/UI/dialog_background_hollow_4.png') 8;
 }
 
 :where(button, a, input, textarea, select, summary, [tabindex]:not([tabindex='-1'])):focus-visible {
-  outline: 2px solid var(--minecraft-green-light);
+  outline: 2px solid var(--accent-light);
   outline-offset: 3px;
 }
 
@@ -129,13 +324,11 @@
   left: 1rem;
   top: 1rem;
   z-index: 99999;
-
   padding: 0.75rem 1rem;
-  background: #000;
-  color: #fff;
-  border: 2px solid #fff;
+  background: var(--bg-sunken);
+  color: var(--text);
+  border: 2px solid var(--focus-ring);
   text-decoration: none;
-
   transform: translateY(-200%);
 }
 
@@ -153,9 +346,9 @@
 .nmo-hero-panel {
   position: relative;
   overflow: hidden;
-  color: #fff;
+  color: var(--text);
   background:
-    linear-gradient(135deg, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.45)),
+    linear-gradient(135deg, var(--bg-overlay-strong), var(--bg-overlay)),
     url('/blockbg/deepslate-tiles.png');
   background-size:
     auto,
@@ -163,46 +356,55 @@
   border: 8px solid;
   border-image: url('/UI/dialog_background_hollow_4.png') 8;
   box-shadow:
-    inset -4px -4px 0 0 rgba(0, 0, 0, 0.45),
-    inset 4px 4px 0 0 rgba(255, 255, 255, 0.1),
-    0 0.75rem 2rem rgba(0, 0, 0, 0.35);
+    inset -4px -4px 0 0 var(--shadow),
+    inset 4px 4px 0 0 var(--bg-hover),
+    0 0.75rem 2rem var(--shadow-soft);
+}
+
+[data-theme='light'] .nmo-hero-panel {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.12)),
+    url('/blockbg/blue-ice.png');
+  background-size:
+    auto,
+    32px 32px;
 }
 
 .nmo-section-title {
   margin: 0;
-  color: #fff;
+  color: var(--text);
   font-size: clamp(1.6rem, 3vw, 2.6rem);
   line-height: 1.2;
 }
 
 .nmo-section-desc {
   margin: 0;
-  color: rgba(255, 255, 255, 0.76);
+  color: color-mix(in srgb, var(--text) 76%, transparent);
   line-height: 1.7;
 }
 
 .nmo-card {
-  color: #fff;
-  background-color: rgba(31, 31, 31, 0.92);
-  border: 4px solid #222;
+  color: var(--text);
+  background-color: color-mix(in srgb, var(--bg-card) 92%, transparent);
+  border: 4px solid var(--border);
   box-shadow:
-    inset -3px -3px 0 0 #191919,
-    inset 3px 3px 0 0 #484848,
-    0 0.5rem 1rem rgba(0, 0, 0, 0.22);
+    inset -3px -3px 0 0 var(--bevel-dark),
+    inset 3px 3px 0 0 var(--bevel-light),
+    0 0.5rem 1rem var(--shadow-card);
 }
 
 .nmo-card-soft {
-  color: #fff;
-  background-color: rgba(20, 20, 20, 0.68);
-  border: 2px solid rgba(255, 255, 255, 0.14);
+  color: var(--text);
+  background-color: color-mix(in srgb, var(--bg) 68%, transparent);
+  border: 2px solid var(--border-soft);
   box-shadow:
-    inset -2px -2px 0 0 rgba(0, 0, 0, 0.4),
-    inset 2px 2px 0 0 rgba(255, 255, 255, 0.08);
+    inset -2px -2px 0 0 var(--shadow-soft),
+    inset 2px 2px 0 0 color-mix(in srgb, var(--text) 8%, transparent);
 }
 
 .nmo-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: #777 #222;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
 
 .nmo-scrollbar::-webkit-scrollbar {
@@ -211,11 +413,11 @@
 }
 
 .nmo-scrollbar::-webkit-scrollbar-track {
-  background: #222;
-  border: 1px solid #111;
+  background: var(--scrollbar-track);
+  border: 1px solid var(--scrollbar-border);
 }
 
 .nmo-scrollbar::-webkit-scrollbar-thumb {
-  background: #777;
-  border: 1px solid #aaa;
+  background: var(--scrollbar-thumb);
+  border: 1px solid var(--scrollbar-thumb-border);
 }

@@ -409,7 +409,7 @@ onUnmounted(() => {
       <div v-if="createdToken && !createdToken.error" class="bot-created-token" role="status">
         <h3 class="bot-card-title">刚创建的 Token</h3>
 
-        <p v-if="createdToken.secret" class="bot-help-text" style="color: #f56c6c">
+        <p v-if="createdToken.secret" class="bot-help-text" style="color: var(--danger)">
           明文 Token 只会显示一次，请立即复制并保存。
         </p>
 
@@ -587,11 +587,11 @@ onUnmounted(() => {
 .bot-endpoint-card,
 .bot-created-token {
   padding: 1rem;
-  background-color: #2e2e2e;
-  border: 2px solid #1a1a1a;
+  background-color: var(--bg-surface);
+  border: 2px solid var(--border-dark-2);
   box-shadow:
-    inset -2px -2px 0 0 #1f1f1f,
-    inset 2px 2px 0 0 #454545;
+    inset -2px -2px 0 0 var(--bevel-dark),
+    inset 2px 2px 0 0 var(--bevel-light);
 }
 
 .bot-summary-card {
@@ -603,7 +603,7 @@ onUnmounted(() => {
 .bot-summary-label,
 .bot-help-text,
 .bot-empty-text {
-  color: rgba(255, 255, 255, 0.76);
+  color: color-mix(in srgb, var(--text) 76%, transparent);
 }
 
 .bot-summary-label {
@@ -611,7 +611,7 @@ onUnmounted(() => {
 }
 
 .bot-summary-value {
-  color: #fff;
+  color: var(--text);
   font-size: 2.2rem;
   line-height: 1;
 }
@@ -640,7 +640,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #fff;
+  color: var(--text);
   user-select: none;
 }
 
@@ -653,7 +653,7 @@ onUnmounted(() => {
 
 .bot-card-title {
   margin: 0;
-  color: #fff;
+  color: var(--text);
   font-size: 1.2rem;
 }
 
@@ -672,7 +672,7 @@ onUnmounted(() => {
 
 .bot-definition-list dt,
 .bot-input-label {
-  color: #fff;
+  color: var(--text);
   user-select: none;
 }
 
@@ -686,7 +686,7 @@ onUnmounted(() => {
 
 .bot-warning-text {
   margin: 0;
-  color: #f0c36a;
+  color: var(--warning);
 }
 
 .bot-create-form {
@@ -728,43 +728,43 @@ onUnmounted(() => {
 
 .bot-table-wrap {
   overflow-x: auto;
-  border: 2px solid #1a1a1a;
+  border: 2px solid var(--border-dark-2);
 }
 
 .bot-table {
   width: 100%;
   min-width: 42rem;
   border-collapse: collapse;
-  background-color: #303030;
+  background-color: var(--bg-surface-2);
 }
 
 .bot-table caption {
   text-align: left;
-  color: #fff;
+  color: var(--text);
   padding: 0.75rem;
-  background-color: #242424;
-  border-bottom: 2px solid #1a1a1a;
+  background-color: color-mix(in srgb, var(--bg-surface) 78%, transparent);
+  border-bottom: 2px solid var(--border-dark-2);
 }
 
 .bot-table th,
 .bot-table td {
   padding: 0.75rem;
   text-align: left;
-  border-bottom: 1px solid #555;
+  border-bottom: 1px solid var(--border-light);
   vertical-align: middle;
 }
 
 .bot-table th {
-  color: #fff;
-  background-color: #3c3c3c;
+  color: var(--text);
+  background-color: var(--bg-surface-3);
 }
 
 .bot-table tr:hover td {
-  background-color: rgba(255, 255, 255, 0.04);
+  background-color: var(--bg-hover-faint);
 }
 
 .bot-table-button.danger :deep(.title) {
-  color: #ffd7d7;
+  color: var(--warning-soft);
 }
 
 .bot-log-list {
@@ -774,20 +774,20 @@ onUnmounted(() => {
   max-height: 20rem;
   overflow-y: auto;
   padding: 0.5rem;
-  background-color: #202020;
-  border: 2px solid #111;
+  background-color: var(--bg-log);
+  border: 2px solid var(--border-dark);
 }
 
 .bot-log-item {
   padding: 0.5rem;
-  color: #eee;
-  background-color: #2d2d2d;
-  border-left: 4px solid var(--minecraft-green-light);
+  color: var(--text-soft);
+  background-color: var(--bg-log-item);
+  border-left: 4px solid var(--accent-light);
   overflow-wrap: anywhere;
 }
 
 .bot-log-item:focus-visible {
-  outline: 3px solid #fff;
+  outline: 3px solid var(--focus-ring);
   outline-offset: 3px;
 }
 
@@ -805,9 +805,9 @@ code {
   display: inline-block;
   max-width: 100%;
   padding: 0.15rem 0.35rem;
-  color: #c6f6b6;
-  background-color: #181818;
-  border: 1px solid #555;
+  color: var(--accent-pale);
+  background-color: var(--bg-code);
+  border: 1px solid var(--border-light);
   overflow-wrap: anywhere;
 }
 

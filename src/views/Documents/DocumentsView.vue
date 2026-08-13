@@ -308,7 +308,7 @@ const scrollElement = document.documentElement
 
 <style lang="css" scoped>
 .resizer:focus-visible {
-  outline: 3px solid #fff;
+  outline: 3px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
@@ -336,8 +336,8 @@ const scrollElement = document.documentElement
   background: linear-gradient(
     180deg,
     transparent 0%,
-    rgba(0, 0, 0, 0.5) 50%,
-    rgba(0, 0, 0, 0.7) 100%
+    var(--bg-overlay) 50%,
+    var(--bg-overlay-strong) 100%
   );
 }
 
@@ -355,7 +355,7 @@ const scrollElement = document.documentElement
   padding: 0 4rem;
   padding-bottom: 2rem;
 
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: var(--bg-overlay-strong);
 }
 
 .tree-viewer {
@@ -365,11 +365,11 @@ const scrollElement = document.documentElement
   padding: 0.8rem;
   padding-left: 4px;
   padding-right: 4px;
-  border: 4px solid #222222;
+  border: 4px solid var(--border);
   box-shadow:
-    inset -4px -4px 0px 0px #3a3a3a,
-    inset 4px 4px 0px 0px #6b6b6b;
-  background-color: #111111;
+    inset -4px -4px 0px 0px var(--bevel-dark-strong),
+    inset 4px 4px 0px 0px var(--bevel-light-strong);
+  background-color: var(--bg-sunken);
 }
 
 .resizer-container {
@@ -429,16 +429,16 @@ const scrollElement = document.documentElement
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px dashed #fff;
-  color: white;
+  border: 1px dashed var(--focus-ring);
+  color: var(--text);
   cursor: pointer;
   padding: 1.2rem;
-  background-color: rgba(255, 255, 255, 0);
+  background-color: transparent;
   transition: all 0.2s ease-in-out;
 }
 
 .upload-button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--bg-hover);
 }
 
 .editor-container {
@@ -485,11 +485,11 @@ const scrollElement = document.documentElement
   min-height: 100vh;
 
   backdrop-filter: blur(10px);
-  background-color: rgba(0, 0, 0, 0.3);
-  border: 4px solid #222222;
+  background-color: var(--bg-overlay-soft);
+  border: 4px solid var(--border);
   box-shadow:
-    inset -4px -4px 0px 0px #3a3a3a,
-    inset 4px 4px 0px 0px #6b6b6b;
+    inset -4px -4px 0px 0px var(--bevel-dark-strong),
+    inset 4px 4px 0px 0px var(--bevel-light-strong);
 }
 
 .document-main-item {
@@ -549,7 +549,7 @@ const scrollElement = document.documentElement
 
   .document-preview-catalog {
     width: 100%;
-    border-bottom: 2px solid #909399;
+    border-bottom: 2px solid var(--border-strong-2);
     margin-bottom: 1rem;
     padding-bottom: 1rem;
     top: 0;
@@ -562,7 +562,7 @@ const scrollElement = document.documentElement
 <style lang="css">
 .md-editor-catalog-container {
   padding-left: 2rem;
-  border-left: 2px solid #909399;
+  border-left: 2px solid var(--border-strong-2);
 }
 
 .md-editor-catalog-indicator {

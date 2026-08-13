@@ -552,7 +552,7 @@ onMounted(refresh)
 
 .server-selected-text {
   margin-right: auto;
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--text-muted);
   align-self: center;
 }
 
@@ -567,7 +567,7 @@ onMounted(refresh)
 
 .upload-button:focus-visible,
 .server-image-picture:focus-visible {
-  outline: 3px solid #fff;
+  outline: 3px solid var(--focus-ring);
   outline-offset: 4px;
 }
 
@@ -577,16 +577,16 @@ onMounted(refresh)
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px dashed #fff;
-  color: white;
+  border: 1px dashed var(--focus-ring);
+  color: var(--text);
   cursor: pointer;
   padding: 1.2rem;
-  background-color: rgba(255, 255, 255, 0);
+  background-color: transparent;
   transition: all 0.2s ease-in-out;
 }
 
 .upload-button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--bg-hover);
 }
 
 .server-image {
@@ -608,12 +608,12 @@ onMounted(refresh)
   content: '';
   position: absolute;
   inset: 0;
-  background-color: rgba(255, 255, 255, 0);
+  background-color: transparent;
   transition: all 0.2s ease-in-out;
 }
 
 .server-image-picture:hover::after {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--bg-hover);
 }
 
 .icon-options-container {

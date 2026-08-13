@@ -206,7 +206,7 @@ onMounted(async () => {
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  color: rgba(255, 255, 255, 0.76);
+  color: color-mix(in srgb, var(--text) 76%, transparent);
   font-size: 1.2rem;
 }
 

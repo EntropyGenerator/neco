@@ -824,7 +824,7 @@ onMounted(() => {
       <text class="delete-user-info-text"
         >确定要删除用户 <strong style="color: #e6a23c">{{ deleteUsername }}</strong> 吗？</text
       >
-      <text class="delete-user-info-text" style="color: #f56c6c">它将永远消失！（真的很久！）</text>
+      <text class="delete-user-info-text" style="color: var(--danger)">它将永远消失！（真的很久！）</text>
     </div>
   </MinecraftDialog>
 </template>
@@ -845,7 +845,7 @@ onMounted(() => {
 }
 
 .user-card-main:focus-visible {
-  outline: 3px solid #fff;
+  outline: 3px solid var(--focus-ring);
   outline-offset: 4px;
 }
 
@@ -853,12 +853,12 @@ onMounted(() => {
   border: 0;
   padding: 0;
   background: transparent;
-  color: rgb(247, 137, 137);
+  color: var(--danger-soft);
   cursor: pointer;
 }
 
 .delete-user:focus-visible {
-  outline: 3px solid #fff;
+  outline: 3px solid var(--focus-ring);
   outline-offset: 3px;
 }
 
@@ -870,7 +870,7 @@ onMounted(() => {
 }
 
 .user-avatar:focus-visible {
-  outline: 3px solid #fff;
+  outline: 3px solid var(--focus-ring);
   outline-offset: 4px;
 }
 
@@ -886,7 +886,7 @@ onMounted(() => {
   height: 6rem;
   overflow: hidden;
   border-radius: 50%;
-  outline: 2px solid var(--minecraft-gray-light);
+  outline: 2px solid var(--border-divider);
   position: relative;
 }
 
@@ -920,7 +920,7 @@ onMounted(() => {
 }
 
 .user-avatar:hover::before {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--bg-overlay);
 }
 
 .user-avatar:hover::after {
@@ -936,13 +936,13 @@ onMounted(() => {
   border-style: none;
   user-select: none;
   border-radius: 50%;
-  outline: 2px solid var(--minecraft-gray-light);
+  outline: 2px solid var(--border-divider);
 }
 
 .user-info-label {
   font-size: 0.8rem;
   user-select: none;
-  color: white;
+  color: var(--text);
   text-wrap: nowrap;
 }
 
@@ -961,7 +961,7 @@ onMounted(() => {
 }
 
 .user-info-text {
-  color: white;
+  color: var(--text);
   font-size: 1.2rem;
   user-select: none;
 }
@@ -1024,12 +1024,12 @@ onMounted(() => {
   display: flex;
   padding: 1rem;
 
-  background-color: #2e2e2e;
-  border: 2px solid #1a1a1a;
+  background-color: var(--bg-surface);
+  border: 2px solid var(--border-dark-2);
   box-shadow:
-    inset -2px -2px 0 0 #1f1f1f,
-    inset 2px 2px 0 0 #454545;
-  color: #e0e0e0;
+    inset -2px -2px 0 0 var(--bevel-dark),
+    inset 2px 2px 0 0 var(--bevel-light);
+  color: var(--text-soft);
 
   cursor: pointer;
 }
@@ -1102,7 +1102,7 @@ onMounted(() => {
 
 .create-user-info-title {
   font-size: 1.2rem;
-  color: white;
+  color: var(--text);
   user-select: none;
 }
 
@@ -1120,7 +1120,7 @@ onMounted(() => {
 
   width: 1.5rem;
   height: 1.5rem;
-  color: rgb(247, 137, 137);
+  color: var(--danger-soft);
 }
 
 .delete-user-container {
@@ -1144,15 +1144,15 @@ onMounted(() => {
 
 .edit-user-card {
   padding: 1rem;
-  background-color: #2e2e2e;
-  border: 2px solid #1a1a1a;
+  background-color: var(--bg-surface);
+  border: 2px solid var(--border-dark-2);
   box-shadow:
-    inset -2px -2px 0 0 #1f1f1f,
-    inset 2px 2px 0 0 #454545;
+    inset -2px -2px 0 0 var(--bevel-dark),
+    inset 2px 2px 0 0 var(--bevel-light);
 }
 
 .edit-user-profile-card {
-  background-color: #303030;
+  background-color: var(--bg-surface-2);
 }
 
 .edit-user-section-header {
@@ -1165,13 +1165,13 @@ onMounted(() => {
 
 .edit-user-section-title {
   margin: 0;
-  color: #fff;
+  color: var(--text);
   font-size: 1.15rem;
   line-height: 1.2rem;
 }
 
 .edit-user-section-desc {
-  color: rgba(255, 255, 255, 0.68);
+  color: color-mix(in srgb, var(--text) 68%, transparent);
   font-size: 0.85rem;
 }
 
@@ -1192,7 +1192,7 @@ onMounted(() => {
 }
 
 .edit-user-avatar-button:focus-visible {
-  outline: 3px solid #fff;
+  outline: 3px solid var(--focus-ring);
   outline-offset: 4px;
 }
 
@@ -1202,7 +1202,7 @@ onMounted(() => {
   object-fit: cover;
   object-position: center;
   border-radius: 50%;
-  outline: 2px solid var(--minecraft-gray-light);
+  outline: 2px solid var(--border-divider);
   user-select: none;
 }
 
@@ -1215,7 +1215,7 @@ onMounted(() => {
 }
 
 .edit-user-label {
-  color: #fff;
+  color: var(--text);
   font-size: 0.95rem;
   user-select: none;
 }
@@ -1229,7 +1229,7 @@ onMounted(() => {
 
 .edit-user-help-text {
   margin: 0;
-  color: rgba(255, 255, 255, 0.68);
+  color: color-mix(in srgb, var(--text) 68%, transparent);
   font-size: 0.85rem;
   line-height: 1.25rem;
 }
@@ -1246,11 +1246,11 @@ onMounted(() => {
   gap: 0.6rem;
   min-height: 3.4rem;
   padding: 0.55rem 0.65rem;
-  background-color: rgba(0, 0, 0, 0.18);
-  border: 1px solid #4a4a4a;
+  background-color: var(--bg-scrim-2);
+  border: 1px solid var(--bg-elevated);
   box-shadow:
-    inset -1px -1px 0 0 #111,
-    inset 1px 1px 0 0 #666;
+    inset -1px -1px 0 0 var(--border-dark),
+    inset 1px 1px 0 0 var(--border-light);
 }
 
 .edit-permission-label {
@@ -1258,7 +1258,7 @@ onMounted(() => {
   flex-direction: column;
   gap: 0.2rem;
   min-width: 0;
-  color: #fff;
+  color: var(--text);
   cursor: pointer;
   user-select: none;
 }
@@ -1269,7 +1269,7 @@ onMounted(() => {
 }
 
 .edit-permission-label span {
-  color: rgba(255, 255, 255, 0.64);
+  color: color-mix(in srgb, var(--text) 64%, transparent);
   font-size: 0.78rem;
   line-height: 1rem;
 }
@@ -1287,7 +1287,7 @@ onMounted(() => {
   max-width: 100%;
   min-height: 1.5rem;
   padding: 0.2rem 0.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid color-mix(in srgb, var(--text) 18%, transparent);
   border-radius: 4px;
   font-size: 0.85rem;
   overflow-wrap: anywhere;
@@ -1315,7 +1315,7 @@ onMounted(() => {
 .edit-tag-list-block {
   margin-top: 1rem;
   padding-top: 1rem;
-  border-top: 1px solid #555;
+  border-top: 1px solid var(--border-light);
 }
 
 .edit-tag-list-title {
@@ -1323,7 +1323,7 @@ onMounted(() => {
   justify-content: space-between;
   gap: 1rem;
   margin-bottom: 0.75rem;
-  color: rgba(255, 255, 255, 0.78);
+  color: color-mix(in srgb, var(--text) 78%, transparent);
   font-size: 0.9rem;
   user-select: none;
 }
@@ -1342,7 +1342,7 @@ onMounted(() => {
   min-height: 1.75rem;
   padding: 0.2rem 0.25rem 0.2rem 0.55rem;
   border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid color-mix(in srgb, var(--text) 16%, transparent);
 }
 
 .edit-tag-chip-text {
@@ -1363,13 +1363,13 @@ onMounted(() => {
   margin-left: 0.35rem;
   padding: 0;
   border: 0;
-  color: #f56c6c;
+  color: var(--danger);
   background: transparent;
   cursor: pointer;
 }
 
 .edit-tag-delete-button:focus-visible {
-  outline: 3px solid #fff;
+  outline: 3px solid var(--focus-ring);
   outline-offset: 2px;
 }
 

@@ -156,7 +156,7 @@ onMounted(() => {
 }
 
 .login-panel {
-  background-color: color-mix(in srgb, rgba(255, 255, 255, 0.8), rgba(0, 0, 0, 0.8) 80%);
+  background-color: color-mix(in srgb, var(--bg-card) 80%, transparent);
   min-width: 20rem;
   width: 45%;
   height: 60vh;

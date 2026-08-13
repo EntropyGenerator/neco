@@ -138,7 +138,7 @@ onUnmounted(() => {
   flex-direction: column;
   width: 16rem;
   padding: 2rem 1rem;
-  border-right: 1px solid var(--minecraft-gray-light);
+  border-right: 1px solid var(--border-divider);
   transition: all 0.3s ease-in-out;
   overflow: hidden;
 }
@@ -152,7 +152,7 @@ onUnmounted(() => {
 .management-title {
   user-select: none;
   font-size: 1.5rem;
-  color: white;
+  color: var(--text);
   margin: 1rem auto;
   text-wrap: nowrap;
 }
@@ -224,12 +224,12 @@ onUnmounted(() => {
   display: flex;
   align-items: flex-end;
   width: 100%;
-  border-bottom: 1px solid var(--minecraft-gray-light);
+  border-bottom: 1px solid var(--border-divider);
   padding-bottom: 1rem;
 }
 
 .management-tab-title {
-  color: white;
+  color: var(--text);
   user-select: none;
   font-size: 1.5rem;
   margin-right: 1rem;
@@ -251,15 +251,15 @@ onUnmounted(() => {
   padding: 1rem;
   gap: 1rem;
 
-  background-color: #4a4a4a;
-  border: 4px solid #222222;
+  background-color: var(--bg-elevated);
+  border: 4px solid var(--border);
   box-shadow:
-    inset -4px -4px 0px 0px #3a3a3a,
-    inset 4px 4px 0px 0px #6b6b6b;
+    inset -4px -4px 0px 0px var(--bevel-dark-strong),
+    inset 4px 4px 0px 0px var(--bevel-light-strong);
 }
 
 .management-tab-form-title {
-  color: white;
+  color: var(--text);
   font-size: 1.5rem;
   user-select: none;
   font-weight: bold;
@@ -277,11 +277,11 @@ onUnmounted(() => {
   flex-direction: column;
   gap: 1rem;
   padding: 1rem;
-  background-color: #4a4a4a;
-  border: 4px solid #222222;
+  background-color: var(--bg-elevated);
+  border: 4px solid var(--border);
   box-shadow:
-    inset -4px -4px 0px 0px #3a3a3a,
-    inset 4px 4px 0px 0px #6b6b6b;
+    inset -4px -4px 0px 0px var(--bevel-dark-strong),
+    inset 4px 4px 0px 0px var(--bevel-light-strong);
   box-sizing: border-box;
 }
 
@@ -292,7 +292,7 @@ onUnmounted(() => {
   flex-wrap: wrap;
   gap: 1rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--minecraft-gray-light);
+  border-bottom: 1px solid var(--border-divider);
 }
 
 .management-section-title-block {
@@ -303,7 +303,7 @@ onUnmounted(() => {
 
 .management-section-title {
   margin: 0;
-  color: #fff;
+  color: var(--text);
   font-size: 1.35rem;
   line-height: 1.45rem;
   user-select: none;
@@ -311,7 +311,7 @@ onUnmounted(() => {
 
 .management-section-desc {
   margin: 0;
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--text-muted);
   font-size: 0.9rem;
   line-height: 1.25rem;
   user-select: none;
@@ -327,16 +327,16 @@ onUnmounted(() => {
 
 .management-card {
   padding: 1rem;
-  background-color: #303030;
-  border: 2px solid #1a1a1a;
+  background-color: var(--bg-surface-2);
+  border: 2px solid var(--border-dark-2);
   box-shadow:
-    inset -2px -2px 0 0 #1f1f1f,
-    inset 2px 2px 0 0 #454545;
+    inset -2px -2px 0 0 var(--bevel-dark),
+    inset 2px 2px 0 0 var(--bevel-light);
 }
 
 .management-card-title {
   margin: 0 0 0.75rem 0;
-  color: #fff;
+  color: var(--text);
   font-size: 1.15rem;
   line-height: 1.25rem;
   user-select: none;
@@ -360,14 +360,14 @@ onUnmounted(() => {
 }
 
 .management-field-label {
-  color: #fff;
+  color: var(--text);
   font-size: 1rem;
   user-select: none;
 }
 
 .management-field-help {
   margin: 0;
-  color: rgba(255, 255, 255, 0.66);
+  color: color-mix(in srgb, var(--text) 66%, transparent);
   font-size: 0.85rem;
   line-height: 1.25rem;
 }
@@ -378,14 +378,14 @@ onUnmounted(() => {
   align-items: center;
   gap: 0.75rem;
   padding: 2rem 1rem;
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--text-muted);
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.18);
-  border: 2px dashed #666;
+  background-color: var(--bg-scrim-2);
+  border: 2px dashed var(--border-light);
 }
 
 .management-empty-state strong {
-  color: #fff;
+  color: var(--text);
   font-size: 1.1rem;
 }
 
@@ -395,12 +395,12 @@ onUnmounted(() => {
   flex-wrap: wrap;
   gap: 0.75rem;
   padding-top: 1rem;
-  border-top: 1px solid #555;
+  border-top: 1px solid var(--border-light);
 }
 
 .management-danger-text {
   margin: 0;
-  color: #f0c36a;
+  color: var(--warning);
   line-height: 1.35rem;
 }
 

@@ -204,21 +204,22 @@ onMounted(async () => {
 
 <style lang="css" scoped>
 .wiki-page {
-  --w-bg: #e3e3e3;
-  --w-bg-end: #bcbcbc;
-  --w-surface: rgba(255, 255, 255, 0.92);
-  --w-surface-2: rgba(255, 255, 255, 0.85);
-  --w-surface-3: rgba(255, 255, 255, 0.7);
-  --w-cream: #ffffff;
-  --w-text: #000000;
-  --w-text-muted: #7a6e5e;
-  --w-text-dim: #8a7e6e;
-  --w-accent: #5a7a3a;
-  --w-accent-bg: rgba(90, 122, 58, 0.15);
-  --w-border: #ffffff;
-  --w-shadow: rgba(0, 0, 0, 0.06);
-  --w-placeholder: #b0a898;
-  --w-placeholder-icon: #c4b898;
+  /* Wiki 页通过别名复用全局主题变量，随 [data-theme] 自动切换深浅色 */
+  --w-bg: var(--bg-page);
+  --w-bg-end: var(--bg);
+  --w-surface: var(--bg-surface);
+  --w-surface-2: var(--bg-surface-2);
+  --w-surface-3: var(--bg-surface-3);
+  --w-cream: var(--bg-card);
+  --w-text: var(--text);
+  --w-text-muted: var(--text-muted);
+  --w-text-dim: var(--text-faint);
+  --w-accent: var(--accent);
+  --w-accent-bg: var(--accent-soft);
+  --w-border: var(--border-soft);
+  --w-shadow: var(--shadow-card);
+  --w-placeholder: var(--text-placeholder);
+  --w-placeholder-icon: var(--text-placeholder);
 
   width: 100%;
   min-height: 100vh;
@@ -272,12 +273,12 @@ onMounted(async () => {
 .wiki-tab:hover {
   border-color: var(--w-accent);
   color: var(--w-text);
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: color-mix(in srgb, var(--bg-card) 95%, transparent);
 }
 
 .wiki-tab.active {
   color: var(--w-accent);
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: color-mix(in srgb, var(--bg-card) 95%, transparent);
   border-color: var(--w-accent);
 }
 
@@ -321,7 +322,7 @@ onMounted(async () => {
 
 .wiki-clear-btn {
   padding: 0.5rem 1rem;
-  border: 2px solid #c4a898;
+  border: 2px solid var(--border-light);
   background-color: var(--w-surface-2);
   color: var(--w-text-dim);
   font: inherit;
@@ -332,8 +333,8 @@ onMounted(async () => {
 }
 
 .wiki-clear-btn:hover {
-  border-color: #a08070;
-  color: #5a3030;
+  border-color: color-mix(in srgb, var(--border-light) 80%, transparent);
+  color: var(--danger);
 }
 
 .wiki-type-filters {
@@ -425,7 +426,7 @@ onMounted(async () => {
   border: 2px solid var(--w-border);
   box-shadow:
     inset -1px -1px 0 0 var(--w-shadow),
-    inset 1px 1px 0 0 rgba(255, 255, 255, 0.8),
+    inset 1px 1px 0 0 color-mix(in srgb, var(--bevel-light) 80%, transparent),
     0 0.25rem 0.5rem var(--w-shadow);
   cursor: pointer;
   font: inherit;

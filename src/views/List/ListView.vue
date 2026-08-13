@@ -149,11 +149,22 @@ onMounted(async () => {
 .list-item-container {
   height: auto;
   width: 100%;
-  border-top: 2px solid #aaaaaa;
-  border-bottom: 2px solid #aaaaaa;
+  border-top: 2px solid var(--border-strong);
+  border-bottom: 2px solid var(--border-strong);
   padding: 20px 0;
   background-color: rgba(0, 0, 0, 0.75);
   overflow-y: auto;
+}
+
+/* 浅色方案：页面背景提亮，容器改浅色半透明，与深色 MC 服务器列表结构一致 */
+[data-theme='light'] .list-area {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)),
+    url('/background/list-background.jpg');
+}
+
+[data-theme='light'] .list-item-container {
+  background-color: rgba(255, 255, 255, 0.78);
 }
 
 .list-item {
@@ -179,7 +190,7 @@ onMounted(async () => {
 .list-title {
   margin: 0;
   padding: 0 1rem 0.75rem;
-  color: #fff;
+  color: var(--text);
   font-size: 1.25rem;
   user-select: none;
   text-align: center;

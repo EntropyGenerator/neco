@@ -48,11 +48,11 @@ const soundOn = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #000;
+  color: var(--mc-btn-text);
   padding: 1rem;
-  outline: 2px solid #000;
+  outline: 2px solid var(--mc-btn-text);
   border: 2px solid;
-  background-color: #c6c6c6;
+  background-color: var(--mc-btn-face);
   border-image: url('/UI/button_normal.png') 1;
   cursor: pointer;
   font: inherit;
@@ -60,8 +60,8 @@ const soundOn = () => {
 
 .minecraft-button.dark {
   color: #fff;
-  outline: 2px solid #333;
-  background-color: #303030;
+  outline: 2px solid var(--mc-btn-bevel);
+  background-color: var(--mc-btn-face-dark);
   border-image: url('/UI/button_normal.png') 1;
 }
 
@@ -74,26 +74,26 @@ const soundOn = () => {
   color: #fff;
   outline: 3px solid #fff;
   outline-offset: 3px;
-  background-color: #43a01c;
+  background-color: var(--mc-btn-hover);
   border-image: url('/UI/button_hover.png') 1;
 }
 
 .minecraft-button:hover {
   color: #fff;
   outline: 2px solid #fff;
-  background-color: #43a01c;
+  background-color: var(--mc-btn-hover);
   border-image: url('/UI/button_hover.png') 1;
 }
 
 .minecraft-button:active {
-  background-color: #8b8b8b;
+  background-color: var(--mc-btn-pressed);
   border-image: url('/UI/button_pressed_hover.png') 1;
 }
 
 .minecraft-button:active:hover {
   color: #fff;
   outline: 2px solid #fff;
-  background-color: #43a01c;
+  background-color: var(--mc-btn-hover);
   border-image: url('/UI/button_pressed.png') 1;
 }
 </style>

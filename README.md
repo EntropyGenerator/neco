@@ -1,224 +1,87 @@
-# Neco
+# NMO Ecosystem（Neco）
 
-Neco 是 NMO Ecosystem 的前端项目，用于展示服务器列表、活动/新闻内容、文档内容，并提供面向管理员的内容管理后台。项目整体采用 Vue 3 + TypeScript + Vite 构建，界面风格以 Minecraft 像素风为主，并尽量保持键盘导航与屏幕阅读器可用。
+![version](https://img.shields.io/badge/version-1.14.514-42b883)
+![license](https://img.shields.io/badge/license-MIT-brightgreen)
+![Vue](https://img.shields.io/badge/Vue-3.5-42b883)
+![TypeScript](https://img.shields.io/badge/TypeScript-6.0-3178c6)
+![Vite](https://img.shields.io/badge/Vite-8.0-646cff)
+![Node](https://img.shields.io/badge/Node-22%2B-339933)
 
-后端项目为 [`necore`](../necore)，前端默认通过 `/necore` 前缀访问后端 API。
+Neco 是 NMO Ecosystem 的前端项目。NMO 是南京大学 Minecraft 协会，围绕 Minecraft 发展建筑、计算机、软件、电路、建模等方向的兴趣与知识。Neco 承载协会的官网能力：服务器列表与实时状态、活动与新闻、文档、百科，以及面向管理员的内容管理后台。
 
-## 功能概览
+后端项目为 [`necore`](../necore)，前端通过 `/necore` 前缀访问后端 API。
 
-### 公开页面
+## 特色
 
-- **大厅页**：展示社团/站点入口与介绍内容。
-- **服务器列表**：展示服务器名称、图标、描述、在线地图链接与实时状态。
-  - 支持同步 Minecraft 服务器状态。
-  - 支持展示在线人数、容量、版本、延迟与服务器图标。
-  - 对同步成功且返回玩家样本的服务器，支持展开在线玩家头像列表。
-  - 玩家列表默认一排展示；一排放不下时自动变成两排；两排仍放不下时横向滚动。
-  - 玩家头像可通过鼠标悬停或 Tab 聚焦查看名称。
-- **活动页/新闻页**：展示文章列表、置顶文章、活动时间与文章详情。
-- **文档页**：展示公开文档树与文档内容。
-- **关于页**：展示外部链接与相关信息。
+- **Minecraft 像素风界面**：全套 MC 纹理组件（按钮、输入框、对话框、服务器列表），全局主题系统支持深色/浅色配色方案与自定义主题色。
+- **服务器列表与实时状态**：展示在线状态、延迟、在线人数、容量、版本与服务器图标，支持展开在线玩家头像列表（悬停或 Tab 聚焦显示玩家名）。
+- **活动 / 新闻 / 公告 / 社刊**：Markdown 与 PDF 文章，头图展示与分页列表。
+- **文档与百科**：公开文档树、词条与物品百科。
+- **管理后台**：用户、社团、服务器、文章、文档、Bot 连接七大管理模块，按权限组控制能力。
+- **Bot 文章推送**：保存文章时可把更新事件推送到指定的在线 Bot 连接（WebSocket）。
+- **无障碍与键盘导航**：全站 `focus-visible` 焦点环、`aria-label`、Dialog 键盘操作、路由切换焦点管理。
 
-### 管理后台
+## 目录
 
-管理后台入口为：
-
-```text
-/management
-```
-
-已包含以下管理模块：
-
-- **用户管理**：创建用户、修改权限、修改标签、删除用户。
-- **社团管理**：维护首页/社团相关展示内容。
-- **服务器管理**：维护服务器名称、图标、描述、地图地址、实时同步配置。
-- **文章管理**：创建、编辑、上传附件、删除文章。
-  - 保存文章时会弹出 Dialog，允许管理员选择是否推送更新到在线 WebSocket Bot。
-  - 支持选择一个或多个 Bot 连接进行定向推送。
-- **文档管理**：管理文档树、文件夹、公开/私有文档内容与附件。
-- **机器人连接管理**：管理 Bot Token、查看在线连接、查看连接日志、踢出异常连接。
-
-### 权限组
-
-前端会根据登录用户的 `group` 字段决定后台能力。当前主要权限包括：
-
-| 权限组 | 用途 |
-|---|---|
-| `admin` | 超级管理员，拥有全部管理权限 |
-| `news_admin` | 文章/新闻管理 |
-| `server_admin` | 服务器列表管理 |
-| `document_admin` | 文档管理 |
-| `bot_admin` | Bot Token 与 WebSocket 连接管理 |
-
-## 技术栈
-
-- Vue 3
-- TypeScript
-- Vite
-- Vue Router
-- Axios
-- md-editor-v3
-- vue-toastification
-- vue-clipboard3
-- mitt
-
-## 项目结构
-
-```text
-.
-├── API.md                         # 前后端 API 约定文档
-├── index.html
-├── package.json
-├── vite.config.ts
-└── src
-    ├── api                        # API 封装
-    │   ├── api.ts                 # axios 实例
-    │   ├── auth.ts                # 登录、用户、权限相关接口
-    │   ├── bot.ts                 # Bot Token 与 WebSocket 状态接口
-    │   ├── documents.ts           # 文档接口
-    │   ├── newslist.ts            # 文章接口
-    │   └── serverlist.ts          # 服务器列表与状态接口
-    ├── components                 # 通用组件
-    │   ├── utils                  # Minecraft 风格按钮、输入框、Dialog 等
-    │   └── icons
-    ├── eventbus                   # 全局事件总线
-    ├── router                     # 路由定义
-    ├── theme-override             # 第三方组件主题覆盖
-    └── views                      # 页面
-        ├── Activity
-        ├── Auth
-        ├── Documents
-        ├── List
-        ├── Lobby
-        ├── Management
-        └── News
-```
+- [环境要求](#环境要求)
+- [安装](#安装)
+- [启动开发服务器](#启动开发服务器)
+- [构建与预览](#构建与预览)
+- [部署（开服）](#部署开服)
+- [后端说明](#后端说明)
+- [权限组](#权限组)
+- [技术栈](#技术栈)
+- [文档](#文档)
+- [开发引导](#开发引导)
+- [无障碍设计约定](#无障碍设计约定)
+- [License](#license)
 
 ## 环境要求
-
-建议使用：
 
 - Node.js 22+
 - npm 11+
 
-安装依赖：
+使用 Nix 的环境可直接进入仓库根目录的 `shell.nix`（提供 Node 22 与 npm-check-updates）。
+
+## 安装
 
 ```bash
 npm install
 ```
 
-启动开发服务器：
+## 启动开发服务器
 
 ```bash
 npm run dev
 ```
 
-类型检查与构建：
+默认监听 `0.0.0.0:5173`，并把 `/necore` 代理到 `http://localhost:3000`（含 WebSocket）。后端（necore）需要提前在 3000 端口运行，否则页面可打开但数据请求失败。
+
+局域网或自定义域名访问时注意 `vite.config.ts` 中的 `allowedHosts` 配置。
+
+## 构建与预览
 
 ```bash
-npm run type-check
-npm run build
+npm run build      # 类型检查 + 构建到 dist/
+npm run preview    # 本地预览构建产物
 ```
 
-本地预览构建结果：
+## 部署（开服）
 
-```bash
-npm run preview
-```
+前端是纯静态 SPA，构建产物 `dist/` 可由任意静态服务器托管；后端（necore）单独部署。
 
-代码格式化与检查：
+### GitHub Pages 自动部署
 
-```bash
-npm run format
-npm run lint
-```
+push 到 `main` 后，GitHub Actions 自动执行 `VITE_IS_GITHUB_PAGES=1 npm run build` 并发布 `dist/` 到 Pages（`.github/workflows/`）。仓库需启用 Pages 并选择「GitHub Actions」作为来源。
 
-## 后端地址配置
+### 同源部署（Nginx）
 
-前端 API 封装位于：
+前端与后端共用同一域名：
 
 ```text
-src/api/api.ts
+https://example.com/          -> 静态资源（dist/）
+https://example.com/necore/   -> 后端
 ```
-
-通常需要确保 axios 的 baseURL 指向 necore 的 `/necore` 前缀，例如：
-
-```text
-http://localhost:3000/necore
-```
-
-如果前端和后端同源部署，可以通过反向代理把 `/necore` 转发给后端。
-
-## 服务器实时状态与玩家头像
-
-服务器实时状态由后端接口提供：
-
-```text
-POST /necore/server/status
-```
-
-前端会在服务器条目 `realtime === true` 时请求该接口。如果返回 `online: true`，前端会展示在线人数、容量、版本等信息。
-
-当后端返回 `players` 列表时，前端会在服务器卡片下方提供可展开的玩家头像列表。头像获取策略为：
-
-1. 优先使用 UUID 请求头像；
-2. 没有 UUID 时使用玩家名请求头像；
-3. 多个头像源按顺序兜底；
-4. 最终回退到默认 Steve 头像。
-
-注意：Minecraft 状态协议中的玩家列表通常是 sample，不保证包含全部在线玩家。部分服务器也可能隐藏 sample。
-
-## Bot 管理与文章推送
-
-机器人连接管理页面用于维护 necore 的 `/bots` WebSocket 连接。
-
-主要能力：
-
-- 创建 Bot Token；
-- 查看 Token 列表；
-- 删除 Token；
-- 查看在线 Bot 连接；
-- 踢出指定连接；
-- 查看后端连接日志。
-
-文章管理页在保存文章时会弹出推送选择 Dialog：
-
-- 选择“不推送”：只保存文章；
-- 选择“保存并推送”：保存文章，并将 `article_updated` 事件推送到选中的 WebSocket 连接；
-- 选择“取消”：不保存。
-
-推送依赖后端支持：
-
-```json
-{
-  "doesNotify": true,
-  "notifySessionIds": ["session-id-1", "session-id-2"]
-}
-```
-
-## 无障碍设计约定
-
-项目中的管理页与交互组件应尽量满足以下要求：
-
-- 可点击元素使用 `button` 或提供明确的键盘交互。
-- 图标按钮提供 `aria-label`。
-- Dialog 使用明确标题，并保证确认/取消操作可通过键盘完成。
-- 动态状态变化使用 `aria-live` 提示。
-- 列表、表格、日志等区域使用合适的 `role`、`caption` 或 `aria-label`。
-- 服务器玩家头像支持 Tab 聚焦，并在聚焦时显示玩家名称。
-
-## 部署建议
-
-### 同源部署
-
-推荐使用同一域名部署前端和后端：
-
-```text
-https://example.com/          -> neco 静态资源
-https://example.com/necore/   -> necore API
-```
-
-Nginx 示例：
 
 ```nginx
 location / {
@@ -242,47 +105,66 @@ location /necore/bots/ws/ {
 }
 ```
 
-### 构建产物
+要点：SPA 路由回退用 `try_files ... /index.html`；`/necore/bots/ws/` 必须携带 WebSocket 升级头。部署细节见 [docs/deployment.md](docs/deployment.md)。
 
-```bash
-npm run build
-```
+## 后端说明
 
-构建结果位于：
+- 后端项目：[`necore`](../necore)，默认端口 3000。
+- 前端 `src/api/api.ts` 中 `BASE_URL` 恒为 `/necore`，由代理转发，无需 CORS 配置。
+- 服务器实时状态接口：`POST /necore/server/status`。`realtime === true` 的条目会轮询该接口，返回 `online: true` 时展示在线人数、容量、版本、延迟与玩家头像（头像策略：UUID → 玩家名 → 兜底源 → 默认 Steve 头像；MC 状态协议的玩家列表为 sample，不保证完整）。
 
-```text
-dist/
-```
+## 权限组
 
-## 开发注意事项
+管理后台按登录用户的 `group` 字段控制能力：
 
-- 新增 API 时优先在 `src/api/` 中封装，页面组件不要直接拼装 axios 请求。
-- 新增后台页面时同步修改 `src/router/index.ts` 和 `ManagementView.vue` 的导航入口。
-- 涉及权限展示时同步更新 `UserManagementView.vue` 中的权限名称映射与编辑开关。
-- 文件上传接口返回的 `/contents/...` 路径不一定包含 `/necore` 前缀，前端展示资源时需要统一处理。
-- 对后端返回的日志 HTML 片段必须做白名单清理，避免直接渲染不可信 HTML。
+| 权限组 | 用途 |
+|---|---|
+| `admin` | 超级管理员，拥有全部管理权限 |
+| `news_admin` | 文章/新闻管理 |
+| `server_admin` | 服务器列表管理 |
+| `document_admin` | 文档管理 |
+| `bot_admin` | Bot Token 与 WebSocket 连接管理 |
 
-## 常用命令
+管理后台入口：`/management`。
 
-```bash
-# 安装依赖
-npm install
+## 技术栈
 
-# 开发
-npm run dev
+- Vue 3 + TypeScript + Vite
+- Vue Router、Axios
+- md-editor-v3（Markdown 编辑/预览）、vue-toastification（通知）、vue-clipboard3（剪贴板）、@vuepic/vue-datepicker（日期选择）
+- mitt（事件总线）
 
-# 类型检查
-npm run type-check
+## 文档
 
-# 构建
-npm run build
+| 文档 | 内容 |
+|---|---|
+| [docs/README.md](docs/README.md) | 开发者文档总目录 |
+| [docs/architecture.md](docs/architecture.md) | 架构总览与数据流 |
+| [docs/development.md](docs/development.md) | 开发指南：环境、组件规范、验证流程 |
+| [docs/theming.md](docs/theming.md) | 主题系统：变量、配色方案、Minecraft 固定配色 |
+| [docs/api.md](docs/api.md) | API 封装规范 |
+| [docs/deployment.md](docs/deployment.md) | 部署与运维 |
+| [docs/agents/](docs/agents/README.md) | Agent 专用规则与代码库速查 |
+| [API.md](API.md) | 前后端 API 约定（请求/响应格式） |
 
-# 预览
-npm run preview
+## 开发引导
 
-# 自动格式化
-npm run format
+开发相关约定（新增页面/组件/接口、配色规则、无障碍、验证流程）见 [docs/](docs/README.md)。要点：
 
-# ESLint 修复
-npm run lint
-```
+- 新增 API 时在 `src/api/` 中封装，页面组件不要直接拼装 axios 请求。
+- 新增后台页面时同步修改 `src/router/index.ts` 与 `ManagementView.vue` 导航入口。
+- 文件上传返回的 `/contents/...` 路径不一定带 `/necore` 前缀，展示资源时统一处理。
+- 后端返回的日志 HTML 片段必须做白名单清理，避免渲染不可信 HTML。
+
+## 无障碍设计约定
+
+- 可点击元素使用 `button` 或提供明确的键盘交互。
+- 图标按钮提供 `aria-label`。
+- Dialog 使用明确标题，确认/取消可通过键盘操作。
+- 动态状态变化使用 `aria-live` 提示。
+- 列表、表格、日志等区域使用合适的 `role`、`caption` 或 `aria-label`。
+- 服务器玩家头像支持 Tab 聚焦，并在聚焦时显示玩家名称。
+
+## License
+
+[MIT](LICENSE)

@@ -457,7 +457,7 @@ const onDocumentDrag = async (event: DragEvent, id: string) => {
         class="document-name"
         :style="{
           '--prefix': `${(layer + 1) * 0.8}rem`,
-          '--bg-color': 'rgba(255, 255, 255, 0.1)',
+          '--bg-color': 'var(--bg-hover)',
         }"
         @click="toggleExpand"
       >
@@ -498,7 +498,7 @@ const onDocumentDrag = async (event: DragEvent, id: string) => {
             class="document-name file"
             :style="{
               '--prefix': `${(layer + 2) * 0.8}rem`,
-              '--bg-color': `${selectedId === child.id ? 'rgba(255, 255, 255, 0.2)' : 'rgba(255, 255, 255, 0.1)'}`,
+              '--bg-color': `${selectedId === child.id ? 'var(--bg-hover-strong)' : 'var(--bg-hover)'}`,
               '--display': `${selectedId === child.id ? 'block' : 'none'}`,
             }"
           >
@@ -543,7 +543,7 @@ const onDocumentDrag = async (event: DragEvent, id: string) => {
             class="document-name file"
             :style="{
               '--prefix': `${(layer + 2) * 0.8}rem`,
-              '--bg-color': `${selectedId === child.id ? 'rgba(255, 255, 255, 0.2)' : 'rgba(255, 255, 255, 0.1)'}`,
+              '--bg-color': `${selectedId === child.id ? 'var(--bg-hover-strong)' : 'var(--bg-hover)'}`,
               '--display': `${selectedId === child.id ? 'block' : 'none'}`,
             }"
           >
@@ -720,13 +720,13 @@ const onDocumentDrag = async (event: DragEvent, id: string) => {
 
 .document-more-btn:focus-visible {
   opacity: 1;
-  outline: 3px solid #fff;
+  outline: 3px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
 .document-menu-btn:focus-visible {
   z-index: 8;
-  outline: 3px solid #fff;
+  outline: 3px solid var(--focus-ring);
   outline-offset: -3px;
 }
 
@@ -782,7 +782,7 @@ const onDocumentDrag = async (event: DragEvent, id: string) => {
   display: block;
   height: 12px;
   width: 12px;
-  background-color: white;
+  background-color: var(--text);
   clip-path: polygon(
     0% 0%,
     0% 25%,
@@ -869,7 +869,7 @@ const onDocumentDrag = async (event: DragEvent, id: string) => {
 
 .delete-subtitle {
   font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-faint);
   user-select: none;
 }
 
@@ -884,7 +884,7 @@ const onDocumentDrag = async (event: DragEvent, id: string) => {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(152, 203, 132, 0.15);
+  background-color: var(--bg-drag-accent);
 }
 
 .document-visibility-picker {
@@ -900,18 +900,18 @@ const onDocumentDrag = async (event: DragEvent, id: string) => {
   gap: 0.35rem;
   min-height: 4rem;
   padding: 0.75rem;
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--text-muted);
   text-align: left;
-  background-color: #2e2e2e;
-  border: 2px solid #1a1a1a;
+  background-color: var(--bg-surface);
+  border: 2px solid var(--border-dark-2);
   box-shadow:
-    inset -2px -2px 0 0 #1f1f1f,
-    inset 2px 2px 0 0 #454545;
+    inset -2px -2px 0 0 var(--bevel-dark),
+    inset 2px 2px 0 0 var(--bevel-light);
   cursor: pointer;
 }
 
 .visibility-option strong {
-  color: #fff;
+  color: var(--text);
   font-size: 1rem;
 }
 
@@ -920,13 +920,13 @@ const onDocumentDrag = async (event: DragEvent, id: string) => {
 }
 
 .visibility-option.active {
-  color: #fff;
-  border-color: var(--minecraft-green-light);
-  background-color: rgba(60, 133, 39, 0.34);
+  color: var(--text);
+  border-color: var(--accent-light);
+  background-color: var(--accent-soft);
 }
 
 .visibility-option:focus-visible {
-  outline: 3px solid #fff;
+  outline: 3px solid var(--focus-ring);
   outline-offset: 3px;
 }
 
