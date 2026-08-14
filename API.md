@@ -302,6 +302,15 @@ export interface BotDashboardStatus {
 | Bot | GET | `/bots/status` | 是 | `admin`/`bot_admin` | 获取 Bot 连接面板状态 |
 | Bot | DELETE | `/bots/ws/kick/:session_id` | 是 | `admin`/`bot_admin` | 踢出 Bot 连接 |
 | Bot WS | GET | `/bots/ws/updates/:identifier` | Bot Token | Bot Token | Bot WebSocket 连接 |
+| 部门 | GET | `/department/` | 否 | - | 部门列表（含成员，公开） |
+| 部门 | POST | `/department/create` | 是 | `admin` | 创建部门 |
+| 部门 | PATCH | `/department/` | 是 | `admin` | 更新部门 |
+| 部门 | PATCH | `/department/order` | 是 | `admin` | 批量更新部门排序 |
+| 部门 | DELETE | `/department/:id` | 是 | `admin` | 删除部门（级联删除成员关系） |
+| 部门 | POST | `/department/:id/member` | 是 | `admin` | 添加部门成员 |
+| 部门 | DELETE | `/department/:id/member/:username` | 是 | `admin` | 移除部门成员 |
+| 部门 | PATCH | `/department/:id/member/:username/leader` | 是 | `admin` | 设置/取消成员负责人 |
+| 部门 | PATCH | `/department/:id/member/order` | 是 | `admin` | 批量更新成员排序/负责人 |
 | 百科 | GET | `/wiki/types` | 否 | - | 词条类型列表 |
 | 百科 | GET | `/wiki/tags` | 否 | - | 标签列表 |
 | 百科 | POST | `/wiki/tags` | 是 | `admin`/`document_admin` | 创建标签 |
@@ -1513,9 +1522,169 @@ Authorization: Bearer <bot-token>
 
 ---
 
-## 10. 百科接口
+## 10. 部门接口
 
-### 10.1 词条类型与标签
+### 10.1 获取部门列表
+
+```http
+GET /necore/department/
+```
+
+无需登录。返回全部部门及其成员（成员含用户名、头像、权限组、标签与负责人标记），按 `sortOrder` 升序、负责人优先排列：
+
+```json
+{
+  "departments": [
+    {
+      "id": "uuid",
+      "name": "运维保障部",
+      "description": "负责服务器与网站稳定运行",
+      "icon": "/contents/dept/icon.png",
+      "sortOrder": 1,
+      "members": [
+        {
+          "username": "alice",
+          "avatar": "https://example.com/a.png",
+          "group": ["document_admin"],
+          "tags": [],
+          "isLeader": true
+        }
+      ]
+    }
+  ]
+}
+```
+
+### 10.2 创建部门
+
+```http
+POST /necore/department/create
+Authorization: Bearer <admin-jwt>
+Content-Type: application/json
+```
+
+权限：`admin`。
+
+请求体：
+
+```json
+{
+  "name": "运维保障部",
+  "description": "负责服务器与网站稳定运行",
+  "icon": "/contents/dept/icon.png",
+  "sortOrder": 1
+}
+```
+
+`name` 必填（去除首尾空白后不能为空）。成功返回：
+
+```json
+{
+  "id": "uuid"
+}
+```
+
+### 10.3 更新部门
+
+```http
+PATCH /necore/department/
+Authorization: Bearer <admin-jwt>
+Content-Type: application/json
+```
+
+权限：`admin`。请求体为完整部门对象（`id`、`name` 必填）。不存在返回 404。
+
+### 10.4 批量更新部门排序
+
+```http
+PATCH /necore/department/order
+Authorization: Bearer <admin-jwt>
+Content-Type: application/json
+```
+
+权限：`admin`。
+
+```json
+{
+  "orders": [{ "id": "uuid", "sortOrder": 2 }]
+}
+```
+
+### 10.5 删除部门
+
+```http
+DELETE /necore/department/{id}
+Authorization: Bearer <admin-jwt>
+```
+
+权限：`admin`。级联删除该部门的成员关系（不删除用户）。不存在返回 404。
+
+### 10.6 添加部门成员
+
+```http
+POST /necore/department/{id}/member
+Authorization: Bearer <admin-jwt>
+Content-Type: application/json
+```
+
+权限：`admin`。
+
+```json
+{
+  "username": "alice",
+  "sortOrder": 1,
+  "isLeader": true
+}
+```
+
+部门或用户不存在返回 404。
+
+### 10.7 移除部门成员
+
+```http
+DELETE /necore/department/{id}/member/{username}
+Authorization: Bearer <admin-jwt>
+```
+
+权限：`admin`。成员关系不存在返回 404。
+
+### 10.8 设置/取消负责人
+
+```http
+PATCH /necore/department/{id}/member/{username}/leader
+Authorization: Bearer <admin-jwt>
+Content-Type: application/json
+```
+
+权限：`admin`。
+
+```json
+{
+  "isLeader": false
+}
+```
+
+### 10.9 批量更新成员排序/负责人
+
+```http
+PATCH /necore/department/{id}/member/order
+Authorization: Bearer <admin-jwt>
+Content-Type: application/json
+```
+
+权限：`admin`。
+
+```json
+{
+  "members": [{ "username": "alice", "sortOrder": 1, "isLeader": false }]
+}
+```
+
+---
+
+## 11. 百科接口
+
+### 11.1 词条类型与标签
 
 ```http
 GET /necore/wiki/types
@@ -1538,7 +1707,7 @@ POST /necore/wiki/tags        # body: {"text": "标签名"}
 DELETE /necore/wiki/tags/{id}
 ```
 
-### 10.2 词条
+### 11.2 词条
 
 ```http
 GET /necore/wiki/glossary          # 词条列表（公开）
@@ -1548,7 +1717,7 @@ PATCH /necore/wiki/glossary/{id}   # 更新（admin/document_admin）
 DELETE /necore/wiki/glossary/{id}  # 删除（admin/document_admin）
 ```
 
-### 10.3 物品
+### 11.3 物品
 
 ```http
 GET /necore/wiki/item          # 物品列表（公开）
@@ -1558,7 +1727,7 @@ PATCH /necore/wiki/item/{id}   # 更新（admin/document_admin）
 DELETE /necore/wiki/item/{id}  # 删除（admin/document_admin）
 ```
 
-### 10.4 百科附件
+### 11.4 百科附件
 
 ```http
 POST /necore/wiki/upload/{id}    # multipart，字段 file，≤20MB
@@ -1569,7 +1738,7 @@ DELETE /necore/wiki/upload/{id}  # body: {"filename": "uuid.png"}
 
 ---
 
-## 11. 静态资源接口
+## 12. 静态资源接口
 
 ```http
 GET /necore/contents/{id}/{filename}
@@ -1603,7 +1772,7 @@ GET /necore/contents/{id}/{filename}
 
 ---
 
-## 12. 前端请求封装建议
+## 13. 前端请求封装建议
 
 ```ts
 export class ApiError extends Error {
