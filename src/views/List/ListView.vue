@@ -5,6 +5,8 @@ import { GetLinkEntries, type LinkEntry } from '@/api/links'
 import useClipboard from 'vue-clipboard3'
 import ListItem from './ListItem.vue'
 import LinkItem from './LinkItem.vue'
+import DepartmentSection from './DepartmentSection.vue'
+import { GetDepartmentList, type Department } from '@/api/department'
 import { useToast } from 'vue-toastification'
 
 const toast = useToast()
@@ -14,6 +16,9 @@ const serverList = ref<ServerEntity[]>([])
 const serverPing = ref<string[]>([])
 const focusIndex = ref(-1)
 const linkEntries = ref<LinkEntry[]>([])
+const departments = ref<Department[]>([])
+const loadingDepartments = ref(true)
+const loadFailed = ref(false)
 
 const onClick = (index: number) => {
   focusIndex.value = index
@@ -90,6 +95,14 @@ const refresh = async () => {
 onMounted(async () => {
   await refresh()
   linkEntries.value = GetLinkEntries()
+  try {
+    departments.value = await GetDepartmentList()
+  } catch {
+    loadFailed.value = true
+    toast.error('部门信息加载失败，请稍后重试。')
+  } finally {
+    loadingDepartments.value = false
+  }
 })
 </script>
 
@@ -109,6 +122,31 @@ onMounted(async () => {
         @click="onClick(index)"
         @dblclick="focusIndex === index ? copy(server.serverUrl || 'undefined') : null"
         :type="focusIndex === index ? 'focus' : ''"
+      />
+    </section>
+
+    <div style="height: 24px" />
+
+    <section class="list-item-container" aria-labelledby="department-section-title">
+      <h1 id="department-section-title" class="list-title mcfont">部门与成员</h1>
+      <p v-if="loadingDepartments" class="department-status" aria-live="polite">
+        正在加载部门信息...
+      </p>
+      <p
+        v-else-if="loadFailed"
+        class="department-status department-status-error"
+        aria-live="polite"
+      >
+        部门信息加载失败。
+      </p>
+      <div v-else-if="departments.length === 0" class="department-empty-state">
+        <strong>暂无部门信息</strong>
+        <span>管理员可在后台「部门管理」中添加部门与成员。</span>
+      </div>
+      <DepartmentSection
+        v-for="department in departments"
+        :key="department.id"
+        :department="department"
       />
     </section>
 
@@ -201,5 +239,33 @@ onMounted(async () => {
   overflow-x: auto;
   display: flex;
   flex-direction: column;
+}
+
+.department-status {
+  margin: 0 0 1rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.department-status-error {
+  color: var(--warning);
+}
+
+.department-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 1rem 1rem;
+  padding: 1.5rem 1rem;
+  color: var(--text-muted);
+  text-align: center;
+  background-color: color-mix(in srgb, var(--bg-sunken) 18%, transparent);
+  border: 2px dashed var(--text-gray);
+}
+
+.department-empty-state strong {
+  color: var(--text);
+  font-size: 1.1rem;
 }
 </style>

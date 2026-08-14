@@ -68,6 +68,12 @@ onUnmounted(() => {
       >
       <MinecraftButtonClassic
         class="management-nav"
+        :activated="route.path.endsWith('/management/department')"
+        @click="router.replace('/management/department')"
+        >部门管理</MinecraftButtonClassic
+      >
+      <MinecraftButtonClassic
+        class="management-nav"
         :activated="route.path.endsWith('/management/server')"
         @click="router.replace('/management/server')"
         >服务器信息</MinecraftButtonClassic

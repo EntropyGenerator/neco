@@ -84,6 +84,12 @@ const router = createRouter({
           meta: { title: 'NMO | 社团管理' },
         },
         {
+          path: '/management/department',
+          name: 'department management',
+          component: () => import('../views/Management/Components/DepartmentManagementView.vue'),
+          meta: { title: 'NMO | 部门管理' },
+        },
+        {
           path: '/management/server',
           name: 'server management',
           component: () => import('../views/Management/Components/ServerManagementView.vue'),
