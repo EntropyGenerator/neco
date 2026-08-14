@@ -73,7 +73,7 @@ import Intro from './IntroView.vue'
 .logo-content p {
   font-size: 2rem;
   font-weight: bold;
-  color: var(--text);
+  color: #fff;
   margin-top: 0;
   margin-bottom: 0;
   text-wrap: nowrap;
@@ -82,6 +82,7 @@ import Intro from './IntroView.vue'
 .intro-text {
   font-size: 1.15rem;
   font-weight: bold;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 @media screen and (max-width: 623px) {

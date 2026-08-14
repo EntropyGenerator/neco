@@ -8,7 +8,7 @@
 2. MC 固定元素内部禁用方案变量。清单：`MinecraftButton.vue`（含 `.dark`、hover、focus、active 态）、`MinecraftButtonClassic.vue`、`MinecraftButton3D.vue`、`MinecraftInput.vue`、`MinecraftTextarea.vue`、`views/Activity/ActivityView.vue`、`views/Activity/ActivityItem.vue`。这些文件的颜色用字面值或 `--mc*`。
 3. 深色遮罩容器（导航栏 `NavBar.vue`）两方案下都保持深色底：容器内文字用浅色固定值，或在浅色方案块里显式覆盖为浅色。把文字改成方案变量（浅色方案下会变深）属于已知错误模式。服务器列表页是方案自适应页面（见第 8 条），不按固定深色处理。
 4. 状态色 `--success`/`--danger`/`--warning` 及其 `-bg` 跟随方案；用在固定深色容器内时核对可读性。
-5. 主题色一律走 `--accent*`，不写绿色字面值。
+5. 主题色一律走 `--accent*`，不写绿色字面值。新增主题色预设时同步两处：`style.css` 末尾的 `[data-accent='<id>']` 深/浅两个块 + `components/ThemePalette.vue` 的 `ACCENTS` 数组（id 一致）。
 6. `style.css` 无注释，是纯变量定义；变量语义以 `docs/theming.md` 为准。不要在 `style.css` 里加回注释。
 7. 新增配色方案必须完整覆盖全部 scheme 变量（见 theming.md 清单），缺变量会回退深色值。
 8. 组件级浅色覆盖已存在三处，改动时保持一致：`style.css` 的 `[data-theme='light'] .nmo-hero-panel`、`NavBar.vue` 的 `[data-theme='light'] .nav-bar`、`ListView.vue` 的 `[data-theme='light'] .list-area` 与 `.list-item-container`（列表页浅色方案）。

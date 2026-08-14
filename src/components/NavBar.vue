@@ -1,7 +1,8 @@
 <script lang="ts" setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { onBeforeRouteUpdate, useRouter } from 'vue-router'
 
+import ThemePalette from '@/components/ThemePalette.vue'
 import { useLantern } from '@/lantern/lantern'
 
 useLantern('lantern-wrapper', {
@@ -18,6 +19,13 @@ const soundOn = () => {
 }
 
 const router = useRouter()
+const navFolded = ref(false)
+
+const onResize = () => {
+  if (window.innerWidth >= 641 && navFolded.value) {
+    navFolded.value = false
+  }
+}
 
 interface NavItem {
   name: string
@@ -71,6 +79,12 @@ onMounted(() => {
   } else {
     showLantern.value = true
   }
+
+  window.addEventListener('resize', onResize)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', onResize)
 })
 </script>
 
@@ -82,7 +96,34 @@ onMounted(() => {
     id="lantern-wrapper"
   ></div>
   <div class="nav-container">
-    <nav class="nav-bar">
+    <div class="nav-controls">
+      <button
+        type="button"
+        class="nav-fold-btn"
+        :aria-expanded="!navFolded"
+        aria-controls="site-nav"
+        aria-label="展开或收起导航栏"
+        @click="(navFolded = !navFolded), soundOn()"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          width="20"
+          height="20"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          aria-hidden="true"
+        >
+          <path d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <span class="nav-fold-text">菜单</span>
+      </button>
+
+      <ThemePalette />
+    </div>
+
+    <nav id="site-nav" class="nav-bar" :type="navFolded ? 'fold' : undefined">
       <RouterLink
         v-for="(item, index) in navItems"
         :key="item.url"
@@ -116,9 +157,10 @@ onMounted(() => {
   flex-direction: column;
   position: absolute;
   top: 0.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  min-width: max-content;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: max-content;
   gap: 0.5rem;
   user-select: none;
   z-index: 1024;
@@ -192,5 +234,56 @@ onMounted(() => {
   width: 100%;
 
   box-shadow: 2px 2px var(--shadow);
+}
+
+/* 控制行：桌面端固定右上角（只显示调色盘）；移动端内联于导航上方居中 */
+.nav-controls {
+  position: fixed;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 1025;
+}
+
+.nav-fold-btn {
+  display: none;
+  height: 2.75rem;
+  padding: 0 0.9rem;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--text);
+  background-color: var(--bg-card);
+  border: 2px solid var(--border-strong);
+  box-shadow: 4px 4px var(--shadow-strong);
+}
+
+.nav-fold-btn:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+@media screen and (max-width: 640px) {
+  .nav-container {
+    gap: 0.35rem;
+  }
+
+  .nav-controls {
+    position: static;
+    justify-content: center;
+  }
+
+  .nav-fold-btn {
+    display: flex;
+  }
+
+  .nav-item {
+    padding: 10px 5px;
+    font-size: 0.9rem;
+  }
 }
 </style>

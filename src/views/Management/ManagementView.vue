@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { CheckAuthorized, Logout } from '@/api/auth'
+import ThemePalette from '@/components/ThemePalette.vue'
 import MinecraftButton from '@/components/utils/MinecraftButton.vue'
 import MinecraftButtonClassic from '@/components/utils/MinecraftButtonClassic.vue'
 import { onMounted, onUnmounted, ref } from 'vue'
@@ -124,6 +125,9 @@ onUnmounted(() => {
     >
       <span aria-hidden="true">▶</span>
     </MinecraftButton>
+    <div class="management-palette">
+      <ThemePalette />
+    </div>
     <div class="management-tab-container" :data-state="sidebarExpand ? 'normal' : 'expanded'">
       <RouterView />
     </div>
@@ -179,6 +183,13 @@ onUnmounted(() => {
   min-width: 375px;
   transition: all 0.3s ease-in-out;
   gap: 1rem;
+}
+
+.management-palette {
+  position: fixed;
+  top: 0.75rem;
+  right: 1.25rem;
+  z-index: 9999;
 }
 
 .management-shrink-btn {

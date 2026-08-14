@@ -182,7 +182,7 @@ document.documentElement.setAttribute('data-theme', 'light')
 document.documentElement.removeAttribute('data-theme')
 ```
 
-接入 VueUse 后，`useDark` / `useColorMode` 可直接驱动该属性：
+导航栏（`NavBar.vue`）与管理后台（`ManagementView.vue`）内置调色盘（共用 `components/ThemePalette.vue`），用户可直接切换深色/浅色方案与主题色；选择持久化到 `localStorage`（键 `nmo-theme`、`nmo-accent`），`main.ts` 在挂载前恢复，避免刷新闪烁。接入 VueUse 后，`useDark` / `useColorMode` 也可直接驱动该属性：
 
 ```ts
 import { useDark, useToggle } from '@vueuse/core'
@@ -210,10 +210,16 @@ const toggleTheme = useToggle(isDark)
 
 ## 更换主题色
 
-主题色即 `--accent*` 组。两种方式：
+主题色即 `--accent*` 组，由 `<html>` 上的 `data-accent` 属性选择预设。`style.css` 末尾内置 6 个预设（翠绿为默认，不设属性；另有红石、青金石、黄金、紫水晶、海晶），每个预设含深色与浅色两套取值：
 
-- 静态：给 `<html>` 加 `data-accent='<主题名>'`，在 `style.css` 写 `[data-accent='<主题名>'] { --accent: ...; ... }` 块。注意 `--accent*` 在深色、浅色方案中各定义了一份；换主题色时按目标方案的取值分别覆盖，或利用块顺序让 `[data-accent]` 规则位于方案块之后、以 `:root`/`[data-theme]` 同优先级覆盖。
-- 运行时：`useCssVar('--accent', document.documentElement)` 后写值，同时写入需要联动的 `--accent-*`。
+```css
+[data-accent='red'] { --accent: #b02e26; /* …其余 --accent-* */ }
+[data-theme='light'][data-accent='red'] { /* 浅色方案下的取值 */ }
+```
+
+新增主题色预设：在 `style.css` 末尾追加深/浅两个块，覆盖全部 `--accent*`（9 个变量），并把预设加进 `components/ThemePalette.vue` 的 `ACCENTS` 数组（id 与 `data-accent` 取值一致）。`--accent*` 在深色、浅色方案中各定义了一份，块顺序保证 `[data-accent]` 覆盖 `:root` 与 `[data-theme='light']`，浅色块再覆盖深色块。
+
+运行时方式：`useCssVar('--accent', document.documentElement)` 后写值，同时写入需要联动的 `--accent-*`。
 
 任何方式都不需要改动业务组件——组件只消费变量。
 
@@ -232,7 +238,7 @@ const toggleTheme = useToggle(isDark)
 | 文本域 | `components/utils/MinecraftTextarea.vue` | 同上 |
 | 活动页 | `views/Activity/ActivityView.vue`、`ActivityItem.vue` | 页面背景为固定深色材质图（bg.jpg 全幅不透明）；条目背景固定深绿（进行中）/深红（已结束），标题、时间、简介、分页文字全部固定浅色 |
 
-深色遮罩容器：导航栏（`NavBar.vue`）在浅色方案下仍保持深色底，通过 `[data-theme='light'] .nav-bar { color: var(--text-inverse) }` 保证文字可读。给这类容器加内容时沿用同样的处理：容器保持深色，文字固定浅色（或显式覆盖）。
+深色遮罩容器：导航栏（`NavBar.vue`）与大厅标题面板（`LobbyView.vue` 的 `.logo-content`，覆盖在固定背景图上）在浅色方案下仍保持深色底。导航栏通过 `[data-theme='light'] .nav-bar { color: var(--text-inverse) }` 保证文字可读；大厅标题与简介使用固定浅色（`#fff` / `rgba(255,255,255,0.8)`）。给这类容器加内容时沿用同样的处理：容器保持深色，文字固定浅色（或显式覆盖）。
 
 服务器列表页（`views/List/`）是方案自适应页面：深色方案为 MC 多人服务器列表的深色界面（深色遮罩容器 + 白字）；浅色方案在 `ListView.vue` 中通过 `[data-theme='light']` 覆盖页面背景（白色提亮）与容器底色（浅色半透明），条目文字、边框、玩家面板等全部走方案变量。修改列表页配色时两套方案都要验证，浅色覆盖不能删除。
 

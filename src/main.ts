@@ -10,6 +10,15 @@ import { router } from './router'
 import './theme-override/md-preview.css'
 import './theme-override/toast.css'
 
+const savedTheme = localStorage.getItem('nmo-theme')
+if (savedTheme === 'light') {
+  document.documentElement.setAttribute('data-theme', 'light')
+}
+const savedAccent = localStorage.getItem('nmo-accent')
+if (savedAccent && savedAccent !== 'green') {
+  document.documentElement.setAttribute('data-accent', savedAccent)
+}
+
 const app = createApp(App)
 
 app.use(router)
