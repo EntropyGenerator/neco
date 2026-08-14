@@ -44,6 +44,37 @@ const playerTooltipVisible = ref(false)
 const playerTooltipName = ref('')
 const playerTooltipStyle = ref<Record<string, string>>({})
 
+// 皮肤站解析缓存：玩家名 -> 皮肤 URL（Blessing Skin Yggdrasil，经后端 /server/skin 代理）
+const blessingSkinUrlCache = new Map<string, string | null>()
+const blessingSkinUrls = ref(new Map<string, string>())
+
+const resolveBlessingSkinUrl = async (name: string): Promise<string | null> => {
+  const playerName = name.trim()
+  if (!playerName) return null
+  if (blessingSkinUrlCache.has(playerName)) {
+    return blessingSkinUrlCache.get(playerName) ?? null
+  }
+  try {
+    const res = await fetch(`/necore/server/skin/${encodeURIComponent(playerName)}`, {
+      signal: AbortSignal.timeout(8000),
+    })
+    if (!res.ok) {
+      blessingSkinUrlCache.set(playerName, null)
+      return null
+    }
+    const data = (await res.json()) as { skin?: string }
+    const url = typeof data.skin === 'string' && data.skin ? data.skin : null
+    blessingSkinUrlCache.set(playerName, url)
+    if (url) {
+      blessingSkinUrls.value.set(playerName, url)
+    }
+    return url
+  } catch {
+    blessingSkinUrlCache.set(playerName, null)
+    return null
+  }
+}
+
 let playerListResizeObserver: ResizeObserver | undefined
 
 const normalizedPlayers = computed(() => {
@@ -99,6 +130,12 @@ const getPlayerAvatarSources = (player: ServerPlayer) => {
   const name = player.name.trim()
 
   const sources: string[] = []
+
+  // 皮肤站（Blessing Skin Yggdrasil）优先：离线玩家在 MUA/NMO 注册的皮肤
+  const stationSkin = blessingSkinUrls.value.get(name)
+  if (stationSkin) {
+    sources.push(stationSkin)
+  }
 
   // 优先使用 MCHeads。它对正版 UUID 和玩家名都比较宽容。
   if (uuid) {
@@ -230,6 +267,13 @@ watch(playerListExpanded, async (expanded) => {
 
 watch(normalizedPlayers, async () => {
   await updatePlayerListWidth()
+
+  // 为新增玩家解析皮肤站皮肤（已有缓存的跳过）
+  for (const player of normalizedPlayers.value) {
+    const name = player.name.trim()
+    if (!name || blessingSkinUrlCache.has(name)) continue
+    await resolveBlessingSkinUrl(name)
+  }
 })
 
 onUnmounted(() => {

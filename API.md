@@ -994,7 +994,33 @@ Content-Type: application/json
 }
 ```
 
-### 7.3 创建服务器条目
+### 7.3 查询玩家皮肤
+
+```http
+GET /necore/server/skin/{name}
+```
+
+无需登录。通过皮肤站（Blessing Skin Yggdrasil：NMO `skin.nmo.net.cn`、MUA `skin.mualliance.ltd`，可用 `.env` 的 `SKIN_STATIONS` 覆盖）按玩家名解析皮肤：依次尝试各站点（姓名→UUID→纹理），命中即返回。
+
+成功响应：
+
+```json
+{
+  "skin": "https://skin.nmo.net.cn/textures/{hash}"
+}
+```
+
+玩家未注册或没有皮肤时返回 404：
+
+```json
+{
+  "error": "Skin not found"
+}
+```
+
+前端玩家头像链将该端点作为首选来源，未命中时回退到 mc-heads 等通用源。
+
+### 7.4 创建服务器条目
 
 ```http
 POST /necore/server/create
@@ -1011,7 +1037,7 @@ Authorization: Bearer <jwt>
 }
 ```
 
-### 7.4 更新服务器条目
+### 7.5 更新服务器条目
 
 ```http
 PATCH /necore/server/
@@ -1037,7 +1063,7 @@ Content-Type: application/json
 
 成功：状态码 200。
 
-### 7.5 删除服务器条目
+### 7.6 删除服务器条目
 
 ```http
 DELETE /necore/server/{id}
