@@ -19,11 +19,7 @@ const onLogout = () => {
 }
 
 const onResize = () => {
-  if (window.innerWidth < 768) {
-    sidebarExpand.value = false
-  } else {
-    sidebarExpand.value = true
-  }
+  sidebarExpand.value = window.innerWidth >= 768;
 }
 
 onMounted(async () => {
@@ -59,13 +55,19 @@ onUnmounted(() => {
         class="management-nav"
         :activated="route.path.endsWith('/management/user')"
         @click="router.replace('/management/user')"
-        >用户管理</MinecraftButtonClassic
+      >用户管理</MinecraftButtonClassic
       >
       <MinecraftButtonClassic
         class="management-nav"
         :activated="route.path.endsWith('/management/club')"
         @click="router.replace('/management/club')"
-        >社团管理</MinecraftButtonClassic
+      >社团管理</MinecraftButtonClassic
+      >
+      <MinecraftButtonClassic
+        class="management-nav"
+        :activated="route.path.endsWith('/management/department')"
+        @click="router.replace('/management/department')"
+      >部门管理</MinecraftButtonClassic
       >
       <MinecraftButtonClassic
         class="management-nav"
@@ -77,41 +79,41 @@ onUnmounted(() => {
         class="management-nav"
         :activated="route.path.endsWith('/management/server')"
         @click="router.replace('/management/server')"
-        >服务器信息</MinecraftButtonClassic
+      >服务器信息</MinecraftButtonClassic
       >
       <MinecraftButtonClassic
         class="management-nav"
         :activated="route.path.endsWith('/management/news')"
         @click="router.replace('/management/news')"
-        >文章管理</MinecraftButtonClassic
+      >文章管理</MinecraftButtonClassic
       >
       <MinecraftButtonClassic
         class="management-nav"
         :activated="route.path.endsWith('/management/document')"
         @click="router.replace('/management/document')"
-        >文档管理</MinecraftButtonClassic
+      >文档管理</MinecraftButtonClassic
       >
 
       <MinecraftButtonClassic
         class="management-nav"
         :activated="route.path.endsWith('/management/bot')"
         @click="router.replace('/management/bot')"
-        >机器人连接</MinecraftButtonClassic
+      >机器人连接</MinecraftButtonClassic
       >
 
       <MinecraftButtonClassic
         class="management-nav"
         :activated="route.path.endsWith('/management/wiki')"
         @click="router.replace('/management/wiki')"
-        >百科管理</MinecraftButtonClassic
+      >百科管理</MinecraftButtonClassic
       >
 
       <div style="display: flex; flex-direction: column; margin-top: auto">
         <MinecraftButtonClassic class="management-nav" @click="router.push('/')"
-          >回到主页</MinecraftButtonClassic
+        >回到主页</MinecraftButtonClassic
         >
         <MinecraftButtonClassic class="management-nav" @click="onLogout"
-          >登出</MinecraftButtonClassic
+        >登出</MinecraftButtonClassic
         >
       </div>
     </div>
