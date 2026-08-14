@@ -439,15 +439,19 @@ onUnmounted(() => {
 @media screen and (max-width: 760px) {
   .overview-card.variant-compact,
   .overview-card.variant-featured,
-  .overview-card.variant-compact.image-portrait,
-  .overview-card.card-magazine.image-portrait,
   .overview-card.card-notice {
     grid-template-columns: 1fr;
     grid-template-rows: 11rem auto;
   }
 
+  .overview-card.variant-compact.image-portrait,
+  .overview-card.card-magazine.image-portrait {
+    grid-template-columns: 1fr;
+    grid-template-rows: 14rem auto;
+  }
+
   .image-portrait .overview-picture {
-    min-height: 14rem;
+    min-height: 0;
   }
 
   .overview-button,

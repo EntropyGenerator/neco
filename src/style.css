@@ -541,3 +541,29 @@
   --accent-pale: #1b7070;
   --accent-bevel-light: rgba(255, 255, 255, 0.35);
 }
+
+/* 主题切换过渡：仅在 .theme-switching 期间启用（由 ThemePalette 控制），
+   避免首次加载、悬停等场景误触发动画 */
+html.theme-switching,
+html.theme-switching *,
+html.theme-switching *::before,
+html.theme-switching *::after {
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease,
+    border-color 0.35s ease,
+    outline-color 0.35s ease,
+    box-shadow 0.35s ease,
+    text-shadow 0.35s ease,
+    fill 0.35s ease,
+    stroke 0.35s ease !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.theme-switching,
+  html.theme-switching *,
+  html.theme-switching *::before,
+  html.theme-switching *::after {
+    transition: none !important;
+  }
+}

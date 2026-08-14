@@ -202,18 +202,10 @@ export const GetNewsBrief = async (): Promise<Array<NewsEntity>> => {
 
 export const UploadFile = async (id: string, file: File): Promise<string | null> => {
   let result: string | null = null
+  const form = new FormData()
+  form.append('file', file)
   await api
-    .post(
-      `/news/upload/${id}`,
-      {
-        file: file,
-      },
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      },
-    )
+    .post(`/news/upload/${id}`, form)
     .then((res) => {
       if (res.data.url) {
         result = BASE_URL + res.data.url
@@ -226,8 +218,10 @@ export const UploadFile = async (id: string, file: File): Promise<string | null>
 export const DeleteFile = async (id: string, url: string): Promise<string | null> => {
   let result = null
   await api
-    .post(`/news/upload/${id}`, {
-      filename: url.split('/').pop(),
+    .delete(`/news/upload/${id}`, {
+      data: {
+        filename: url.split('/').pop(),
+      },
     })
     .then((res) => {
       if (res.data.error) {

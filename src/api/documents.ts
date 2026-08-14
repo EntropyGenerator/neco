@@ -1,5 +1,4 @@
 import { api, BASE_URL } from './api'
-import { LoginStatus, type UserStatus } from './auth'
 import type { NewsSegment } from './newslist'
 
 export interface DocumentNode {
@@ -116,11 +115,22 @@ export const CreateDocument = async (form: CreateDocumentForm): Promise<string |
   return result
 }
 
+// 只有 admin / document_admin 才有权访问 private 文档路由；
+// 普通登录用户请求 private 路由会得到 403，因此不能仅凭“已登录”切换。
+const canReadPrivateDocuments = (): boolean => {
+  try {
+    const group = JSON.parse(localStorage.getItem('userGroup') || '[]') as string[]
+    return group.includes('admin') || group.includes('document_admin')
+  } catch {
+    return false
+  }
+}
+
 export const GetDocumentLayer = async (parentId: string): Promise<DocumentNode[]> => {
-  const status: UserStatus = await LoginStatus()
+  const suffix = canReadPrivateDocuments() ? '/private' : ''
   let result: DocumentNode[] = []
   await api
-    .get(`/documents/layer${status === 'alive' ? '/private' : ''}/${parentId}`)
+    .get(`/documents/layer${suffix}/${parentId}`)
     .then((res) => {
       result = res.data.children as DocumentNode[]
     })
@@ -129,10 +139,10 @@ export const GetDocumentLayer = async (parentId: string): Promise<DocumentNode[]
 }
 
 export const GetDocumentDetail = async (targetId: string): Promise<DocumentNode | null> => {
-  const status: UserStatus = await LoginStatus()
+  const suffix = canReadPrivateDocuments() ? '/private' : ''
   let result: DocumentNode | null = null
   await api
-    .get(`/documents${status === 'alive' ? '/private' : ''}/${targetId}`)
+    .get(`/documents${suffix}/${targetId}`)
     .then((res) => {
       result = res.data as DocumentNode
     })
@@ -142,18 +152,10 @@ export const GetDocumentDetail = async (targetId: string): Promise<DocumentNode 
 
 export const UploadDocumentFile = async (targetId: string, file: File): Promise<string | null> => {
   let result: string | null = null
+  const form = new FormData()
+  form.append('file', file)
   await api
-    .post(
-      `/documents/upload/${targetId}`,
-      {
-        file: file,
-      },
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      },
-    )
+    .post(`/documents/upload/${targetId}`, form)
     .then((res) => {
       if (res.data.url) {
         result = BASE_URL + res.data.url
@@ -166,8 +168,10 @@ export const UploadDocumentFile = async (targetId: string, file: File): Promise<
 export const DeleteDocumentFile = async (targetId: string, url: string): Promise<string | null> => {
   let result = null
   await api
-    .post(`/document/upload/${targetId}`, {
-      url: url.replace(BASE_URL, ''),
+    .delete(`/documents/upload/${targetId}`, {
+      data: {
+        filename: url.split('/').pop(),
+      },
     })
     .then((res) => {
       if (res.data.error) {

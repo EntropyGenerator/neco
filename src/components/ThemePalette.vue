@@ -19,13 +19,28 @@ const open = ref(false)
 const scheme = ref<'dark' | 'light'>('dark')
 const accent = ref<AccentId>('green')
 
+const THEME_TRANSITION_MS = 400
+let transitionTimer: number | undefined
+
+// 切换瞬间给 <html> 加上 .theme-switching 类，全局颜色以渐变过渡；
+// 过渡结束后移除，避免悬停/加载等场景误触发动画。
+const beginThemeTransition = () => {
+  document.documentElement.classList.add('theme-switching')
+  if (transitionTimer) {
+    window.clearTimeout(transitionTimer)
+  }
+  transitionTimer = window.setTimeout(() => {
+    document.documentElement.classList.remove('theme-switching')
+  }, THEME_TRANSITION_MS)
+}
+
 const soundOn = () => {
   const audio = new Audio('/button.click.ogg')
   audio.volume = 0.3
   audio.play().catch(() => {})
 }
 
-const applyScheme = (value: 'dark' | 'light') => {
+const applyScheme = (value: 'dark' | 'light', animate = false) => {
   scheme.value = value
   if (value === 'light') {
     document.documentElement.setAttribute('data-theme', 'light')
@@ -33,9 +48,12 @@ const applyScheme = (value: 'dark' | 'light') => {
     document.documentElement.removeAttribute('data-theme')
   }
   localStorage.setItem(THEME_KEY, value)
+  if (animate) {
+    beginThemeTransition()
+  }
 }
 
-const applyAccent = (value: AccentId) => {
+const applyAccent = (value: AccentId, animate = false) => {
   accent.value = value
   if (value === 'green') {
     document.documentElement.removeAttribute('data-accent')
@@ -43,6 +61,9 @@ const applyAccent = (value: AccentId) => {
     document.documentElement.setAttribute('data-accent', value)
   }
   localStorage.setItem(ACCENT_KEY, value)
+  if (animate) {
+    beginThemeTransition()
+  }
 }
 
 const toggle = () => {
@@ -79,6 +100,9 @@ onMounted(() => {
 onUnmounted(() => {
   document.removeEventListener('click', onDocumentClick)
   document.removeEventListener('keydown', onKeydown)
+  if (transitionTimer) {
+    window.clearTimeout(transitionTimer)
+  }
 })
 </script>
 
@@ -120,7 +144,7 @@ onUnmounted(() => {
             type="button"
             class="palette-option"
             :class="{ active: scheme === 'dark' }"
-            @click="applyScheme('dark')"
+            @click="applyScheme('dark', true)"
           >
             深色
           </button>
@@ -128,7 +152,7 @@ onUnmounted(() => {
             type="button"
             class="palette-option"
             :class="{ active: scheme === 'light' }"
-            @click="applyScheme('light')"
+            @click="applyScheme('light', true)"
           >
             浅色
           </button>
@@ -147,7 +171,7 @@ onUnmounted(() => {
             :style="{ '--swatch': item.color }"
             :aria-label="item.label"
             :title="item.label"
-            @click="applyAccent(item.id)"
+            @click="applyAccent(item.id, true)"
           />
         </div>
       </div>

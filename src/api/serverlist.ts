@@ -54,7 +54,7 @@ export const GetServerStatus = async (url: string): Promise<ServerStatus | null>
 export const CreateServer = async (): Promise<string | null> => {
   let result: string | null = null
   await api
-    .get(`/server/create`)
+    .post(`/server/create`)
     .then((res) => {
       if (res.data.id) {
         result = res.data.id as string
