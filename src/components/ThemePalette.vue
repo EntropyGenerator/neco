@@ -40,6 +40,23 @@ const soundOn = () => {
   audio.play().catch(() => {})
 }
 
+// localStorage 可能在隐私模式/沙箱等环境下抛异常，读写失败时静默降级。
+const storageGet = (key: string): string | null => {
+  try {
+    return localStorage.getItem(key)
+  } catch {
+    return null
+  }
+}
+
+const storageSet = (key: string, value: string): void => {
+  try {
+    localStorage.setItem(key, value)
+  } catch {
+    // 忽略：主题仍在本会话内生效
+  }
+}
+
 const applyScheme = (value: 'dark' | 'light', animate = false) => {
   scheme.value = value
   if (value === 'light') {
@@ -47,7 +64,7 @@ const applyScheme = (value: 'dark' | 'light', animate = false) => {
   } else {
     document.documentElement.removeAttribute('data-theme')
   }
-  localStorage.setItem(THEME_KEY, value)
+  storageSet(THEME_KEY, value)
   if (animate) {
     beginThemeTransition()
   }
@@ -60,7 +77,7 @@ const applyAccent = (value: AccentId, animate = false) => {
   } else {
     document.documentElement.setAttribute('data-accent', value)
   }
-  localStorage.setItem(ACCENT_KEY, value)
+  storageSet(ACCENT_KEY, value)
   if (animate) {
     beginThemeTransition()
   }
@@ -85,11 +102,11 @@ const onKeydown = (event: KeyboardEvent) => {
 }
 
 onMounted(() => {
-  const savedScheme = localStorage.getItem(THEME_KEY)
+  const savedScheme = storageGet(THEME_KEY)
   if (savedScheme === 'light' || savedScheme === 'dark') {
     applyScheme(savedScheme)
   }
-  const savedAccent = localStorage.getItem(ACCENT_KEY)
+  const savedAccent = storageGet(ACCENT_KEY)
   if (savedAccent && ACCENTS.some((a) => a.id === savedAccent)) {
     applyAccent(savedAccent as AccentId)
   }

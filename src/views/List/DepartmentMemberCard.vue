@@ -51,7 +51,7 @@ const onAvatarError = (event: Event) => {
   height: auto;
   flex-shrink: 0;
   overflow: hidden;
-  background: #303030;
+  background: var(--bg-sunken);
   border: 2px solid var(--border-dark-2);
   box-shadow:
     inset -2px -2px 0 0 var(--bevel-dark),

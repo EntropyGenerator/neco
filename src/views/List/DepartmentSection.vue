@@ -9,7 +9,10 @@ const props = defineProps<{
 
 const backgroundImage = computed(() => {
   const icon = toAssetUrl(props.department.icon)
-  return icon ? `url("${icon}")` : 'none'
+  if (!icon) return 'none'
+  // 转义 CSS url() 中的特殊字符，防止含引号/括号的 URL 逃逸出字符串注入样式
+  const escaped = icon.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/[()]/g, '\\$&')
+  return `url("${escaped}")`
 })
 </script>
 
@@ -60,7 +63,7 @@ const backgroundImage = computed(() => {
   aspect-ratio: var(--department-info-aspect-ratio);
   height: auto;
   overflow: hidden;
-  background-color: #303030;
+  background-color: var(--bg-sunken);
   background-size: cover;
   background-position: center;
   border: 2px solid var(--border-dark-2);

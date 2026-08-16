@@ -60,7 +60,6 @@ export async function GetDepartmentList(): Promise<Department[]> {
           })),
         }))
     })
-    .catch(() => {})
   return result
 }
 

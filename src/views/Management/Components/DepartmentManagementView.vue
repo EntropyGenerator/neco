@@ -25,7 +25,17 @@ import MinecraftTextarea from '@/components/utils/MinecraftTextarea.vue'
 import { useToast } from 'vue-toastification'
 
 const toast = useToast()
-const userGroup = ref<string[]>(JSON.parse(localStorage.getItem('userGroup') || '[]'))
+const readUserGroup = (): string[] => {
+  try {
+    const raw = localStorage.getItem('userGroup')
+    if (!raw) return []
+    const parsed = JSON.parse(raw)
+    return Array.isArray(parsed) ? parsed : []
+  } catch {
+    return []
+  }
+}
+const userGroup = ref<string[]>(readUserGroup())
 
 const canManageDepartment = computed(() => userGroup.value.includes('admin'))
 
@@ -37,6 +47,8 @@ const memberSearchQuery = ref('')
 const editStatus = ref<'none' | 'new' | 'edit'>('none')
 const deleteDepartmentDialogVisible = ref(false)
 const pendingDeleteDepartmentId = ref<string | null>(null)
+const removeMemberDialogVisible = ref(false)
+const pendingRemoveMember = ref<{ departmentId: string; username: string } | null>(null)
 const iconOptionsVisible = ref(false)
 const editIcon = ref('')
 const newMemberUsername = ref('')
@@ -99,7 +111,12 @@ const resetDraft = () => {
 
 const refresh = async () => {
   const previousSelectedId = selectedDepartmentId.value
-  departments.value = await GetDepartmentList()
+  try {
+    departments.value = await GetDepartmentList()
+  } catch {
+    toast.error('部门信息加载失败，请稍后重试。')
+    departments.value = []
+  }
   allUsers.value = (await GetUserList()) ?? []
 
   if (
@@ -423,11 +440,19 @@ const onAddMember = async () => {
   selectedDepartmentId.value = department.id
 }
 
-const onRemoveMember = async (username: string) => {
+const openRemoveMemberDialog = (username: string) => {
   const department = selectedDepartment.value
   if (!department) return
+  pendingRemoveMember.value = { departmentId: department.id, username }
+  removeMemberDialogVisible.value = true
+}
 
-  const error = await RemoveDepartmentMember(department.id, username)
+const onConfirmRemoveMember = async () => {
+  const pending = pendingRemoveMember.value
+  if (!pending) return
+  pendingRemoveMember.value = null
+
+  const error = await RemoveDepartmentMember(pending.departmentId, pending.username)
   if (error) {
     toast.error(`移除成员失败：${error}`)
     return
@@ -435,7 +460,7 @@ const onRemoveMember = async (username: string) => {
 
   toast.success('成员已移除！')
   await refresh()
-  selectedDepartmentId.value = department.id
+  selectedDepartmentId.value = pending.departmentId
 }
 
 onMounted(refresh)
@@ -756,7 +781,7 @@ onMounted(refresh)
             </MinecraftButtonClassic>
             <MinecraftButtonClassic
               class="dept-mini-button"
-              @click="onRemoveMember(member.username)"
+              @click="openRemoveMemberDialog(member.username)"
             >
               移除
             </MinecraftButtonClassic>
@@ -819,6 +844,19 @@ onMounted(refresh)
       吗？
     </p>
     <p class="management-danger-text">删除后维度页将不再显示该部门及其成员关系。</p>
+  </MinecraftDialog>
+
+  <MinecraftDialog
+    title="移除成员"
+    v-model="removeMemberDialogVisible"
+    @confirm="onConfirmRemoveMember"
+  >
+    <p>
+      确定要将
+      <strong>{{ pendingRemoveMember?.username || '该成员' }}</strong>
+      移出当前部门吗？
+    </p>
+    <p class="management-danger-text">移除后需重新输入用户名并设置负责人才能恢复。</p>
   </MinecraftDialog>
 </template>
 
