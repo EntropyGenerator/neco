@@ -111,7 +111,10 @@ JWT 由 `POST /necore/auth/login` 返回。JWT 载荷包含：
 ```text
 RATE_LIMIT_MAX=600          # 每分钟每 IP 最大请求数
 RATE_LIMIT_EXPIRATION=60    # 窗口秒数
+TRUSTED_PROXIES=            # 反向代理 IP（逗号分隔），用于从 X-Forwarded-For 还原客户端 IP
 ```
+
+部署在 Nginx 等反向代理后时必须设置 `TRUSTED_PROXIES` 为代理地址，否则所有用户共享同一 socket IP 的限流桶，任一客户端即可打满全局限流。请求体上限 25MB（单文件 20MB），超限在解析前拒绝。
 
 `/slogan` 与 `/contents` 静态资源不限流（浏览器加载图片会占用大量额度）。登录接口另有独立限制：**每分钟最多 8 次/IP**，超限返回 429。
 
@@ -1532,6 +1535,15 @@ Authorization: Bearer <bot-token>
 3. 后端对明文 bot token 做 SHA-256，与数据库保存的 token hash 比对。
 4. 验证成功后注册连接。
 
+服务端每 20 秒向客户端推送一次保活消息（用于维持反向代理连接，客户端应忽略）：
+
+```json
+{
+  "event": "ping",
+  "time": 1710000000
+}
+```
+
 连接成功后，服务端可能推送：
 
 ```json
@@ -1556,7 +1568,7 @@ Authorization: Bearer <bot-token>
 GET /necore/department/
 ```
 
-无需登录。返回全部部门及其成员（成员含用户名、头像、权限组、标签与负责人标记），按 `sortOrder` 升序、负责人优先排列：
+无需登录。返回全部部门及其成员（成员含用户名、头像、标签与负责人标记，**不包含权限组**），按 `sortOrder` 升序、负责人优先排列：
 
 ```json
 {
@@ -1571,7 +1583,6 @@ GET /necore/department/
         {
           "username": "alice",
           "avatar": "https://example.com/a.png",
-          "group": ["document_admin"],
           "tags": [],
           "isLeader": true
         }
@@ -1663,7 +1674,7 @@ Content-Type: application/json
 }
 ```
 
-部门或用户不存在返回 404。
+部门或用户不存在返回 404；成员已在该部门中返回 409。
 
 ### 10.7 移除部门成员
 
