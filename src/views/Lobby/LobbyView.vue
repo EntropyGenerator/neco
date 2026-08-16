@@ -48,11 +48,13 @@ import Intro from './IntroView.vue'
 }
 
 .logo-area {
-  width: 50%;
+  width: 100%;
   height: 100%;
-  min-width: 25rem;
+  min-width: 20rem;
   display: flex;
   align-items: center;
+  background-color: var(--bg-overlay);
+  backdrop-filter: blur(2px);
 }
 
 .logo-content {
@@ -63,11 +65,24 @@ import Intro from './IntroView.vue'
   max-width: 30rem;
   padding-right: 10%;
   /* animation: fade-in-right 1s ease-out forwards; */
-  background-color: var(--bg-overlay);
-  backdrop-filter: blur(2px);
+
   padding: 1rem;
   height: 100%;
   justify-content: center;
+
+  margin-left: auto;
+  margin-right:auto;
+}
+
+@media (min-width: 640px) {
+  .logo-area {
+    width: auto;
+  }
+
+  .logo-content {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
 }
 
 .logo-content p {
