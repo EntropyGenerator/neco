@@ -181,7 +181,7 @@ onUnmounted(() => {
   overflow: hidden;
   min-width: 0;
   min-height: 0;
-  background-color: rgba(24, 24, 24, 0.9);
+  background-color: color-mix(in srgb, var(--bg) 90%, transparent);
 }
 
 .overview-card.variant-featured {
@@ -213,7 +213,7 @@ onUnmounted(() => {
 
 .overview-link:focus-visible,
 .overview-title:focus-visible {
-  outline: 3px solid #fff;
+  outline: 3px solid var(--focus-ring);
   outline-offset: -3px;
 }
 
@@ -225,7 +225,7 @@ onUnmounted(() => {
   height: 100%;
   min-height: 0;
   overflow: hidden;
-  background-color: #111;
+  background-color: var(--bg-sunken);
 }
 
 .overview-picture::before {
@@ -266,7 +266,7 @@ onUnmounted(() => {
 .image-portrait .overview-img {
   padding: 0.45rem;
   object-fit: contain;
-  background-color: rgba(0, 0, 0, 0.32);
+  background-color: var(--bg-thumb);
 }
 
 .overview-card:hover .overview-img {
@@ -284,7 +284,7 @@ onUnmounted(() => {
   min-width: 0;
   min-height: 0;
   padding: clamp(0.7rem, 1.1vw, 0.95rem);
-  background-color: rgba(24, 24, 24, 0.88);
+  background-color: color-mix(in srgb, var(--bg) 88%, transparent);
 }
 
 .overview-card.variant-featured .overview-body {
@@ -312,13 +312,13 @@ onUnmounted(() => {
 
 .overview-label {
   flex: 0 0 auto;
-  color: var(--minecraft-green-light);
+  color: var(--accent-light);
   font-size: 0.85rem;
 }
 
 .overview-date {
   min-width: 0;
-  color: rgba(255, 255, 255, 0.55);
+  color: color-mix(in srgb, var(--text) 55%, transparent);
   font-size: 0.75rem;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -327,7 +327,7 @@ onUnmounted(() => {
 
 .overview-title {
   min-width: 0;
-  color: #fff;
+  color: var(--text);
   font-size: clamp(1.08rem, 1.35vw, 1.35rem);
   line-height: 1.25;
   text-decoration: none;
@@ -360,7 +360,7 @@ onUnmounted(() => {
 .overview-brief {
   margin: 0;
   min-width: 0;
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--text-muted);
   font-size: 0.9rem;
   line-height: 1.35rem;
   overflow: hidden;
@@ -439,15 +439,19 @@ onUnmounted(() => {
 @media screen and (max-width: 760px) {
   .overview-card.variant-compact,
   .overview-card.variant-featured,
-  .overview-card.variant-compact.image-portrait,
-  .overview-card.card-magazine.image-portrait,
   .overview-card.card-notice {
     grid-template-columns: 1fr;
     grid-template-rows: 11rem auto;
   }
 
+  .overview-card.variant-compact.image-portrait,
+  .overview-card.card-magazine.image-portrait {
+    grid-template-columns: 1fr;
+    grid-template-rows: 14rem auto;
+  }
+
   .image-portrait .overview-picture {
-    min-height: 14rem;
+    min-height: 0;
   }
 
   .overview-button,

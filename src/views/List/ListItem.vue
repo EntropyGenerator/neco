@@ -44,6 +44,37 @@ const playerTooltipVisible = ref(false)
 const playerTooltipName = ref('')
 const playerTooltipStyle = ref<Record<string, string>>({})
 
+// 皮肤站解析缓存：玩家名 -> 皮肤 URL（Blessing Skin Yggdrasil，经后端 /server/skin 代理）
+const blessingSkinUrlCache = new Map<string, string | null>()
+const blessingSkinUrls = ref(new Map<string, string>())
+
+const resolveBlessingSkinUrl = async (name: string): Promise<string | null> => {
+  const playerName = name.trim()
+  if (!playerName) return null
+  if (blessingSkinUrlCache.has(playerName)) {
+    return blessingSkinUrlCache.get(playerName) ?? null
+  }
+  try {
+    const res = await fetch(`/necore/server/skin/${encodeURIComponent(playerName)}`, {
+      signal: AbortSignal.timeout(8000),
+    })
+    if (!res.ok) {
+      blessingSkinUrlCache.set(playerName, null)
+      return null
+    }
+    const data = (await res.json()) as { skin?: string }
+    const url = typeof data.skin === 'string' && data.skin ? data.skin : null
+    blessingSkinUrlCache.set(playerName, url)
+    if (url) {
+      blessingSkinUrls.value.set(playerName, url)
+    }
+    return url
+  } catch {
+    blessingSkinUrlCache.set(playerName, null)
+    return null
+  }
+}
+
 let playerListResizeObserver: ResizeObserver | undefined
 
 const normalizedPlayers = computed(() => {
@@ -99,6 +130,12 @@ const getPlayerAvatarSources = (player: ServerPlayer) => {
   const name = player.name.trim()
 
   const sources: string[] = []
+
+  // 皮肤站（Blessing Skin Yggdrasil）优先：离线玩家在 MUA/NMO 注册的皮肤
+  const stationSkin = blessingSkinUrls.value.get(name)
+  if (stationSkin) {
+    sources.push(stationSkin)
+  }
 
   // 优先使用 MCHeads。它对正版 UUID 和玩家名都比较宽容。
   if (uuid) {
@@ -230,6 +267,13 @@ watch(playerListExpanded, async (expanded) => {
 
 watch(normalizedPlayers, async () => {
   await updatePlayerListWidth()
+
+  // 为新增玩家解析皮肤站皮肤（已有缓存的跳过）
+  for (const player of normalizedPlayers.value) {
+    const name = player.name.trim()
+    if (!name || blessingSkinUrlCache.has(name)) continue
+    await resolveBlessingSkinUrl(name)
+  }
 })
 
 onUnmounted(() => {
@@ -257,7 +301,7 @@ onUnmounted(() => {
       <div class="item-info mcfont">
         <span
           style="
-            color: white;
+            color: var(--text);
             line-height: 1.1rem;
             font-size: 1.1rem;
             margin-bottom: 5px;
@@ -266,7 +310,7 @@ onUnmounted(() => {
           >{{ server.name }}</span
         >
         <span style="line-height: 1rem; margin-bottom: 3px">{{ server.description }}</span>
-        <span style="line-height: 1rem; color: var(--minecraft-green-light)">{{
+        <span style="line-height: 1rem; color: var(--accent-light)">{{
           server.status?.version
         }}</span>
       </div>
@@ -388,7 +432,7 @@ onUnmounted(() => {
 
 .delete-icon-button:focus-visible,
 .player-toggle-button:focus-visible {
-  outline: 3px solid #fff;
+  outline: 3px solid var(--focus-ring);
   outline-offset: 3px;
 }
 
@@ -404,7 +448,7 @@ onUnmounted(() => {
 }
 
 .server-icon-button:focus-visible {
-  outline: 3px solid #fff;
+  outline: 3px solid var(--focus-ring);
   outline-offset: 3px;
 }
 
@@ -430,7 +474,7 @@ onUnmounted(() => {
   left: 4px;
   width: 64px;
   height: 64px;
-  background: rgba(128, 128, 128, 0.7);
+  background: color-mix(in srgb, var(--text-placeholder) 70%, transparent);
   z-index: 128;
 }
 
@@ -447,15 +491,15 @@ onUnmounted(() => {
 }
 
 .server-card[type='focus'] > .item-border {
-  background-color: black;
-  border: 2px solid white;
+  background-color: var(--bg-sunken);
+  border: 2px solid var(--focus-ring);
 }
 
 .server-icon {
   position: relative;
   width: 64px;
   height: 64px;
-  border: 1px solid grey;
+  border: 1px solid var(--border-strong);
   image-rendering: pixelated;
 }
 
@@ -481,7 +525,7 @@ onUnmounted(() => {
   left: 4px;
   width: 64px;
   height: 64px;
-  background: rgba(128, 128, 128, 0.7);
+  background: color-mix(in srgb, var(--text-placeholder) 70%, transparent);
   z-index: 128;
 }
 
@@ -516,7 +560,7 @@ onUnmounted(() => {
 
 .status-text {
   user-select: none;
-  color: #aaaaaa;
+  color: var(--text-gray);
 }
 
 .status-img {
@@ -536,7 +580,7 @@ onUnmounted(() => {
 .player-toggle-button {
   border: 0;
   padding: 0;
-  color: var(--minecraft-green-light);
+  color: var(--accent-light);
   background: transparent;
   font: inherit;
   cursor: pointer;
@@ -545,7 +589,7 @@ onUnmounted(() => {
 }
 
 .player-toggle-button:hover {
-  color: #fff;
+  color: var(--text);
 }
 
 .delete-icon {
@@ -560,7 +604,7 @@ onUnmounted(() => {
 }
 
 .delete-icon:hover {
-  color: #f56c6c;
+  color: var(--danger);
 }
 
 .player-list-panel {
@@ -568,14 +612,14 @@ onUnmounted(() => {
   margin: 0 auto 0.35rem auto;
   padding: 0.5rem;
   box-sizing: border-box;
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.72);
-  border-left: 2px solid #777;
-  border-right: 2px solid #222;
-  border-bottom: 2px solid #222;
+  color: var(--text);
+  background-color: color-mix(in srgb, var(--bg-sunken) 72%, transparent);
+  border-left: 2px solid var(--scrollbar-thumb);
+  border-right: 2px solid var(--scrollbar-track);
+  border-bottom: 2px solid var(--scrollbar-track);
   box-shadow:
-    inset -2px -2px 0 0 rgba(0, 0, 0, 0.55),
-    inset 2px 2px 0 0 rgba(255, 255, 255, 0.12);
+    inset -2px -2px 0 0 color-mix(in srgb, var(--bg-sunken) 55%, transparent),
+    inset 2px 2px 0 0 color-mix(in srgb, var(--text) 12%, transparent);
 }
 
 .player-list-header {
@@ -583,7 +627,7 @@ onUnmounted(() => {
   justify-content: space-between;
   gap: 1rem;
   margin-bottom: 0.5rem;
-  color: var(--minecraft-green-light);
+  color: var(--accent-light);
   font-size: 0.95rem;
   user-select: none;
 }
@@ -591,7 +635,7 @@ onUnmounted(() => {
 .player-list-toolbar {
   min-height: 1.25rem;
   margin-bottom: 0.35rem;
-  color: rgba(255, 255, 255, 0.78);
+  color: color-mix(in srgb, var(--text) 78%, transparent);
   font-size: 0.9rem;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -603,11 +647,11 @@ onUnmounted(() => {
   overflow-y: hidden;
   padding: 0.25rem;
   scrollbar-width: thin;
-  scrollbar-color: #777 #222;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
 
 .player-list-scroll:focus-visible {
-  outline: 3px solid #fff;
+  outline: 3px solid var(--focus-ring);
   outline-offset: 3px;
 }
 
@@ -616,13 +660,13 @@ onUnmounted(() => {
 }
 
 .player-list-scroll::-webkit-scrollbar-track {
-  background: #222;
-  border: 1px solid #111;
+  background: var(--scrollbar-track);
+  border: 1px solid var(--scrollbar-border);
 }
 
 .player-list-scroll::-webkit-scrollbar-thumb {
-  background: #777;
-  border: 1px solid #aaa;
+  background: var(--scrollbar-thumb);
+  border: 1px solid var(--scrollbar-thumb-border);
 }
 
 .player-list {
@@ -645,18 +689,18 @@ onUnmounted(() => {
   width: 40px;
   height: 40px;
   padding: 3px;
-  border: 1px solid #555;
-  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-light);
+  background-color: color-mix(in srgb, var(--text) 8%, transparent);
   box-shadow:
-    inset -1px -1px 0 0 #111,
-    inset 1px 1px 0 0 #666;
+    inset -1px -1px 0 0 var(--border-dark),
+    inset 1px 1px 0 0 var(--border-light);
   cursor: pointer;
 }
 
 .player-avatar-card:hover,
 .player-avatar-card:focus-visible {
-  background-color: rgba(100, 100, 255, 0.25);
-  border-color: #fff;
+  background-color: var(--bg-selection);
+  border-color: var(--focus-ring);
   outline: none;
 }
 
@@ -665,8 +709,8 @@ onUnmounted(() => {
   width: 32px;
   height: 32px;
   image-rendering: pixelated;
-  border: 1px solid #777;
-  background-color: #222;
+  border: 1px solid var(--scrollbar-thumb);
+  background-color: var(--scrollbar-track);
 }
 
 .player-floating-tooltip {
@@ -674,13 +718,13 @@ onUnmounted(() => {
   z-index: 99999;
   max-width: 16rem;
   padding: 0.3rem 0.5rem;
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.94);
-  border: 1px solid #aaa;
+  color: var(--text);
+  background-color: color-mix(in srgb, var(--bg-sunken) 94%, transparent);
+  border: 1px solid var(--scrollbar-thumb-border);
   box-shadow:
-    inset -1px -1px 0 0 #111,
-    inset 1px 1px 0 0 #666,
-    0 4px 10px rgba(0, 0, 0, 0.45);
+    inset -1px -1px 0 0 var(--border-dark),
+    inset 1px 1px 0 0 var(--border-light),
+    0 4px 10px var(--shadow);
   font-size: 0.85rem;
   line-height: 1rem;
   white-space: nowrap;

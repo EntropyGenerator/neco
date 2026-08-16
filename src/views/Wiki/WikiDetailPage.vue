@@ -127,17 +127,18 @@ onMounted(async () => {
 
 <style lang="css" scoped>
 .detail-page {
-  --w-bg: #ffffff;
-  --w-surface: rgba(255, 255, 255, 0.92);
-  --w-surface-2: rgba(255, 255, 255, 0.85);
-  --w-cream: #ffffff;
-  --w-text: #3a3028;
-  --w-text-muted: #7a6e5e;
-  --w-text-dim: #8a7e6e;
-  --w-accent: #5a7a3a;
-  --w-accent-bg: rgba(90, 122, 58, 0.12);
-  --w-border: #67C23A;
-  --w-shadow: rgba(0, 0, 0, 0.06);
+  /* Wiki 页通过别名复用全局主题变量，随 [data-theme] 自动切换深浅色 */
+  --w-bg: var(--bg-page);
+  --w-surface: var(--bg-surface);
+  --w-surface-2: var(--bg-surface-2);
+  --w-cream: var(--bg-card);
+  --w-text: var(--text);
+  --w-text-muted: var(--text-muted);
+  --w-text-dim: var(--text-faint);
+  --w-accent: var(--accent);
+  --w-accent-bg: var(--accent-soft);
+  --w-border: var(--accent-light);
+  --w-shadow: var(--shadow-card);
 
   min-height: 100vh;
   background: var(--w-bg);
@@ -240,7 +241,7 @@ onMounted(async () => {
 }
 
 .side-empty {
-  color: #a09888;
+  color: var(--text-faint);
   font-size: 0.9rem;
 }
 
@@ -267,8 +268,8 @@ onMounted(async () => {
   align-items: center;
   justify-content: center;
   background-color: var(--w-cream);
-  border: 2px solid #c4b898;
-  box-shadow: inset 2px 2px 0 0 rgba(255,255,255,0.6), inset -2px -2px 0 0 rgba(0,0,0,0.12);
+  border: 2px solid var(--border-light);
+  box-shadow: inset 2px 2px 0 0 color-mix(in srgb, var(--bevel-light) 60%, transparent), inset -2px -2px 0 0 var(--border-soft);
 }
 
 .item-img {
@@ -295,17 +296,17 @@ onMounted(async () => {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   gap: 2px;
-  background-color: #555;
-  border: 2px solid #555;
+  background-color: var(--mc-slot-bg);
+  border: 2px solid var(--mc-slot-bg);
   aspect-ratio: 1;
 }
 
 .recipe-cell {
-  background-color: #8b8b8b;
-  border-top: 3px solid #373737;
-  border-left: 3px solid #373737;
-  border-bottom: 3px solid #fff;
-  border-right: 3px solid #fff;
+  background-color: var(--mc-slot);
+  border-top: 3px solid var(--mc-slot-border-dark);
+  border-left: 3px solid var(--mc-slot-border-dark);
+  border-bottom: 3px solid var(--mc-slot-border-light);
+  border-right: 3px solid var(--mc-slot-border-light);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -315,7 +316,7 @@ onMounted(async () => {
 
 .recipe-id {
   font-size: 0.9rem;
-  color: #ffffff;
+  color: var(--mc-slot-border-light);
   text-align: center;
   word-break: break-all;
   line-height: 1.2;
@@ -339,32 +340,32 @@ onMounted(async () => {
 
 <style lang="css">
 .detail-page .minecraft-theme {
-  --text: var(--w-text, #3a3028);
-  --area: var(--w-cream, #ecf8f5);
-  --border: var(--w-border, #d4c8b0);
-  --border-blue: var(--w-accent, #5a7a3a);
+  --text: var(--w-text);
+  --area: var(--w-cream);
+  --border: var(--w-border);
+  --border-blue: var(--w-accent);
   background-color: transparent;
-  color: var(--w-text, #3a3028);
+  color: var(--w-text);
 }
 
-.detail-page .minecraft-theme a { color: var(--w-accent, #5a7a3a); }
-.detail-page .minecraft-theme a:hover { color: #7a5a2a; }
-.detail-page .minecraft-theme a:after { border-color: var(--w-accent, #5a7a3a); }
+.detail-page .minecraft-theme a { color: var(--w-accent); }
+.detail-page .minecraft-theme a:hover { color: var(--accent-dark); }
+.detail-page .minecraft-theme a:after { border-color: var(--w-accent); }
 .detail-page .minecraft-theme code {
-  background-color: #fbfbfb;
-  color: #5a3030;
+  background-color: var(--bg-code);
+  color: var(--danger);
   text-shadow: none;
 }
-.detail-page .minecraft-theme strong { color: var(--w-text, #3a3028); }
+.detail-page .minecraft-theme strong { color: var(--w-text); }
 .detail-page .minecraft-theme h1, .detail-page .minecraft-theme h2,
-.detail-page .minecraft-theme h3, .detail-page .minecraft-theme h4 { color: var(--w-text, #3a3028); }
+.detail-page .minecraft-theme h3, .detail-page .minecraft-theme h4 { color: var(--w-text); }
 .detail-page .minecraft-theme blockquote {
-  color: var(--w-text, #3a3028);
-  background: #ffffff;
-  border-left-color: var(--w-accent, #5a7a3a);
-  border-color: var(--w-border, #ffffff);
+  color: var(--w-text);
+  background: var(--bg-card);
+  border-left-color: var(--w-accent);
+  border-color: var(--w-border);
   border-image: none;
 }
 .detail-page .minecraft-theme ol li::marker,
-.detail-page .minecraft-theme ul li::marker { color: var(--w-accent, #5a7a3a); }
+.detail-page .minecraft-theme ul li::marker { color: var(--w-accent); }
 </style>

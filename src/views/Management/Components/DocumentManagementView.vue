@@ -97,7 +97,7 @@ const canManageDocument = computed(() => {
 
 .document-helper-text {
   margin: 0;
-  color: rgba(255, 255, 255, 0.74);
+  color: color-mix(in srgb, var(--text) 74%, transparent);
   line-height: 1.45rem;
   user-select: none;
 }
@@ -107,8 +107,8 @@ const canManageDocument = computed(() => {
   height: min(72vh, 52rem);
   min-height: 36rem;
   overflow: hidden;
-  background-color: rgba(0, 0, 0, 0.18);
-  border: 2px solid #1a1a1a;
+  background-color: var(--bg-scrim-2);
+  border: 2px solid var(--border-dark-2);
 }
 
 .document-editor-frame :deep(.documents-editor),

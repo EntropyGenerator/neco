@@ -38,6 +38,12 @@ export const GetLinkEntries = (): LinkEntry[] => {
       description: '东南大学 Minecraft 社团广告位',
     },
     {
+      name: 'USTCraft 像素艺术小组',
+      url: 'https://ustcraft.github.io/website/',
+      icon: '/friend-logo/ustcraft_logo.png',
+      description: '东南大学 Minecraft 社团广告位',
+    },
+    {
       name: 'Minecraft 中文 Wiki',
       url: 'https://zh.minecraft.wiki/',
       icon: '/otherlogos/wiki.png',

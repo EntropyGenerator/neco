@@ -625,7 +625,7 @@ onUnmounted(() => {
 
 <style lang="css" scoped>
 .resizer:focus-visible {
-  outline: 3px solid #fff;
+  outline: 3px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
@@ -644,11 +644,11 @@ onUnmounted(() => {
   padding: 0.8rem;
   padding-left: 4px;
   padding-right: 4px;
-  border: 4px solid #222222;
+  border: 4px solid var(--border);
   box-shadow:
-    inset -4px -4px 0px 0px #3a3a3a,
-    inset 4px 4px 0px 0px #6b6b6b;
-  background-color: #111111;
+    inset -4px -4px 0px 0px var(--bevel-dark-strong),
+    inset 4px 4px 0px 0px var(--bevel-light-strong);
+  background-color: var(--bg-sunken);
 }
 
 .resizer-container {
@@ -706,16 +706,16 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px dashed #fff;
-  color: white;
+  border: 1px dashed var(--focus-ring);
+  color: var(--text);
   cursor: pointer;
   padding: 1.2rem;
-  background-color: rgba(255, 255, 255, 0);
+  background-color: transparent;
   transition: all 0.2s ease-in-out;
 }
 
 .upload-button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--bg-hover);
 }
 
 .editor-container {
@@ -726,8 +726,8 @@ onUnmounted(() => {
   min-width: 0;
   overflow: auto;
   background:
-    linear-gradient(to right, rgba(0, 0, 0, 0.68), rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0.68)),
-    radial-gradient(circle at 50% 18%, rgba(108, 195, 73, 0.16), transparent 28rem),
+    linear-gradient(to right, var(--bg-overlay-strong), var(--bg-overlay-soft), var(--bg-overlay-strong)),
+    radial-gradient(circle at 50% 18%, var(--accent-tint), transparent 28rem),
     url('/background/bg.jpg');
   background-size: auto, auto, 468px;
 }
@@ -738,25 +738,25 @@ onUnmounted(() => {
 }
 
 .minecraft-md-editor {
-  --md-bk-color: rgba(20, 20, 20, 0.96);
-  --md-border-color: #555;
-  --md-color: rgba(255, 255, 255, 0.88);
-  border: 4px solid #222;
+  --md-bk-color: color-mix(in srgb, var(--bg-sunken-2) 96%, transparent);
+  --md-border-color: var(--border-light);
+  --md-color: var(--text-soft);
+  border: 4px solid var(--border);
   box-shadow:
-    inset -4px -4px 0 0 #1f1f1f,
-    inset 4px 4px 0 0 #454545;
+    inset -4px -4px 0 0 var(--bevel-dark),
+    inset 4px 4px 0 0 var(--bevel-light);
 }
 
 .minecraft-md-editor :deep(.md-editor-toolbar-wrapper) {
   min-height: 2rem;
-  background-color: #2e2e2e;
-  border-bottom: 2px solid #111;
+  background-color: var(--bg-surface);
+  border-bottom: 2px solid var(--border-dark);
 }
 
 .minecraft-md-editor :deep(.cm-editor) {
   font-size: 1.08rem;
   line-height: 1.75;
-  background-color: #161616;
+  background-color: var(--bg-sunken-2);
 }
 
 .minecraft-md-editor :deep(.cm-content) {
@@ -765,7 +765,7 @@ onUnmounted(() => {
 
 .minecraft-md-editor :deep(.md-editor-input-wrapper) {
   background:
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.22)),
+    linear-gradient(to bottom, var(--bg-scrim-2), var(--bg-scrim)),
     url('/blockbg/blackstone.png');
   background-size:
     auto,
@@ -782,8 +782,8 @@ onUnmounted(() => {
   grid-template-columns: minmax(18rem, 1fr) minmax(14rem, 0.75fr) 10rem;
   gap: 0.75rem;
   padding: 0.75rem;
-  background-color: #202020;
-  border-top: 4px solid #111;
+  background-color: var(--bg-log);
+  border-top: 4px solid var(--border-dark);
 }
 
 .editor-status-card {
@@ -793,22 +793,22 @@ onUnmounted(() => {
   gap: 0.75rem;
   min-width: 0;
   padding: 0.75rem;
-  background-color: #303030;
-  border: 2px solid #1a1a1a;
+  background-color: var(--bg-surface-2);
+  border: 2px solid var(--border-dark-2);
   box-shadow:
-    inset -2px -2px 0 0 #1f1f1f,
-    inset 2px 2px 0 0 #454545;
+    inset -2px -2px 0 0 var(--bevel-dark),
+    inset 2px 2px 0 0 var(--bevel-light);
 }
 
 .editor-status-card h2 {
   margin: 0 0 0.25rem 0;
-  color: #fff;
+  color: var(--text);
   font-size: 1rem;
 }
 
 .editor-status-card p {
   margin: 0;
-  color: rgba(255, 255, 255, 0.68);
+  color: color-mix(in srgb, var(--text) 68%, transparent);
   font-size: 0.82rem;
   line-height: 1.25rem;
 }
@@ -822,23 +822,23 @@ onUnmounted(() => {
 .editor-visibility-button {
   min-width: 4rem;
   padding: 0.45rem 0.6rem;
-  color: #ddd;
-  background-color: #222;
-  border: 2px solid #111;
+  color: var(--text-soft);
+  background-color: var(--border);
+  border: 2px solid var(--border-dark);
   box-shadow:
-    inset -1px -1px 0 0 #111,
-    inset 1px 1px 0 0 #666;
+    inset -1px -1px 0 0 var(--border-dark),
+    inset 1px 1px 0 0 var(--border-light);
   cursor: pointer;
 }
 
 .editor-visibility-button.active {
-  color: #fff;
-  background-color: rgba(60, 133, 39, 0.7);
-  border-color: var(--minecraft-green-light);
+  color: var(--text);
+  background-color: color-mix(in srgb, var(--accent) 70%, transparent);
+  border-color: var(--accent-light);
 }
 
 .editor-visibility-button:focus-visible {
-  outline: 3px solid #fff;
+  outline: 3px solid var(--focus-ring);
   outline-offset: 3px;
 }
 
@@ -857,8 +857,8 @@ onUnmounted(() => {
   overflow: auto;
   min-height: 0;
   background:
-    linear-gradient(to right, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.42), rgba(0, 0, 0, 0.72)),
-    radial-gradient(circle at 50% 18%, rgba(108, 195, 73, 0.16), transparent 28rem),
+    linear-gradient(to right, var(--bg-overlay-strong), var(--bg-overlay), var(--bg-overlay-strong)),
+    radial-gradient(circle at 50% 18%, var(--accent-tint), transparent 28rem),
     url('/background/bg.jpg');
   background-size: auto, auto, 468px;
 }
@@ -869,14 +869,14 @@ onUnmounted(() => {
   width: min(100%, 68rem);
   min-height: 100%;
   padding: 2rem clamp(1rem, 4vw, 4rem);
-  color: rgba(255, 255, 255, 0.88);
+  color: var(--text-soft);
   backdrop-filter: blur(10px);
-  background-color: rgba(12, 12, 12, 0.72);
-  border: 4px solid #222;
+  background-color: color-mix(in srgb, var(--bg-sunken) 72%, transparent);
+  border: 4px solid var(--border);
   box-shadow:
-    inset -4px -4px 0 0 #1f1f1f,
-    inset 4px 4px 0 0 #454545,
-    0 0.75rem 2rem rgba(0, 0, 0, 0.35);
+    inset -4px -4px 0 0 var(--bevel-dark),
+    inset 4px 4px 0 0 var(--bevel-light),
+    0 0.75rem 2rem var(--shadow-soft);
   overflow: auto;
 }
 

@@ -131,6 +131,7 @@ onMounted(async () => {
   background-size:
     auto 234px,
     468px;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .activity-area p {
@@ -221,7 +222,7 @@ onMounted(async () => {
 }
 
 .activity-pagination-text.total {
-  border: 1px solid white;
+  border: 1px solid #fff;
 }
 
 .activity-pagination-input {

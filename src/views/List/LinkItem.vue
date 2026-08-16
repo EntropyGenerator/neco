@@ -51,8 +51,8 @@ defineProps<{
 
 .link-card:hover .link-item-border,
 .link-card:focus-visible .link-item-border {
-  background-color: black;
-  border: 2px solid white;
+  background-color: var(--bg-sunken);
+  border: 2px solid var(--focus-ring);
 }
 
 .link-card:focus-visible {
@@ -101,7 +101,7 @@ defineProps<{
   left: 0;
   width: 64px;
   height: 64px;
-  background: rgba(128, 128, 128, 0.7);
+  background: color-mix(in srgb, var(--text-placeholder) 70%, transparent);
   z-index: 128;
 }
 
@@ -113,7 +113,7 @@ defineProps<{
 }
 
 .link-item-name {
-  color: white;
+  color: var(--text);
   line-height: 1.1rem;
   font-size: 1.1rem;
   margin-bottom: 4px;
@@ -123,7 +123,7 @@ defineProps<{
 .link-item-desc {
   line-height: 1rem;
   user-select: none;
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--text-muted);
 }
 
 .link-item-meta {
@@ -134,7 +134,7 @@ defineProps<{
 }
 
 .link-item-arrow {
-  color: #aaaaaa;
+  color: var(--text-gray);
   font-size: 0.9rem;
   user-select: none;
 }

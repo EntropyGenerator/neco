@@ -21,7 +21,7 @@ export const API_BASE = import.meta.env.VITE_API_BASE ?? 'http://localhost:3000/
 | 场景 | Content-Type |
 |---|---|
 | 普通请求 | `application/json` |
-| 文件上传 | `multipart/form-data`，字段名固定为 `file` |
+| 文件上传 | `multipart/form-data`，字段名固定为 `file`，单个文件最大 **20MB**，超限返回 413 |
 | 静态资源访问 | 直接 GET URL |
 | Bot WebSocket | `Upgrade: websocket` |
 
@@ -88,12 +88,32 @@ JWT 由 `POST /necore/auth/login` 返回。JWT 载荷包含：
 | 200 | 成功。部分接口返回 JSON，部分接口仅返回纯文本 `OK` |
 | 201 | 创建成功。目前 Bot Token 创建接口使用 201 |
 | 204 | 成功且无响应体。文件删除接口使用 204 |
-| 400 | 请求体格式错误、文件名非法、参数非法 |
+| 400 | 请求体格式错误、文件名非法、参数非法、服务器状态地址不在服务器列表 |
 | 401 | 未登录、token 无效、token 被撤销、账号密码错误 |
-| 403 | 已登录但权限不足 |
-| 404 | 资源不存在。部分接口不存在时可能返回 500 |
-| 429 | 登录过于频繁或服务器状态查询繁忙 |
+| 403 | 已登录但权限不足（含访问 private 文档的文件但非 document_admin） |
+| 404 | 资源不存在（文档、文章、文件等不存在时返回 404，不再伪装 500） |
+| 413 | 上传文件超过 20MB 限制 |
+| 429 | 登录过于频繁、请求频率超限（全局限流）、服务器状态查询繁忙 |
 | 500 | 后端内部错误；`/server/status` 在服务器离线时也会返回 500 + `online:false` |
+
+### 1.6.1 频率限制（DDOS 防护）
+
+后端对 `/auth`、`/news`、`/server`、`/documents`、`/bots`、`/wiki` 各组 API 按 IP 做全局限流，默认 **600 次/分钟/IP**，超限返回 429：
+
+```json
+{
+  "error": "Too many requests"
+}
+```
+
+可通过 `.env` 调整：
+
+```text
+RATE_LIMIT_MAX=600          # 每分钟每 IP 最大请求数
+RATE_LIMIT_EXPIRATION=60    # 窗口秒数
+```
+
+`/slogan` 与 `/contents` 静态资源不限流（浏览器加载图片会占用大量额度）。登录接口另有独立限制：**每分钟最多 8 次/IP**，超限返回 429。
 
 ### 1.7 静态资源 URL 约定
 
@@ -245,7 +265,7 @@ export interface BotDashboardStatus {
 | 认证/用户 | POST | `/auth/register` | 是 | `admin` | 创建用户 |
 | 认证/用户 | GET | `/auth/user/:id` | 否 | - | 获取用户公开信息 |
 | 认证/用户 | GET | `/auth/avatar/:id` | 否 | - | 获取用户头像 |
-| 认证/用户 | GET | `/auth/userlist` | 是 | 任意登录用户 | 获取用户列表 |
+| 认证/用户 | GET | `/auth/userlist` | 是 | `admin` | 获取用户列表 |
 | 认证/用户 | DELETE | `/auth/user/:id` | 是 | `admin` | 删除用户 |
 | 认证/用户 | POST | `/auth/password` | 是 | `admin` 或本人 | 修改密码 |
 | 认证/用户 | POST | `/auth/avatar` | 是 | `admin` 或本人 | 修改头像 |
@@ -260,7 +280,7 @@ export interface BotDashboardStatus {
 | 新闻 | DELETE | `/news/:id` | 是 | `admin`/`news_admin` | 删除文章 |
 | 服务器 | GET | `/server/` | 否 | - | 获取服务器列表 |
 | 服务器 | POST | `/server/status` | 否 | - | 查询 Minecraft 服务器状态 |
-| 服务器 | GET | `/server/create` | 是 | `admin`/`server_admin` | 创建空服务器条目 |
+| 服务器 | POST | `/server/create` | 是 | `admin`/`server_admin` | 创建空服务器条目 |
 | 服务器 | PATCH | `/server/` | 是 | `admin`/`server_admin` | 更新服务器条目 |
 | 服务器 | DELETE | `/server/:id` | 是 | `admin`/`server_admin` | 删除服务器条目 |
 | 文档 | GET | `/documents/layer/:parentId` | 否 | - | 获取公开子节点 |
@@ -279,9 +299,34 @@ export interface BotDashboardStatus {
 | Bot | GET | `/bots/token` | 是 | `admin`/`bot_admin` | 获取 Bot Token 列表 |
 | Bot | GET | `/bots/token/:id` | 是 | `admin`/`bot_admin` | 按名称获取 Bot Token |
 | Bot | DELETE | `/bots/token/:id` | 是 | `admin`/`bot_admin` | 按名称删除 Bot Token |
-| Bot | GET | `/bots/status` | 是 | 任意登录用户 | 获取 Bot 连接面板状态 |
+| Bot | GET | `/bots/status` | 是 | `admin`/`bot_admin` | 获取 Bot 连接面板状态 |
 | Bot | DELETE | `/bots/ws/kick/:session_id` | 是 | `admin`/`bot_admin` | 踢出 Bot 连接 |
-| Bot WS | GET | `/bots/ws/updates` | Bot Token | Bot Token | Bot WebSocket 连接 |
+| Bot WS | GET | `/bots/ws/updates/:identifier` | Bot Token | Bot Token | Bot WebSocket 连接 |
+| 部门 | GET | `/department/` | 否 | - | 部门列表（含成员，公开） |
+| 部门 | POST | `/department/create` | 是 | `admin` | 创建部门 |
+| 部门 | PATCH | `/department/` | 是 | `admin` | 更新部门 |
+| 部门 | PATCH | `/department/order` | 是 | `admin` | 批量更新部门排序 |
+| 部门 | DELETE | `/department/:id` | 是 | `admin` | 删除部门（级联删除成员关系） |
+| 部门 | POST | `/department/:id/member` | 是 | `admin` | 添加部门成员 |
+| 部门 | DELETE | `/department/:id/member/:username` | 是 | `admin` | 移除部门成员 |
+| 部门 | PATCH | `/department/:id/member/:username/leader` | 是 | `admin` | 设置/取消成员负责人 |
+| 部门 | PATCH | `/department/:id/member/order` | 是 | `admin` | 批量更新成员排序/负责人 |
+| 百科 | GET | `/wiki/types` | 否 | - | 词条类型列表 |
+| 百科 | GET | `/wiki/tags` | 否 | - | 标签列表 |
+| 百科 | POST | `/wiki/tags` | 是 | `admin`/`document_admin` | 创建标签 |
+| 百科 | DELETE | `/wiki/tags/:id` | 是 | `admin`/`document_admin` | 删除标签 |
+| 百科 | GET | `/wiki/glossary` | 否 | - | 词条列表 |
+| 百科 | GET | `/wiki/glossary/:id` | 否 | - | 词条详情 |
+| 百科 | POST | `/wiki/glossary` | 是 | `admin`/`document_admin` | 创建词条 |
+| 百科 | PATCH | `/wiki/glossary/:id` | 是 | `admin`/`document_admin` | 更新词条 |
+| 百科 | DELETE | `/wiki/glossary/:id` | 是 | `admin`/`document_admin` | 删除词条 |
+| 百科 | GET | `/wiki/item` | 否 | - | 物品列表 |
+| 百科 | GET | `/wiki/item/:id` | 否 | - | 物品详情 |
+| 百科 | POST | `/wiki/item` | 是 | `admin`/`document_admin` | 创建物品 |
+| 百科 | PATCH | `/wiki/item/:id` | 是 | `admin`/`document_admin` | 更新物品 |
+| 百科 | DELETE | `/wiki/item/:id` | 是 | `admin`/`document_admin` | 删除物品 |
+| 百科 | POST | `/wiki/upload/:id` | 是 | `admin`/`document_admin` | 上传百科附件 |
+| 百科 | DELETE | `/wiki/upload/:id` | 是 | `admin`/`document_admin` | 删除百科附件 |
 
 ---
 
@@ -456,7 +501,7 @@ GET /necore/auth/userlist
 Authorization: Bearer <jwt>
 ```
 
-权限：任意已登录用户。当前实现不要求 `admin`。
+权限：`admin`。用户列表暴露全部用户名、权限组与标签，普通登录用户访问返回 403。
 
 成功响应：
 
@@ -565,7 +610,7 @@ Content-Type: application/json
 }
 ```
 
-注意：当前后端字段名是大写 `Tags`，不是 `tags`。前端必须按源码发送 `Tags`，否则标签会解析为空。
+请求体字段均为小写 JSON 键：`username`、`group`、`tags`（Go 的 encoding/json 大小写不敏感匹配，小写即可）。
 
 成功：状态码 200。目标用户旧 JWT 会失效。
 
@@ -630,8 +675,8 @@ Content-Type: application/json
 | 字段 | 类型 | 必填 | 说明 |
 |---|---|---|---|
 | `target` | string | 是 | 分类名 |
-| `page` | number | 是 | 页码，从 1 开始。源码没有保护小于 1 的情况，前端应保证合法 |
-| `page_size` | number | 是 | 每页数量 |
+| `page` | number | 是 | 页码，从 1 开始。小于 1 时后端按 1 处理 |
+| `page_size` | number | 是 | 每页数量，后端限制在 1..100，越界按边界值处理 |
 | `pin` | boolean | 是 | `true` 只查置顶；`false` 查该分类全部文章，包含置顶与非置顶 |
 
 排序：按 `date desc` 倒序。
@@ -686,6 +731,14 @@ GET /necore/news/detail/{id}
 ```
 
 注意：详情响应的 `entity` 里没有 `id`，前端需要从路由或列表项保留文章 ID。
+
+文章不存在时返回 404：
+
+```json
+{
+  "error": "Article not found"
+}
+```
 
 ### 6.5 创建空文章
 
@@ -897,6 +950,14 @@ Content-Type: application/json
 |---|---|---|
 | `serverUrl` | string | 域名或 `域名:端口`；没有端口时默认 25565 |
 
+安全约束（SSRF 防护）：`serverUrl` 必须是服务器列表中已配置的地址，否则返回 400：
+
+```json
+{
+  "error": "Invalid server address"
+}
+```
+
 成功在线响应，状态码 200：
 
 ```json
@@ -933,10 +994,36 @@ Content-Type: application/json
 }
 ```
 
-### 7.3 创建服务器条目
+### 7.3 查询玩家皮肤
 
 ```http
-GET /necore/server/create
+GET /necore/server/skin/{name}
+```
+
+无需登录。通过皮肤站（Blessing Skin Yggdrasil：NMO `skin.nmo.net.cn`、MUA `skin.mualliance.ltd`，可用 `.env` 的 `SKIN_STATIONS` 覆盖）按玩家名解析皮肤：依次尝试各站点（姓名→UUID→纹理），命中即返回。
+
+成功响应：
+
+```json
+{
+  "skin": "https://skin.nmo.net.cn/textures/{hash}"
+}
+```
+
+玩家未注册或没有皮肤时返回 404：
+
+```json
+{
+  "error": "Skin not found"
+}
+```
+
+前端玩家头像链将该端点作为首选来源，未命中时回退到 mc-heads 等通用源。
+
+### 7.4 创建服务器条目
+
+```http
+POST /necore/server/create
 Authorization: Bearer <jwt>
 ```
 
@@ -950,9 +1037,7 @@ Authorization: Bearer <jwt>
 }
 ```
 
-注意：该接口使用 GET 创建资源，这是当前源码实现；前端按现状调用即可，但后续可建议后端改为 POST。
-
-### 7.4 更新服务器条目
+### 7.5 更新服务器条目
 
 ```http
 PATCH /necore/server/
@@ -978,7 +1063,7 @@ Content-Type: application/json
 
 成功：状态码 200。
 
-### 7.5 删除服务器条目
+### 7.6 删除服务器条目
 
 ```http
 DELETE /necore/server/{id}
@@ -1027,7 +1112,7 @@ root
 GET /necore/documents/layer/{parentId}
 ```
 
-无需登录。只返回 `private:false` 的子节点。
+无需登录。只返回 `private:false` 的子节点；若父节点（或其祖先）为 private，则返回空列表。
 
 成功响应：
 
@@ -1062,7 +1147,13 @@ Authorization: Bearer <jwt>
 GET /necore/documents/{id}
 ```
 
-无需登录。只允许读取 `private:false` 的节点。
+无需登录。只允许读取 `private:false` 且**所有祖先均为公开**的节点——private 文件夹下的任何节点（即使自身标记为 public）都视为隐藏，返回 404。节点不存在同样返回 404：
+
+```json
+{
+  "error": "Document not found"
+}
+```
 
 成功响应：
 
@@ -1389,7 +1480,7 @@ GET /necore/bots/status
 Authorization: Bearer <jwt>
 ```
 
-权限：当前源码只要求任意已登录用户，不要求 `bot_admin`。
+权限：`admin` 或 `bot_admin`。普通登录用户访问返回 403。
 
 成功响应：
 
@@ -1427,25 +1518,19 @@ Authorization: Bearer <jwt>
 ### 9.7 Bot WebSocket 连接
 
 ```http
-GET /necore/bots/ws/updates
+GET /necore/bots/ws/updates/{identifier}
 Upgrade: websocket
 Authorization: Bearer <bot-token>
 ```
 
-用途：Bot 客户端连接到后端，接收后端广播，例如文章更新事件。
+用途：Bot 客户端连接到后端，接收后端广播，例如文章更新事件。`identifier` 是 Bot 连接标识（如 `bot-1`）。
 
-理论鉴权流程：
+鉴权流程：
 
 1. 请求必须是 WebSocket Upgrade。
 2. `Authorization` 必须是 `Bearer <bot-token>`。
 3. 后端对明文 bot token 做 SHA-256，与数据库保存的 token hash 比对。
 4. 验证成功后注册连接。
-
-当前实现注意点：
-
-- 中间件读取 `c.Params("identifier")`，但路由为 `/ws/updates`，没有定义 `:identifier` 参数。
-- 因此当前 `/necore/bots/ws/updates` 很可能因为 `identifier == ""` 返回 400，导致 Bot 无法正常连接。
-- 建议后端修正为 `/bots/ws/updates/:identifier`，或改为读取 query：`/bots/ws/updates?identifier=bot-1`。
 
 连接成功后，服务端可能推送：
 
@@ -1463,13 +1548,229 @@ Authorization: Bearer <bot-token>
 
 ---
 
-## 10. 静态资源接口
+## 10. 部门接口
+
+### 10.1 获取部门列表
+
+```http
+GET /necore/department/
+```
+
+无需登录。返回全部部门及其成员（成员含用户名、头像、权限组、标签与负责人标记），按 `sortOrder` 升序、负责人优先排列：
+
+```json
+{
+  "departments": [
+    {
+      "id": "uuid",
+      "name": "运维保障部",
+      "description": "负责服务器与网站稳定运行",
+      "icon": "/contents/dept/icon.png",
+      "sortOrder": 1,
+      "members": [
+        {
+          "username": "alice",
+          "avatar": "https://example.com/a.png",
+          "group": ["document_admin"],
+          "tags": [],
+          "isLeader": true
+        }
+      ]
+    }
+  ]
+}
+```
+
+### 10.2 创建部门
+
+```http
+POST /necore/department/create
+Authorization: Bearer <admin-jwt>
+Content-Type: application/json
+```
+
+权限：`admin`。
+
+请求体：
+
+```json
+{
+  "name": "运维保障部",
+  "description": "负责服务器与网站稳定运行",
+  "icon": "/contents/dept/icon.png",
+  "sortOrder": 1
+}
+```
+
+`name` 必填（去除首尾空白后不能为空）。成功返回：
+
+```json
+{
+  "id": "uuid"
+}
+```
+
+### 10.3 更新部门
+
+```http
+PATCH /necore/department/
+Authorization: Bearer <admin-jwt>
+Content-Type: application/json
+```
+
+权限：`admin`。请求体为完整部门对象（`id`、`name` 必填）。不存在返回 404。
+
+### 10.4 批量更新部门排序
+
+```http
+PATCH /necore/department/order
+Authorization: Bearer <admin-jwt>
+Content-Type: application/json
+```
+
+权限：`admin`。
+
+```json
+{
+  "orders": [{ "id": "uuid", "sortOrder": 2 }]
+}
+```
+
+### 10.5 删除部门
+
+```http
+DELETE /necore/department/{id}
+Authorization: Bearer <admin-jwt>
+```
+
+权限：`admin`。级联删除该部门的成员关系（不删除用户）。不存在返回 404。
+
+### 10.6 添加部门成员
+
+```http
+POST /necore/department/{id}/member
+Authorization: Bearer <admin-jwt>
+Content-Type: application/json
+```
+
+权限：`admin`。
+
+```json
+{
+  "username": "alice",
+  "sortOrder": 1,
+  "isLeader": true
+}
+```
+
+部门或用户不存在返回 404。
+
+### 10.7 移除部门成员
+
+```http
+DELETE /necore/department/{id}/member/{username}
+Authorization: Bearer <admin-jwt>
+```
+
+权限：`admin`。成员关系不存在返回 404。
+
+### 10.8 设置/取消负责人
+
+```http
+PATCH /necore/department/{id}/member/{username}/leader
+Authorization: Bearer <admin-jwt>
+Content-Type: application/json
+```
+
+权限：`admin`。
+
+```json
+{
+  "isLeader": false
+}
+```
+
+### 10.9 批量更新成员排序/负责人
+
+```http
+PATCH /necore/department/{id}/member/order
+Authorization: Bearer <admin-jwt>
+Content-Type: application/json
+```
+
+权限：`admin`。
+
+```json
+{
+  "members": [{ "username": "alice", "sortOrder": 1, "isLeader": false }]
+}
+```
+
+---
+
+## 11. 百科接口
+
+### 11.1 词条类型与标签
+
+```http
+GET /necore/wiki/types
+GET /necore/wiki/tags
+```
+
+无需登录。响应分别返回类型与标签列表：
+
+```json
+{
+  "types": ["建筑", "红石"],
+  "tags": [{ "id": "uuid", "text": "标签名" }]
+}
+```
+
+创建/删除标签（`admin`/`document_admin`）：
+
+```http
+POST /necore/wiki/tags        # body: {"text": "标签名"}
+DELETE /necore/wiki/tags/{id}
+```
+
+### 11.2 词条
+
+```http
+GET /necore/wiki/glossary          # 词条列表（公开）
+GET /necore/wiki/glossary/{id}     # 词条详情（公开）
+POST /necore/wiki/glossary         # 创建（admin/document_admin）
+PATCH /necore/wiki/glossary/{id}   # 更新（admin/document_admin）
+DELETE /necore/wiki/glossary/{id}  # 删除（admin/document_admin）
+```
+
+### 11.3 物品
+
+```http
+GET /necore/wiki/item          # 物品列表（公开）
+GET /necore/wiki/item/{id}     # 物品详情（公开）
+POST /necore/wiki/item         # 创建（admin/document_admin）
+PATCH /necore/wiki/item/{id}   # 更新（admin/document_admin）
+DELETE /necore/wiki/item/{id}  # 删除（admin/document_admin）
+```
+
+### 11.4 百科附件
+
+```http
+POST /necore/wiki/upload/{id}    # multipart，字段 file，≤20MB
+DELETE /necore/wiki/upload/{id}  # body: {"filename": "uuid.png"}
+```
+
+附件存储于 `./contents/wiki/{id}/{uuid}.{ext}`，URL 形如 `/contents/wiki/{id}/{uuid}.png`。
+
+---
+
+## 12. 静态资源接口
 
 ```http
 GET /necore/contents/{id}/{filename}
 ```
 
-无需登录。
+默认无需登录。
 
 上传后的文件都位于：
 
@@ -1478,6 +1779,14 @@ GET /necore/contents/{id}/{filename}
 ```
 
 `id` 通常是文章 ID 或文档节点 ID。
+
+**private 文档守卫**：若 `{id}` 对应一个文档节点且该节点（或其任一祖先）为 private，则访问其文件需要登录且具备 `document_admin` 权限：
+
+- 未登录：401
+- 已登录但无 `document_admin`/`admin`：403
+- 有权限：200
+
+文章、百科、服务器等非文档 ID 的文件不受影响，保持公开。
 
 前端渲染文件类型建议：
 
@@ -1489,7 +1798,7 @@ GET /necore/contents/{id}/{filename}
 
 ---
 
-## 11. 前端请求封装建议
+## 13. 前端请求封装建议
 
 ```ts
 export class ApiError extends Error {

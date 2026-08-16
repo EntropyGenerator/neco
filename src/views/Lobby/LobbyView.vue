@@ -63,7 +63,7 @@ import Intro from './IntroView.vue'
   max-width: 30rem;
   padding-right: 10%;
   /* animation: fade-in-right 1s ease-out forwards; */
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--bg-overlay);
   backdrop-filter: blur(2px);
   padding: 1rem;
   height: 100%;
@@ -82,6 +82,7 @@ import Intro from './IntroView.vue'
 .intro-text {
   font-size: 1.15rem;
   font-weight: bold;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 @media screen and (max-width: 623px) {

@@ -18,7 +18,7 @@ onMounted(async () => {
       <span style="margin-bottom: 0.5rem" class="mcfont">{{ slogan }}</span>
       <span id="copyright" style="user-select: none">
         © 2025 - All rights reserved |
-        <a style="color: rgb(128, 128, 128)" href="https://beian.miit.gov.cn/"
+        <a style="color: var(--text-placeholder)" href="https://beian.miit.gov.cn/"
           >浙ICP备2022000762号-1</a
         >
       </span>
@@ -38,8 +38,8 @@ onMounted(async () => {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  background-color: var(--background-color);
-  border-top: 1px solid #909399;
+  background-color: var(--bg);
+  border-top: 1px solid var(--border-strong-2);
 }
 
 .footer-description {
@@ -60,17 +60,17 @@ onMounted(async () => {
   user-select: none;
   width: fit-content;
   font-size: 0.8rem;
-  color: gray;
+  color: var(--text-placeholder);
 }
 
 .footer-description #copyright {
   font-size: 0.8rem;
-  color: gray;
+  color: var(--text-placeholder);
 }
 
 .footer-description #declaration {
   font-size: 0.6rem;
-  color: gray;
+  color: var(--text-placeholder);
 }
 
 .footer-links {

@@ -332,8 +332,8 @@ onBeforeUnmount(() => {
   width: calc(100% - 4rem);
   margin: 2rem;
   background:
-    linear-gradient(to right, rgba(24, 24, 24, 0.4), rgba(24, 24, 24, 0.2), rgba(24, 24, 24, 0.4)),
-    radial-gradient(rgba(24, 24, 24, 0.2), rgba(24, 24, 24, 0.8)), url('/blockbg/cobblestone.png');
+    linear-gradient(to right, color-mix(in srgb, var(--bg) 40%, transparent), color-mix(in srgb, var(--bg) 20%, transparent), color-mix(in srgb, var(--bg) 40%, transparent)),
+    radial-gradient(color-mix(in srgb, var(--bg) 20%, transparent), color-mix(in srgb, var(--bg) 80%, transparent)), url('/blockbg/cobblestone.png');
   background-size:
     auto,
     auto,
@@ -371,18 +371,18 @@ onBeforeUnmount(() => {
 }
 
 .news-title:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--bg-hover);
 }
 
 .news-title:focus {
-  outline: 1px solid var(--minecraft-green-light);
+  outline: 1px solid var(--accent-light);
 }
 
 .news-title::after {
   content: '';
   display: block;
   height: 14px;
-  background-color: white;
+  background-color: var(--text);
   clip-path: polygon(
     0% 0%,
     0% 25%,
@@ -441,7 +441,7 @@ onBeforeUnmount(() => {
   width: 10.5rem;
   min-height: 10.5rem;
   height: auto;
-  outline: 1px solid var(--minecraft-green-light);
+  outline: 1px solid var(--accent-light);
 
   position: absolute;
   left: 0;
@@ -458,21 +458,21 @@ onBeforeUnmount(() => {
   flex: 1;
   border: none;
   border-radius: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: var(--bg-overlay-strong);
 }
 
 .news-title-option[stat='active'] {
   z-index: 1002;
   padding: 0 calc(1rem - 2px);
-  border: 2px solid var(--minecraft-green-light);
-  background-color: rgba(0, 0, 0, 0.8);
+  border: 2px solid var(--accent-light);
+  background-color: var(--bg-overlay-strong);
 }
 
 .news-title-option[stat='active']::after {
   content: '';
   display: inline-block;
   height: 12px;
-  background-color: #a0e081;
+  background-color: var(--accent-bright);
   flex-shrink: 0;
   width: 16px;
   mask-image: url('data:image/svg+xml;utf8,<svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg"><g><rect y="6" width="2" height="2" fill="white"/><rect x="2" y="8" width="2" height="2" fill="white"/><rect x="4" y="10" width="2" height="2" fill="white"/><rect x="6" y="8" width="2" height="2" fill="white"/><rect x="8" y="6" width="2" height="2" fill="white"/><rect x="10" y="4" width="2" height="2" fill="white"/><rect x="12" y="2" width="2" height="2" fill="white"/><rect x="14" width="2" height="2" fill="white"/></g></svg>');
@@ -480,12 +480,12 @@ onBeforeUnmount(() => {
 }
 
 .news-title-option:hover {
-  background-color: #000;
+  background-color: var(--bg-sunken);
 }
 
 .news-title:focus-visible,
 .news-title-option:focus-visible {
-  outline: 2px solid var(--minecraft-green-light);
+  outline: 2px solid var(--accent-light);
   outline-offset: -2px;
   z-index: 1003;
 }
@@ -494,7 +494,7 @@ onBeforeUnmount(() => {
   font-size: 1.2rem;
   user-select: none;
   margin-left: 1rem;
-  color: #aba09c;
+  color: var(--text-muted-solid);
 }
 
 .news-sort-by {
@@ -506,7 +506,7 @@ onBeforeUnmount(() => {
 .news-sort-by-option {
   font-size: 1.2rem;
   margin: 0 1rem;
-  color: var(--minecraft-green-light);
+  color: var(--accent-light);
   text-wrap: nowrap;
 }
 
@@ -582,11 +582,11 @@ onBeforeUnmount(() => {
 }
 
 .news-pagination-text.page {
-  border: 1px solid #a0e081;
+  border: 1px solid var(--accent-bright);
 }
 
 .news-pagination-text.total {
-  border: 1px solid white;
+  border: 1px solid var(--focus-ring);
 }
 
 .news-pagination-input {

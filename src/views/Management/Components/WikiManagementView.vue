@@ -788,27 +788,27 @@ onMounted(async () => {
 
 .wiki-admin-tab {
   padding: 0.5rem 1.25rem;
-  color: rgba(255, 255, 255, 0.7);
-  background-color: rgba(0, 0, 0, 0.4);
-  border: 2px solid #555;
+  color: color-mix(in srgb, var(--text) 70%, transparent);
+  background-color: var(--bg-overlay);
+  border: 2px solid var(--border-light);
   font: inherit;
   cursor: pointer;
   user-select: none;
 }
 
 .wiki-admin-tab:hover {
-  border-color: var(--minecraft-green-light);
-  color: #fff;
+  border-color: var(--accent-light);
+  color: var(--text);
 }
 
 .wiki-admin-tab.active {
-  color: #fff;
-  background-color: rgba(60, 133, 39, 0.35);
-  border-color: var(--minecraft-green-light);
+  color: var(--text);
+  background-color: color-mix(in srgb, var(--accent) 35%, transparent);
+  border-color: var(--accent-light);
 }
 
 .wiki-admin-tab:focus-visible {
-  outline: 3px solid #fff;
+  outline: 3px solid var(--focus-ring);
   outline-offset: 3px;
 }
 
@@ -831,8 +831,8 @@ onMounted(async () => {
 
 .wiki-preview-area {
   padding: 1.25rem;
-  background-color: rgba(0, 0, 0, 0.24);
-  border: 2px solid #111;
+  background-color: var(--bg-scrim);
+  border: 2px solid var(--border-dark);
   min-height: 20rem;
 }
 
@@ -850,17 +850,17 @@ onMounted(async () => {
 .wiki-table-wrap td {
   padding: 0.6rem 0.75rem;
   text-align: left;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid var(--border-soft-2);
   user-select: none;
 }
 
 .wiki-table-wrap th {
-  color: var(--minecraft-green-light);
+  color: var(--accent-light);
   font-size: 0.9rem;
 }
 
 .wiki-table-wrap td {
-  color: rgba(255, 255, 255, 0.86);
+  color: color-mix(in srgb, var(--text) 86%, transparent);
   font-size: 0.95rem;
 }
 
@@ -887,17 +887,17 @@ onMounted(async () => {
   gap: 0.5rem;
   cursor: pointer;
   user-select: none;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--text-dim);
   font-size: 1rem;
   padding: 0.25rem 0;
 }
 
 .tag-manager-toggle:hover {
-  color: #fff;
+  color: var(--text);
 }
 
 .tag-manager-toggle:focus-visible {
-  outline: 3px solid #fff;
+  outline: 3px solid var(--focus-ring);
   outline-offset: 3px;
 }
 
@@ -908,7 +908,7 @@ onMounted(async () => {
 }
 
 .tag-manager-count {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text-subtle);
   font-size: 0.8rem;
 }
 
@@ -917,7 +917,7 @@ onMounted(async () => {
   gap: 2rem;
   margin-top: 0.75rem;
   padding-top: 0.75rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--bg-hover);
 }
 
 .tag-group {
@@ -927,7 +927,7 @@ onMounted(async () => {
 
 .tag-group-title {
   margin: 0 0 0.5rem;
-  color: var(--minecraft-green-light);
+  color: var(--accent-light);
   font-size: 0.9rem;
   user-select: none;
 }
@@ -945,9 +945,9 @@ onMounted(async () => {
   align-items: center;
   gap: 0.3rem;
   padding: 0.2rem 0.5rem;
-  background-color: rgba(60, 133, 39, 0.15);
-  border: 1px solid var(--minecraft-green-light);
-  color: var(--minecraft-green-light);
+  background-color: color-mix(in srgb, var(--accent) 15%, transparent);
+  border: 1px solid var(--accent-light);
+  color: var(--accent-light);
   font-size: 0.8rem;
   user-select: none;
 }
@@ -969,7 +969,7 @@ onMounted(async () => {
 
 .tag-pill-remove:hover {
   opacity: 1;
-  color: #f66;
+  color: var(--danger);
 }
 
 .tag-add-row {
@@ -980,9 +980,9 @@ onMounted(async () => {
 .tag-add-input {
   flex: 1;
   padding: 0.3rem 0.5rem;
-  border: 2px solid #555;
-  background-color: #616161;
-  color: #fff;
+  border: 2px solid var(--border-light);
+  background-color: var(--bg-input);
+  color: var(--text);
   font: inherit;
   font-size: 0.85rem;
   outline: none;
@@ -991,14 +991,14 @@ onMounted(async () => {
 }
 
 .tag-add-input:focus {
-  border-color: var(--minecraft-green-light);
+  border-color: var(--accent-light);
 }
 
 .tag-add-btn {
   padding: 0.3rem 0.75rem;
-  border: 2px solid #555;
-  background-color: #3a3a3a;
-  color: #ccc;
+  border: 2px solid var(--border-light);
+  background-color: var(--bg-surface-3);
+  color: var(--text-hint);
   font: inherit;
   font-size: 0.85rem;
   cursor: pointer;
@@ -1006,8 +1006,8 @@ onMounted(async () => {
 }
 
 .tag-add-btn:hover {
-  border-color: var(--minecraft-green-light);
-  color: #fff;
+  border-color: var(--accent-light);
+  color: var(--text);
 }
 
 @media screen and (max-width: 768px) {
@@ -1028,8 +1028,8 @@ onMounted(async () => {
   position: relative;
   width: 6rem;
   height: 6rem;
-  border: 2px solid #555;
-  background-color: rgba(0, 0, 0, 0.3);
+  border: 2px solid var(--border-light);
+  background-color: var(--bg-thumb);
 }
 
 .gallery-thumb img {
@@ -1046,9 +1046,9 @@ onMounted(async () => {
   width: 1.4rem;
   height: 1.4rem;
   padding: 0;
-  border: 1px solid #c44;
-  background-color: #400;
-  color: #f66;
+  border: 1px solid var(--danger-deep-border);
+  background-color: var(--bg-danger-deep);
+  color: var(--danger);
   font-size: 0.9rem;
   line-height: 1;
   cursor: pointer;
@@ -1058,8 +1058,8 @@ onMounted(async () => {
 }
 
 .gallery-remove-btn:hover {
-  background-color: #600;
-  color: #faa;
+  background-color: var(--bg-danger-deep-hover);
+  color: color-mix(in srgb, var(--danger) 45%, white);
 }
 
 .gallery-add-btn {
@@ -1068,22 +1068,22 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px dashed #666;
-  background-color: rgba(255, 255, 255, 0.05);
-  color: #999;
+  border: 2px dashed var(--border-light);
+  background-color: color-mix(in srgb, var(--text) 5%, transparent);
+  color: var(--mc-btn-pressed);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .gallery-add-btn:hover {
-  border-color: var(--minecraft-green-light);
-  color: var(--minecraft-green-light);
-  background-color: rgba(60, 133, 39, 0.1);
+  border-color: var(--accent-light);
+  color: var(--accent-light);
+  background-color: color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
 .gallery-add-btn:focus-visible,
 .gallery-remove-btn:focus-visible {
-  outline: 3px solid #fff;
+  outline: 3px solid var(--focus-ring);
   outline-offset: 3px;
 }
 
@@ -1096,8 +1096,8 @@ onMounted(async () => {
 .item-image-preview {
   width: 6rem;
   height: 6rem;
-  border: 2px solid #555;
-  background-color: rgba(0, 0, 0, 0.3);
+  border: 2px solid var(--border-light);
+  background-color: var(--bg-thumb);
 }
 
 .item-image-preview img {
@@ -1118,18 +1118,18 @@ onMounted(async () => {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   gap: 2px;
-  background-color: #555;
-  border: 2px solid #555;
+  background-color: var(--mc-slot-bg);
+  border: 2px solid var(--mc-slot-bg);
   width: 20rem;
   height: 20rem;
 }
 
 .recipe-slot-editor {
-  background-color: #8b8b8b;
-  border-top: 3px solid #373737;
-  border-left: 3px solid #373737;
-  border-bottom: 3px solid #fff;
-  border-right: 3px solid #fff;
+  background-color: var(--mc-slot);
+  border-top: 3px solid var(--mc-slot-border-dark);
+  border-left: 3px solid var(--mc-slot-border-dark);
+  border-bottom: 3px solid var(--mc-slot-border-light);
+  border-right: 3px solid var(--mc-slot-border-light);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1138,22 +1138,22 @@ onMounted(async () => {
 .recipe-slot-input {
   width: 90%;
   padding: 2px;
-  border: 1px solid #555;
-  background-color: #6b6b6b;
-  color: #ffffff;
+  border: 1px solid var(--mc-slot-bg);
+  background-color: var(--mc-slot-input);
+  color: var(--mc-slot-border-light);
   font-size: 0.65rem;
   text-align: center;
   outline: none;
 }
 
 .recipe-slot-input:focus {
-  border-color: #000;
-  background-color: #aaa;
+  border-color: var(--mc-btn-text);
+  background-color: var(--mc-slot-input-focus);
 }
 
 .recipe-arrow {
   font-size: 1.5rem;
-  color: #aaa;
+  color: var(--text-gray);
   user-select: none;
 }
 
@@ -1167,8 +1167,8 @@ onMounted(async () => {
 .recipe-result-img {
   width: 4rem;
   height: 4rem;
-  border: 2px solid #555;
-  background-color: rgba(0, 0, 0, 0.3);
+  border: 2px solid var(--border-light);
+  background-color: var(--bg-thumb);
 }
 
 .recipe-result-img img {
@@ -1184,23 +1184,23 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid #555;
-  color: #666;
+  border: 2px solid var(--border-light);
+  color: color-mix(in srgb, var(--text-gray) 60%, transparent);
   font-size: 1.2rem;
 }
 
 .recipe-result-label {
-  color: #fff;
+  color: var(--text);
   font-size: 0.9rem;
 }
 </style>
 
 <style lang="css">
 .md-editor-toolbar-wrapper {
-  background-color: black;
+  background-color: var(--bg-sunken);
 }
 
 .md-editor-footer {
-  background-color: black;
+  background-color: var(--bg-sunken);
 }
 </style>

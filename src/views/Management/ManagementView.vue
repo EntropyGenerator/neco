@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { CheckAuthorized, Logout } from '@/api/auth'
+import ThemePalette from '@/components/ThemePalette.vue'
 import MinecraftButton from '@/components/utils/MinecraftButton.vue'
 import MinecraftButtonClassic from '@/components/utils/MinecraftButtonClassic.vue'
 import { onMounted, onUnmounted, ref } from 'vue'
@@ -18,11 +19,7 @@ const onLogout = () => {
 }
 
 const onResize = () => {
-  if (window.innerWidth < 768) {
-    sidebarExpand.value = false
-  } else {
-    sidebarExpand.value = true
-  }
+  sidebarExpand.value = window.innerWidth >= 768;
 }
 
 onMounted(async () => {
@@ -58,53 +55,59 @@ onUnmounted(() => {
         class="management-nav"
         :activated="route.path.endsWith('/management/user')"
         @click="router.replace('/management/user')"
-        >用户管理</MinecraftButtonClassic
+      >用户管理</MinecraftButtonClassic
       >
       <MinecraftButtonClassic
         class="management-nav"
         :activated="route.path.endsWith('/management/club')"
         @click="router.replace('/management/club')"
-        >社团管理</MinecraftButtonClassic
+      >社团管理</MinecraftButtonClassic
+      >
+      <MinecraftButtonClassic
+        class="management-nav"
+        :activated="route.path.endsWith('/management/department')"
+        @click="router.replace('/management/department')"
+      >部门管理</MinecraftButtonClassic
       >
       <MinecraftButtonClassic
         class="management-nav"
         :activated="route.path.endsWith('/management/server')"
         @click="router.replace('/management/server')"
-        >服务器信息</MinecraftButtonClassic
+      >服务器信息</MinecraftButtonClassic
       >
       <MinecraftButtonClassic
         class="management-nav"
         :activated="route.path.endsWith('/management/news')"
         @click="router.replace('/management/news')"
-        >文章管理</MinecraftButtonClassic
+      >文章管理</MinecraftButtonClassic
       >
       <MinecraftButtonClassic
         class="management-nav"
         :activated="route.path.endsWith('/management/document')"
         @click="router.replace('/management/document')"
-        >文档管理</MinecraftButtonClassic
+      >文档管理</MinecraftButtonClassic
       >
 
       <MinecraftButtonClassic
         class="management-nav"
         :activated="route.path.endsWith('/management/bot')"
         @click="router.replace('/management/bot')"
-        >机器人连接</MinecraftButtonClassic
+      >机器人连接</MinecraftButtonClassic
       >
 
       <MinecraftButtonClassic
         class="management-nav"
         :activated="route.path.endsWith('/management/wiki')"
         @click="router.replace('/management/wiki')"
-        >百科管理</MinecraftButtonClassic
+      >百科管理</MinecraftButtonClassic
       >
 
       <div style="display: flex; flex-direction: column; margin-top: auto">
         <MinecraftButtonClassic class="management-nav" @click="router.push('/')"
-          >回到主页</MinecraftButtonClassic
+        >回到主页</MinecraftButtonClassic
         >
         <MinecraftButtonClassic class="management-nav" @click="onLogout"
-          >登出</MinecraftButtonClassic
+        >登出</MinecraftButtonClassic
         >
       </div>
     </div>
@@ -118,6 +121,9 @@ onUnmounted(() => {
     >
       <span aria-hidden="true">▶</span>
     </MinecraftButton>
+    <div class="management-palette">
+      <ThemePalette />
+    </div>
     <div class="management-tab-container" :data-state="sidebarExpand ? 'normal' : 'expanded'">
       <RouterView />
     </div>
@@ -138,7 +144,7 @@ onUnmounted(() => {
   flex-direction: column;
   width: 16rem;
   padding: 2rem 1rem;
-  border-right: 1px solid var(--minecraft-gray-light);
+  border-right: 1px solid var(--border-divider);
   transition: all 0.3s ease-in-out;
   overflow: hidden;
 }
@@ -152,7 +158,7 @@ onUnmounted(() => {
 .management-title {
   user-select: none;
   font-size: 1.5rem;
-  color: white;
+  color: var(--text);
   margin: 1rem auto;
   text-wrap: nowrap;
 }
@@ -173,6 +179,13 @@ onUnmounted(() => {
   min-width: 375px;
   transition: all 0.3s ease-in-out;
   gap: 1rem;
+}
+
+.management-palette {
+  position: fixed;
+  top: 0.75rem;
+  right: 1.25rem;
+  z-index: 9999;
 }
 
 .management-shrink-btn {
@@ -224,12 +237,12 @@ onUnmounted(() => {
   display: flex;
   align-items: flex-end;
   width: 100%;
-  border-bottom: 1px solid var(--minecraft-gray-light);
+  border-bottom: 1px solid var(--border-divider);
   padding-bottom: 1rem;
 }
 
 .management-tab-title {
-  color: white;
+  color: var(--text);
   user-select: none;
   font-size: 1.5rem;
   margin-right: 1rem;
@@ -251,15 +264,15 @@ onUnmounted(() => {
   padding: 1rem;
   gap: 1rem;
 
-  background-color: #4a4a4a;
-  border: 4px solid #222222;
+  background-color: var(--bg-elevated);
+  border: 4px solid var(--border);
   box-shadow:
-    inset -4px -4px 0px 0px #3a3a3a,
-    inset 4px 4px 0px 0px #6b6b6b;
+    inset -4px -4px 0px 0px var(--bevel-dark-strong),
+    inset 4px 4px 0px 0px var(--bevel-light-strong);
 }
 
 .management-tab-form-title {
-  color: white;
+  color: var(--text);
   font-size: 1.5rem;
   user-select: none;
   font-weight: bold;
@@ -277,11 +290,11 @@ onUnmounted(() => {
   flex-direction: column;
   gap: 1rem;
   padding: 1rem;
-  background-color: #4a4a4a;
-  border: 4px solid #222222;
+  background-color: var(--bg-elevated);
+  border: 4px solid var(--border);
   box-shadow:
-    inset -4px -4px 0px 0px #3a3a3a,
-    inset 4px 4px 0px 0px #6b6b6b;
+    inset -4px -4px 0px 0px var(--bevel-dark-strong),
+    inset 4px 4px 0px 0px var(--bevel-light-strong);
   box-sizing: border-box;
 }
 
@@ -292,7 +305,7 @@ onUnmounted(() => {
   flex-wrap: wrap;
   gap: 1rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--minecraft-gray-light);
+  border-bottom: 1px solid var(--border-divider);
 }
 
 .management-section-title-block {
@@ -303,7 +316,7 @@ onUnmounted(() => {
 
 .management-section-title {
   margin: 0;
-  color: #fff;
+  color: var(--text);
   font-size: 1.35rem;
   line-height: 1.45rem;
   user-select: none;
@@ -311,7 +324,7 @@ onUnmounted(() => {
 
 .management-section-desc {
   margin: 0;
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--text-muted);
   font-size: 0.9rem;
   line-height: 1.25rem;
   user-select: none;
@@ -327,16 +340,16 @@ onUnmounted(() => {
 
 .management-card {
   padding: 1rem;
-  background-color: #303030;
-  border: 2px solid #1a1a1a;
+  background-color: var(--bg-surface-2);
+  border: 2px solid var(--border-dark-2);
   box-shadow:
-    inset -2px -2px 0 0 #1f1f1f,
-    inset 2px 2px 0 0 #454545;
+    inset -2px -2px 0 0 var(--bevel-dark),
+    inset 2px 2px 0 0 var(--bevel-light);
 }
 
 .management-card-title {
   margin: 0 0 0.75rem 0;
-  color: #fff;
+  color: var(--text);
   font-size: 1.15rem;
   line-height: 1.25rem;
   user-select: none;
@@ -360,14 +373,14 @@ onUnmounted(() => {
 }
 
 .management-field-label {
-  color: #fff;
+  color: var(--text);
   font-size: 1rem;
   user-select: none;
 }
 
 .management-field-help {
   margin: 0;
-  color: rgba(255, 255, 255, 0.66);
+  color: color-mix(in srgb, var(--text) 66%, transparent);
   font-size: 0.85rem;
   line-height: 1.25rem;
 }
@@ -378,14 +391,14 @@ onUnmounted(() => {
   align-items: center;
   gap: 0.75rem;
   padding: 2rem 1rem;
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--text-muted);
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.18);
-  border: 2px dashed #666;
+  background-color: var(--bg-scrim-2);
+  border: 2px dashed var(--border-light);
 }
 
 .management-empty-state strong {
-  color: #fff;
+  color: var(--text);
   font-size: 1.1rem;
 }
 
@@ -395,12 +408,12 @@ onUnmounted(() => {
   flex-wrap: wrap;
   gap: 0.75rem;
   padding-top: 1rem;
-  border-top: 1px solid #555;
+  border-top: 1px solid var(--border-light);
 }
 
 .management-danger-text {
   margin: 0;
-  color: #f0c36a;
+  color: var(--warning);
   line-height: 1.35rem;
 }
 

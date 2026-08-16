@@ -45,7 +45,7 @@ const onChange = (event: Event) => {
 }
 
 .minecraft-switch:focus-visible {
-  outline: 3px solid #fff;
+  outline: 3px solid var(--focus-ring);
   outline-offset: 3px;
 }
 

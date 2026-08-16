@@ -82,6 +82,7 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   padding-left: 2rem;
+  text-align: left;
 }
 
 .activity-title {
@@ -108,6 +109,7 @@ onUnmounted(() => {
 .activity-date {
   margin: 0.5rem 0;
   font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .activity-brief {
