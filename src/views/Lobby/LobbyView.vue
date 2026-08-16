@@ -53,7 +53,7 @@ import Intro from './IntroView.vue'
   min-width: 20rem;
   display: flex;
   align-items: center;
-  background-color: var(--bg-overlay);
+  background-color: var(--bg-overlay-soft);
   backdrop-filter: blur(2px);
 }
 
