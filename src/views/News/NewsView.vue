@@ -7,12 +7,12 @@ import NewsList from './NewsList.vue'
 
 const router = useRouter()
 
-const newsId = ref<NewsTarget>('information')
+const listTargets: NewsTarget[] = ['information', 'magazine', 'notice']
 const newsBrief = ref<NewsEntity[]>([])
 const newsReady = ref(false)
 
-const scrollToNews = () => {
-  const newsList = document.getElementById('news-list')
+const scrollToNews = (target: NewsTarget) => {
+  const newsList = document.getElementById(`news-list-${target}`)
   if (newsList) {
     const targetPosition = newsList.offsetTop - 16
     requestAnimationFrame(() => {
@@ -75,7 +75,7 @@ onMounted(async () => {
             :news-brief="newsBrief[1] ?? {}"
             label="资讯"
             button-text="更多资讯"
-            @jump="((newsId = 'information'), scrollToNews())"
+            @jump="scrollToNews('information')"
           />
 
           <NewsCard
@@ -85,7 +85,7 @@ onMounted(async () => {
             :news-brief="newsBrief[2] ?? {}"
             label="社刊"
             button-text="往期社刊"
-            @jump="((newsId = 'magazine'), scrollToNews())"
+            @jump="scrollToNews('magazine')"
           />
 
           <NewsCard
@@ -95,17 +95,20 @@ onMounted(async () => {
             :news-brief="newsBrief[3] ?? {}"
             label="公告"
             button-text="更多公告"
-            @jump="((newsId = 'notice'), scrollToNews())"
+            @jump="scrollToNews('notice')"
           />
         </div>
       </div>
     </section>
 
     <NewsList
-      v-model="newsId"
-      id="news-list"
+      v-for="item in listTargets"
+      :key="item"
+      :id="`news-list-${item}`"
+      :fixed-target="item"
+      :page-size="8"
       class="news-list-entry"
-      @need-scroll="scrollToNews"
+      @need-scroll="scrollToNews(item)"
       @card-click="newTab"
     />
   </div>
