@@ -9,7 +9,8 @@ import PdfViewer from '@/components/PdfViewer.vue'
 const route = useRoute()
 const newsDetail = ref<NewsDetail | null>(null)
 
-const isDarkTheme = ref(document.documentElement.getAttribute('data-theme') === 'dark')
+// 深色为默认（html 无 data-theme 属性），仅浅色显式标记
+const isDarkTheme = ref(document.documentElement.getAttribute('data-theme') !== 'light')
 let themeObserver: MutationObserver | null = null
 const posterFailed = ref(false)
 const posterReady = ref(false)
@@ -83,7 +84,7 @@ watch(
 
 onMounted(async () => {
   themeObserver = new MutationObserver(() => {
-    isDarkTheme.value = document.documentElement.getAttribute('data-theme') === 'dark'
+    isDarkTheme.value = document.documentElement.getAttribute('data-theme') !== 'light'
   })
   themeObserver.observe(document.documentElement, {
     attributes: true,
