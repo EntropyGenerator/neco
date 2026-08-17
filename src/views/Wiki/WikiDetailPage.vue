@@ -150,14 +150,12 @@ onMounted(async () => {
 
 .detail-topbar {
   width: 100%;
-  /* 顶部避让悬浮导航栏：nav-container absolute top 0.5rem + nav-bar 高度 calc(1rem + 28px) */
   padding: calc(0.5rem + 44px + 0.75rem) clamp(1rem, 5vw, 3rem) 1rem;
   background-color: var(--w-surface);
   border-bottom: 2px solid var(--w-border);
 }
 
 @media screen and (max-width: 640px) {
-  /* 移动端导航展开时上方还有折叠按钮行（2.75rem + gap 0.35rem） */
   .detail-topbar {
     padding-top: calc(0.5rem + 2.75rem + 0.35rem + 44px + 0.75rem);
   }

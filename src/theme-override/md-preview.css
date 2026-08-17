@@ -2,7 +2,6 @@
   --md-question: #ffdf78; /* 提示块：问号 */
   --md-example: #cbaeff; /* 提示块：示例 */
 
-  /* 让 md-editor 预览跟随站点配色方案，避免深色模式下默认深灰文字（--md-color: #3f4a54） */
   --md-color: var(--text);
   --md-hover-color: var(--text);
   --md-bk-color: var(--bg);
@@ -17,9 +16,6 @@
   --md-scrollbar-thumb-active-color: var(--scrollbar-thumb);
 }
 
-/* md-editor 预览默认使用 github-theme，其硬编码 --md-theme-* 为浅色值
-   （如 --md-theme-color: #222），深色模式下会让正文变黑。
-   这里在 minecraft-theme 作用域内整体覆盖为站点方案变量。 */
 .minecraft-theme .md-editor .github-theme {
   --md-theme-color: var(--text);
   --md-theme-color-reverse: var(--bg);

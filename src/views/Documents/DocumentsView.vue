@@ -104,7 +104,6 @@ onUnmounted(() => {
 
 const selectedDocumentId = ref('')
 
-// 跟随站点主题切换 md-editor 预览（不再固定深色，避免浅色主题下正文为浅色文字）
 const isDarkTheme = ref(document.documentElement.getAttribute('data-theme') === 'dark')
 let themeObserver: MutationObserver | null = null
 
