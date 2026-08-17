@@ -506,6 +506,12 @@ const scrollElement = document.documentElement
     inset 4px 4px 0px 0px var(--bevel-light-strong);
 }
 
+/* 浅色下 --bg-overlay-soft 为黑色 15% 透明，叠在背景图上呈灰底；
+   改为白色透明，黑字在亮底上保持可读 */
+[data-theme='light'] .document-main-item-list {
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
 .document-main-item {
   width: 100%;
   margin: 1rem 0;
