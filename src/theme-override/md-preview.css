@@ -1,6 +1,37 @@
 .minecraft-theme {
   --md-question: #ffdf78; /* 提示块：问号 */
   --md-example: #cbaeff; /* 提示块：示例 */
+
+  --md-color: var(--text);
+  --md-hover-color: var(--text);
+  --md-bk-color: var(--bg);
+  --md-bk-color-outstand: var(--bg-card);
+  --md-bk-hover-color: var(--bg-surface);
+  --md-border-color: var(--border);
+  --md-border-hover-color: var(--border-light);
+  --md-border-active-color: var(--border-strong);
+  --md-scrollbar-bg-color: var(--scrollbar-track);
+  --md-scrollbar-thumb-color: var(--scrollbar-thumb);
+  --md-scrollbar-thumb-hover-color: var(--scrollbar-thumb);
+  --md-scrollbar-thumb-active-color: var(--scrollbar-thumb);
+}
+
+.minecraft-theme .md-editor .github-theme {
+  --md-theme-color: var(--text);
+  --md-theme-color-reverse: var(--bg);
+  --md-theme-color-hover: var(--text);
+  --md-theme-color-hover-inset: var(--text-soft);
+  --md-theme-link-color: var(--accent-light);
+  --md-theme-link-hover-color: var(--accent-light);
+  --md-theme-border-color: var(--border);
+  --md-theme-border-color-reverse: var(--border-light);
+  --md-theme-border-color-inset: var(--border-dark);
+  --md-theme-bg-color: transparent;
+  --md-theme-bg-color-inset: var(--bg-surface);
+  --md-theme-code-copy-tips-color: var(--text);
+  --md-theme-code-copy-tips-bg-color: var(--bg-card);
+  --md-theme-code-active-color: var(--accent-light);
+  --md-theme-heading-bg-color: transparent;
 }
 
 .md-editor .minecraft-theme,
@@ -488,4 +519,10 @@
 .minecraft-theme img {
   max-width: 100%;
   height: auto;
+}
+
+/* 浅色背景上代码文字阴影干扰阅读，移除 */
+[data-theme='light'] .minecraft-theme code,
+[data-theme='light'] .minecraft-theme .md-editor-code pre code {
+  text-shadow: none;
 }

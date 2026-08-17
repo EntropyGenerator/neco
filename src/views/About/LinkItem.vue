@@ -59,7 +59,13 @@ const props = defineProps({
   padding-right: 1rem;
 
   background-color: var(--bg-overlay-strong);
+  /* 遮罩底色恒为深色，文字固定浅色（深色模式 --text 即浅色，浅色模式覆盖为白色） */
+  color: var(--text);
   user-select: none;
+}
+
+[data-theme='light'] .link-content {
+  color: var(--text-inverse);
 }
 
 .link-content p {

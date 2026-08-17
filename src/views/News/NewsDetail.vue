@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { GetNewsDetail, type NewsDetail } from '@/api/newslist'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { MdPreview } from 'md-editor-v3'
 import MinecraftButton from '@/components/utils/MinecraftButton.vue'
@@ -8,6 +8,10 @@ import PdfViewer from '@/components/PdfViewer.vue'
 
 const route = useRoute()
 const newsDetail = ref<NewsDetail | null>(null)
+
+// 深色为默认（html 无 data-theme 属性），仅浅色显式标记
+const isDarkTheme = ref(document.documentElement.getAttribute('data-theme') !== 'light')
+let themeObserver: MutationObserver | null = null
 const posterFailed = ref(false)
 const posterReady = ref(false)
 const posterPortrait = ref(false)
@@ -79,7 +83,19 @@ watch(
 )
 
 onMounted(async () => {
+  themeObserver = new MutationObserver(() => {
+    isDarkTheme.value = document.documentElement.getAttribute('data-theme') !== 'light'
+  })
+  themeObserver.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme'],
+  })
   newsDetail.value = await GetNewsDetail(String(route.params.id))
+})
+
+onUnmounted(() => {
+  themeObserver?.disconnect()
+  themeObserver = null
 })
 </script>
 
@@ -168,7 +184,7 @@ onMounted(async () => {
             <div class="news-main-item" v-for="(item, index) in newsDetail.content" :key="index">
               <MdPreview
                 v-if="item.type === 'markdown'"
-                theme="dark"
+                :theme="isDarkTheme ? 'dark' : 'light'"
                 language="zh-CN"
                 preview-theme="minecraft"
                 :model-value="item.content"
@@ -276,6 +292,11 @@ onMounted(async () => {
   line-height: 1.08;
   word-break: break-word;
   text-shadow: 4px 4px 0 var(--shadow);
+}
+
+/* 浅色背景上阴影干扰阅读，移除 */
+[data-theme='light'] .news-hero-title {
+  text-shadow: none;
 }
 
 .news-hero-brief {
@@ -448,6 +469,16 @@ onMounted(async () => {
     inset -4px -4px 0 0 var(--bevel-dark),
     inset 4px 4px 0 0 var(--bevel-light),
     0 0.75rem 1.8rem var(--shadow-soft);
+}
+
+/* 浅色下与标题处 hero 一致使用蓝冰背景 */
+[data-theme='light'] .news-main-content {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.12)),
+    url('/blockbg/blue-ice.png');
+  background-size:
+    auto,
+    32px 32px;
 }
 
 .news-content-header {

@@ -104,6 +104,10 @@ onUnmounted(() => {
 
 const selectedDocumentId = ref('')
 
+// 深色为默认（html 无 data-theme 属性），仅浅色显式标记
+const isDarkTheme = ref(document.documentElement.getAttribute('data-theme') !== 'light')
+let themeObserver: MutationObserver | null = null
+
 watch(selectedDocumentId, async (newVal) => {
   const result = await GetDocumentDetail(newVal)
   if (result) {
@@ -188,6 +192,14 @@ const nextBg = (first: boolean = false) => {
 }
 
 onMounted(() => {
+  themeObserver = new MutationObserver(() => {
+    isDarkTheme.value = document.documentElement.getAttribute('data-theme') !== 'light'
+  })
+  themeObserver.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme'],
+  })
+
   // 背景轮播
   box = document.getElementById('documents-bg')
   for (let i = 1; i <= bgCount; i++) {
@@ -202,6 +214,8 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
+  themeObserver?.disconnect()
+  themeObserver = null
   window.removeEventListener('resize', onResize)
 })
 
@@ -272,7 +286,7 @@ const scrollElement = document.documentElement
               <div class="document-preview">
                 <MdPreview
                   :id="`md-preview-${index}`"
-                  theme="dark"
+                  :theme="isDarkTheme ? 'dark' : 'light'"
                   language="zh-CN"
                   preview-theme="minecraft"
                   :model-value="item.content"
@@ -490,6 +504,12 @@ const scrollElement = document.documentElement
   box-shadow:
     inset -4px -4px 0px 0px var(--bevel-dark-strong),
     inset 4px 4px 0px 0px var(--bevel-light-strong);
+}
+
+/* 浅色下 --bg-overlay-soft 为黑色 15% 透明，叠在背景图上呈灰底；
+   改为白色透明，黑字在亮底上保持可读 */
+[data-theme='light'] .document-main-item-list {
+  background-color: rgba(255, 255, 255, 0.85);
 }
 
 .document-main-item {

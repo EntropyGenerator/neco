@@ -40,7 +40,6 @@ const soundOn = () => {
   audio.play().catch(() => {})
 }
 
-// localStorage 可能在隐私模式/沙箱等环境下抛异常，读写失败时静默降级。
 const storageGet = (key: string): string | null => {
   try {
     return localStorage.getItem(key)
@@ -53,7 +52,7 @@ const storageSet = (key: string, value: string): void => {
   try {
     localStorage.setItem(key, value)
   } catch {
-    // 忽略：主题仍在本会话内生效
+    /* 存储不可用：主题仍在本会话内生效 */
   }
 }
 

@@ -3,7 +3,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { GetGlossaryById, GetItemById, type GlossaryEntry, type ItemEntry } from '@/api/wiki'
 import { MdPreview } from 'md-editor-v3'
-import MinecraftButtonClassic from '@/components/utils/MinecraftButtonClassic.vue'
+import MinecraftButton from '@/components/utils/MinecraftButton.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -44,9 +44,9 @@ onMounted(async () => {
 <template>
   <div class="detail-page">
     <div class="detail-topbar">
-      <MinecraftButtonClassic class="detail-back" @click="router.push('/wiki')">
+      <MinecraftButton class="detail-back" @click="router.push('/wiki')">
         ← 返回百科
-      </MinecraftButtonClassic>
+      </MinecraftButton>
     </div>
 
     <div v-if="!ready" class="detail-loading" role="status">
@@ -150,9 +150,15 @@ onMounted(async () => {
 
 .detail-topbar {
   width: 100%;
-  padding: 1rem clamp(1rem, 5vw, 3rem);
+  padding: calc(0.5rem + 44px + 0.75rem) clamp(1rem, 5vw, 3rem) 1rem;
   background-color: var(--w-surface);
   border-bottom: 2px solid var(--w-border);
+}
+
+@media screen and (max-width: 640px) {
+  .detail-topbar {
+    padding-top: calc(0.5rem + 2.75rem + 0.35rem + 44px + 0.75rem);
+  }
 }
 
 .detail-back {
