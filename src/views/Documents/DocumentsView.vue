@@ -104,6 +104,10 @@ onUnmounted(() => {
 
 const selectedDocumentId = ref('')
 
+// 跟随站点主题切换 md-editor 预览（不再固定深色，避免浅色主题下正文为浅色文字）
+const isDarkTheme = ref(document.documentElement.getAttribute('data-theme') === 'dark')
+let themeObserver: MutationObserver | null = null
+
 watch(selectedDocumentId, async (newVal) => {
   const result = await GetDocumentDetail(newVal)
   if (result) {
@@ -188,6 +192,14 @@ const nextBg = (first: boolean = false) => {
 }
 
 onMounted(() => {
+  themeObserver = new MutationObserver(() => {
+    isDarkTheme.value = document.documentElement.getAttribute('data-theme') === 'dark'
+  })
+  themeObserver.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme'],
+  })
+
   // 背景轮播
   box = document.getElementById('documents-bg')
   for (let i = 1; i <= bgCount; i++) {
@@ -202,6 +214,8 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
+  themeObserver?.disconnect()
+  themeObserver = null
   window.removeEventListener('resize', onResize)
 })
 
@@ -272,7 +286,7 @@ const scrollElement = document.documentElement
               <div class="document-preview">
                 <MdPreview
                   :id="`md-preview-${index}`"
-                  theme="dark"
+                  :theme="isDarkTheme ? 'dark' : 'light'"
                   language="zh-CN"
                   preview-theme="minecraft"
                   :model-value="item.content"

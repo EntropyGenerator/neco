@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { GetNewsDetail, type NewsDetail } from '@/api/newslist'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { MdPreview } from 'md-editor-v3'
 import MinecraftButton from '@/components/utils/MinecraftButton.vue'
@@ -8,6 +8,10 @@ import PdfViewer from '@/components/PdfViewer.vue'
 
 const route = useRoute()
 const newsDetail = ref<NewsDetail | null>(null)
+
+// 跟随站点主题切换 md-editor 预览（不再固定深色，避免浅色主题下正文为浅色文字）
+const isDarkTheme = ref(document.documentElement.getAttribute('data-theme') === 'dark')
+let themeObserver: MutationObserver | null = null
 const posterFailed = ref(false)
 const posterReady = ref(false)
 const posterPortrait = ref(false)
@@ -79,7 +83,19 @@ watch(
 )
 
 onMounted(async () => {
+  themeObserver = new MutationObserver(() => {
+    isDarkTheme.value = document.documentElement.getAttribute('data-theme') === 'dark'
+  })
+  themeObserver.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme'],
+  })
   newsDetail.value = await GetNewsDetail(String(route.params.id))
+})
+
+onUnmounted(() => {
+  themeObserver?.disconnect()
+  themeObserver = null
 })
 </script>
 
@@ -168,7 +184,7 @@ onMounted(async () => {
             <div class="news-main-item" v-for="(item, index) in newsDetail.content" :key="index">
               <MdPreview
                 v-if="item.type === 'markdown'"
-                theme="dark"
+                :theme="isDarkTheme ? 'dark' : 'light'"
                 language="zh-CN"
                 preview-theme="minecraft"
                 :model-value="item.content"
