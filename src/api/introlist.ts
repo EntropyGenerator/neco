@@ -32,6 +32,26 @@ export const GetIntroList = (): IntroEntity[] => {
 export const GetDetailedIntroList = (): IntroEntity[] => {
   return [
     {
+      title: `NMO 群组服务器系列`,
+      description: `原版生存，模组生存，建筑，小游戏，RPG，空岛生存，Bingo……多种多样的玩法供你选择。`,
+      image: '',
+    },
+    {
+      title: `NMO 原版生存服`,
+      description: `原版生存，长期发展，不限玩法，高校Minecraft圈最活跃的服务器之一。生存、建筑、城建、铁道、生电、节日活动、小游戏……由多个地图组合而成的长期服务器，期待你的加入。`,
+      image: import.meta.env.BASE_URL + `resources/server/星辰据点.jpg`,
+    },
+    {
+      title: `NMO 模组服系列`,
+      description: `机械动力、格雷科技、植物魔法、匠魂工艺……模组科技带来比原版更精彩的玩法！想玩什么模组你来定！暑期新服火热招新中，等你来开荒！`,
+      image: import.meta.env.BASE_URL + 'resources/server/模组3.jpg',
+    },
+    {
+      title: `NFCC 与小游戏活动`,
+      description: `NFCC是NMO定期举办的竞技活动，由多个精彩刺激的小游戏项目组成。通过NMO还可定期参与MUA举办的各种小游戏赛事，与来自其他学校的同学们一起组队切磋！`,
+      image: import.meta.env.BASE_URL + 'background/list-background.jpg',
+    },
+    {
       title: `“像素南雍”复原工程`,
       description: `南大仙林、鼓楼、苏州校区复原工作，在方块的世界构筑云端的校园。社团常态化项目，建筑服务器创造建筑，2024暑期社会实践校重点项目。`,
       image: '',
@@ -55,26 +75,6 @@ export const GetDetailedIntroList = (): IntroEntity[] => {
       title: `VR 看校园`,
       description: `第一人称视角漫步方块校园！请关注我们的展台活动，以第一时间前来体验不一样的VR体验！`,
       image: import.meta.env.BASE_URL + 'resources/restore/大礼堂内部.jpg',
-    },
-    {
-      title: `NMO 群组服务器系列`,
-      description: `原版生存，模组生存，建筑，小游戏，RPG，空岛生存，Bingo……多种多样的玩法供你选择！我们的服务器由群组服及其子服和若干个独立服务器组成，详情请点击上面的菜单栏查看其它页面哦～`,
-      image: '',
-    },
-    {
-      title: `NMO 长期原版生存服`,
-      description: `原版生存，长期发展，不限玩法。高校Minecraft圈最活跃的服务器。生存、建筑、城建、铁道、生电、节日活动、小游戏……由多个地图拼成的长期服务器，期待你的加入！\n该服务器无周目制，不回档，定期更新版本或增加新地图。`,
-      image: import.meta.env.BASE_URL + `resources/server/星辰据点.jpg`,
-    },
-    {
-      title: `NMO 模组服系列`,
-      description: `机械动力、格雷科技、植物魔法、匠魂工艺……模组科技带来比原版更精彩的玩法！想玩什么模组你来定！暑期新服火热招新中，等你来开荒！详745812246。\n目前，以机械动力等模组为核心的生存建设向模组一服无周目制，不回档。模组二服供大家体验更多模组与整合包玩法，实施周目制`,
-      image: import.meta.env.BASE_URL + 'resources/server/模组3.jpg',
-    },
-    {
-      title: `NFCC 与小游戏活动`,
-      description: `NFCC是NMO定期举办的竞技活动，由多个精彩刺激的小游戏项目组成。通过NMO还可定期参与MUA举办的各种小游戏赛事，与来自其他学校的同学们一起组队切磋！`,
-      image: import.meta.env.BASE_URL + 'background/list-background.jpg',
     },
     {
       title: `部门风采`,
