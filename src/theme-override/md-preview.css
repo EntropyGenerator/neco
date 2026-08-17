@@ -1,6 +1,41 @@
 .minecraft-theme {
   --md-question: #ffdf78; /* 提示块：问号 */
   --md-example: #cbaeff; /* 提示块：示例 */
+
+  /* 让 md-editor 预览跟随站点配色方案，避免深色模式下默认深灰文字（--md-color: #3f4a54） */
+  --md-color: var(--text);
+  --md-hover-color: var(--text);
+  --md-bk-color: var(--bg);
+  --md-bk-color-outstand: var(--bg-card);
+  --md-bk-hover-color: var(--bg-surface);
+  --md-border-color: var(--border);
+  --md-border-hover-color: var(--border-light);
+  --md-border-active-color: var(--border-strong);
+  --md-scrollbar-bg-color: var(--scrollbar-track);
+  --md-scrollbar-thumb-color: var(--scrollbar-thumb);
+  --md-scrollbar-thumb-hover-color: var(--scrollbar-thumb);
+  --md-scrollbar-thumb-active-color: var(--scrollbar-thumb);
+}
+
+/* md-editor 预览默认使用 github-theme，其硬编码 --md-theme-* 为浅色值
+   （如 --md-theme-color: #222），深色模式下会让正文变黑。
+   这里在 minecraft-theme 作用域内整体覆盖为站点方案变量。 */
+.minecraft-theme .md-editor .github-theme {
+  --md-theme-color: var(--text);
+  --md-theme-color-reverse: var(--bg);
+  --md-theme-color-hover: var(--text);
+  --md-theme-color-hover-inset: var(--text-soft);
+  --md-theme-link-color: var(--accent-light);
+  --md-theme-link-hover-color: var(--accent-light);
+  --md-theme-border-color: var(--border);
+  --md-theme-border-color-reverse: var(--border-light);
+  --md-theme-border-color-inset: var(--border-dark);
+  --md-theme-bg-color: transparent;
+  --md-theme-bg-color-inset: var(--bg-surface);
+  --md-theme-code-copy-tips-color: var(--text);
+  --md-theme-code-copy-tips-bg-color: var(--bg-card);
+  --md-theme-code-active-color: var(--accent-light);
+  --md-theme-heading-bg-color: transparent;
 }
 
 .md-editor .minecraft-theme,
