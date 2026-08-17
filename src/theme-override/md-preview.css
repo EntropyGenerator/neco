@@ -520,3 +520,9 @@
   max-width: 100%;
   height: auto;
 }
+
+/* 浅色背景上代码文字阴影干扰阅读，移除 */
+[data-theme='light'] .minecraft-theme code,
+[data-theme='light'] .minecraft-theme .md-editor-code pre code {
+  text-shadow: none;
+}

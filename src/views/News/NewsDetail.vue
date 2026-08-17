@@ -294,6 +294,11 @@ onUnmounted(() => {
   text-shadow: 4px 4px 0 var(--shadow);
 }
 
+/* 浅色背景上阴影干扰阅读，移除 */
+[data-theme='light'] .news-hero-title {
+  text-shadow: none;
+}
+
 .news-hero-brief {
   max-width: 46rem;
   margin: 0;
@@ -464,6 +469,16 @@ onUnmounted(() => {
     inset -4px -4px 0 0 var(--bevel-dark),
     inset 4px 4px 0 0 var(--bevel-light),
     0 0.75rem 1.8rem var(--shadow-soft);
+}
+
+/* 浅色下与标题处 hero 一致使用蓝冰背景 */
+[data-theme='light'] .news-main-content {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.12)),
+    url('/blockbg/blue-ice.png');
+  background-size:
+    auto,
+    32px 32px;
 }
 
 .news-content-header {
