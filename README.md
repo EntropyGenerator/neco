@@ -75,6 +75,17 @@ npm run preview    # 本地预览构建产物
 
 push 到 `main` 后，GitHub Actions 自动执行 `VITE_IS_GITHUB_PAGES=1 npm run build` 并发布 `dist/` 到 Pages（`.github/workflows/`）。仓库需启用 Pages 并选择「GitHub Actions」作为来源。
 
+
+### 同源部署（Caddy）
+
+可以使用 `caddy` 实现快速高性能部署。在运行 `npm run build` 得到 `dist` 文件夹产物后，只需要运行：
+
+```bash
+caddy run --config ./Caddyfile
+```
+
+其他用法可参考caddy官方文档。
+
 ### 同源部署（Nginx）
 
 前端与后端共用同一域名：
