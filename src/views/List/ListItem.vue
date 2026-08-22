@@ -544,6 +544,7 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   text-align: right;
+  align-items: flex-end;
   margin-left: auto;
   margin-top: 0.5rem;
   margin-right: 0.5rem;
