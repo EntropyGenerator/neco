@@ -106,8 +106,7 @@ const shouldUseTwoPlayerRows = computed(() => {
 const canShowPlayerList = computed(() => {
   return (
     server.value.realtime &&
-    server.value.status?.online === true &&
-    normalizedPlayers.value.length > 0
+    server.value.status?.online === true
   )
 })
 
