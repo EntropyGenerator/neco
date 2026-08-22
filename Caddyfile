@@ -1,0 +1,13 @@
+:5173 {
+    encode gzip zstd
+
+    handle /necore/* {
+        reverse_proxy 127.0.0.1:3000
+    }
+
+    handle /* {
+        root * ./dist
+        try_files {path} /index.html
+        file_server
+    }
+}

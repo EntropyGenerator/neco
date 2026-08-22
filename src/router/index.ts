@@ -40,12 +40,6 @@ const router = createRouter({
           meta: { title: 'NMO | 新闻详情' },
         },
         {
-          path: '/about',
-          name: 'about',
-          component: () => import('../views/About/AboutView.vue'),
-          meta: { title: 'NMO | 关于' },
-        },
-        {
           path: '/documents',
           name: 'documents',
           component: () => import('../views/Documents/DocumentsView.vue'),

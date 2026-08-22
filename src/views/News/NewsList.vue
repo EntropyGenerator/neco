@@ -13,8 +13,8 @@ EventBus.on('NewsManagement::refresh', async () => {
   newsLoading.value = true
   emit('need-scroll')
   setTimeout(async () => {
-    newsTotal.value = await GetNewsTotal(model.value as NewsTarget)
-    news.value = await GetNews(model.value as NewsTarget, page.value, pageSize.value)
+    newsTotal.value = await GetNewsTotal(target.value)
+    news.value = await GetNews(target.value, page.value, props.pageSize)
     newsLoading.value = false
   }, 500)
 })
@@ -29,14 +29,31 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  fixedTarget: {
+    type: String as () => NewsTarget,
+    default: undefined,
+  },
+  pageSize: {
+    type: Number,
+    default: 12,
+  },
+  maxRows: {
+    type: Number,
+    default: 0,
+  },
+})
+
+const isFixed = computed(() => props.fixedTarget !== undefined)
+
+const target = computed<NewsTarget>(() => {
+  return (isFixed.value ? (props.fixedTarget as NewsTarget) : model.value) as NewsTarget
 })
 
 const newsTotal = ref<number>(0)
 const news = ref<NewsEntity[]>([])
 const page = ref<number>(1)
-const pageSize = ref<number>(60)
 const maxPage = computed(() => {
-  return Math.ceil(newsTotal.value / pageSize.value)
+  return Math.ceil(newsTotal.value / props.pageSize)
 })
 const pageInput = ref('1')
 const newsLoading = ref(false)
@@ -45,8 +62,8 @@ const refreshNews = () => {
   newsLoading.value = true
   emit('need-scroll')
   setTimeout(async () => {
-    newsTotal.value = await GetNewsTotal(model.value as NewsTarget)
-    news.value = await GetNews(model.value as NewsTarget, page.value, pageSize.value)
+    newsTotal.value = await GetNewsTotal(target.value)
+    news.value = await GetNews(target.value, page.value, props.pageSize)
     newsLoading.value = false
   }, 500)
 }
@@ -121,7 +138,7 @@ const newsTypeOptions = computed(() => {
 })
 
 const currentNewsTypeLabel = computed(() => {
-  return newsTypeOptions.value.find((item) => item.value === model.value)?.label ?? '最新资讯'
+  return newsTypeOptions.value.find((item) => item.value === target.value)?.label ?? '最新资讯'
 })
 
 const newsTypeButtonRef = ref<HTMLButtonElement | null>(null)
@@ -184,9 +201,9 @@ const onDocumentClick = (event: MouseEvent) => {
 onMounted(async () => {
   document.addEventListener('click', onDocumentClick)
 
-  newsTotal.value = await GetNewsTotal(model.value as NewsTarget)
+  newsTotal.value = await GetNewsTotal(target.value)
   newsLoading.value = true
-  news.value = await GetNews(model.value as NewsTarget, page.value, pageSize.value)
+  news.value = await GetNews(target.value, page.value, props.pageSize)
   newsLoading.value = false
 })
 
@@ -200,54 +217,64 @@ onBeforeUnmount(() => {
     <div class="news-title-container">
       <div class="news-title-item">
         <div class="news-title-dropdown" ref="newsTypeDropdownRef">
-          <button
-            ref="newsTypeButtonRef"
-            type="button"
-            :value="model"
-            class="news-title"
-            :stat="optionFocus ? 'active' : 'inactive'"
-            aria-haspopup="listbox"
-            :aria-expanded="optionFocus"
-            aria-controls="news-type-options"
-            @click.stop="toggleNewsTypeOptions"
-            @keydown.down.prevent="openNewsTypeOptions"
-            @keydown.enter.prevent="toggleNewsTypeOptions"
-            @keydown.space.prevent="toggleNewsTypeOptions"
-            @keydown.esc.stop.prevent="closeNewsTypeOptions"
+          <span
+            v-if="isFixed"
+            class="news-title news-title-fixed"
+            :value="target"
           >
             {{ currentNewsTypeLabel }}
-          </button>
+          </span>
 
-          <div
-            id="news-type-options"
-            class="news-title-options"
-            v-if="optionFocus"
-            role="listbox"
-            aria-label="新闻分类"
-            :aria-activedescendant="`news-type-option-${model}`"
-            @keydown.esc.stop.prevent="closeNewsTypeOptions"
-          >
+          <template v-else>
             <button
-              v-for="(option, index) in newsTypeOptions"
-              :id="`news-type-option-${option.value}`"
-              :key="option.value"
-              ref="newsTypeOptionRefs"
+              ref="newsTypeButtonRef"
               type="button"
-              role="option"
-              :aria-selected="model === option.value"
-              :stat="model === option.value ? 'active' : 'inactive'"
-              class="news-title-option"
-              @click="selectNewsType(option.value)"
-              @keydown.enter.prevent="selectNewsType(option.value)"
-              @keydown.space.prevent="selectNewsType(option.value)"
-              @keydown.down.prevent="focusNewsTypeOption(index + 1)"
-              @keydown.up.prevent="focusNewsTypeOption(index - 1)"
-              @keydown.home.prevent="focusNewsTypeOption(0)"
-              @keydown.end.prevent="focusNewsTypeOption(newsTypeOptions.length - 1)"
+              :value="model"
+              class="news-title"
+              :stat="optionFocus ? 'active' : 'inactive'"
+              aria-haspopup="listbox"
+              :aria-expanded="optionFocus"
+              aria-controls="news-type-options"
+              @click.stop="toggleNewsTypeOptions"
+              @keydown.down.prevent="openNewsTypeOptions"
+              @keydown.enter.prevent="toggleNewsTypeOptions"
+              @keydown.space.prevent="toggleNewsTypeOptions"
+              @keydown.esc.stop.prevent="closeNewsTypeOptions"
             >
-              {{ option.label }}
+              {{ currentNewsTypeLabel }}
             </button>
-          </div>
+
+            <div
+              id="news-type-options"
+              class="news-title-options"
+              v-if="optionFocus"
+              role="listbox"
+              aria-label="新闻分类"
+              :aria-activedescendant="`news-type-option-${model}`"
+              @keydown.esc.stop.prevent="closeNewsTypeOptions"
+            >
+              <button
+                v-for="(option, index) in newsTypeOptions"
+                :id="`news-type-option-${option.value}`"
+                :key="option.value"
+                ref="newsTypeOptionRefs"
+                type="button"
+                role="option"
+                :aria-selected="model === option.value"
+                :stat="model === option.value ? 'active' : 'inactive'"
+                class="news-title-option"
+                @click="selectNewsType(option.value)"
+                @keydown.enter.prevent="selectNewsType(option.value)"
+                @keydown.space.prevent="selectNewsType(option.value)"
+                @keydown.down.prevent="focusNewsTypeOption(index + 1)"
+                @keydown.up.prevent="focusNewsTypeOption(index - 1)"
+                @keydown.home.prevent="focusNewsTypeOption(0)"
+                @keydown.end.prevent="focusNewsTypeOption(newsTypeOptions.length - 1)"
+              >
+                {{ option.label }}
+              </button>
+            </div>
+          </template>
         </div>
         <span class="news-total">
           {{ newsTotal.toLocaleString() }}
@@ -372,6 +399,15 @@ onBeforeUnmount(() => {
 
 .news-title:hover {
   background-color: var(--bg-hover);
+}
+
+.news-title-fixed {
+  cursor: default;
+  pointer-events: none;
+}
+
+.news-title-fixed::after {
+  display: none;
 }
 
 .news-title:focus {
@@ -531,6 +567,11 @@ onBeforeUnmount(() => {
   gap: 2rem;
   padding: 1rem 0;
   justify-content: center;
+}
+
+.news-list-max-rows .news-list-container {
+  max-height: 47.5rem;
+  overflow: hidden;
 }
 
 .news-list-item {
